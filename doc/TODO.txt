@@ -1,3 +1,9 @@
 TODO.txt
 
 Tue Dec 17 23:12:18 UTC 2019
+
+  * TX/RX pair mapping to Adafruit board's SDA/SCL - differentiate (schematic lookup)
+
+  * Format README.md so that it wraps as it is meant to.
+
+END.
