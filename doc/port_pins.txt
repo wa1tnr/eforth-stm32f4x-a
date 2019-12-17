@@ -1,0 +1,16 @@
+port_pins.txt
+
+Tue Dec 17 23:31:58 UTC 2019
+
+  PORTC_0  D8_NEOPIX
+  PORTC_1  D13 LED
+  PORTC_2  D12
+  PORTC_3  D11
+
+These four GPIO pins are to be supported in eForth.
+
+eForth currenly maps PORTD_12 through PORTD_15.
+
+Those are not present on the Adafruit board (they
+are present on the STM32F407 Discovery board, and
+operate four of the LED's there).
