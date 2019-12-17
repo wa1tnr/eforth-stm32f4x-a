@@ -20,6 +20,16 @@ GPIO support is on four unavailable pins, however.
 
 TX/RX is brought out on (STM32F405 Express) SDA and SCL (or vice-versa).
 
+Vendor's documentation:  Adafruit STM32F405 Express
+
+  Adafruit STM32F405 Express - Guide (Owner's Manual):
+
+    https://learn.adafruit.com/adafruit-stm32f405-feather-express
+
+  Adafruit STM32F405 Express - Schematic, support documents:
+
+    https://learn.adafruit.com/adafruit-stm32f405-feather-express/downloads
+
 
 rename repository:
 
