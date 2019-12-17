@@ -18,7 +18,7 @@ Target board:  Adafruit STM32F405 Express
 Dr. Ting's eForth runs (unmodified) on the Adafruit board.
 GPIO support is on four unavailable pins, however.
 
-TX/RX is brought out on (STM32F405 Express) SDA and SCL (or vice-versa).
+TX/RX (for USART1) is brought out on (STM32F405 Express) SCL/SDA.
 
 Vendor's documentation:  Adafruit STM32F405 Express
 

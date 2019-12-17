@@ -2,7 +2,12 @@ TODO.txt
 
 Tue Dec 17 23:12:18 UTC 2019
 
-  * TX/RX pair mapping to Adafruit board's SDA/SCL - differentiate (schematic lookup)
+  * PORTC_0  through  PORTC_3  -  make operational, in eForth .S sourcefile
+
+  * TX/RX pair mapping to Adafruit board's SCL/SDA
+
+        PORTB_6 is USART1_TX  I2C1_SCL
+        PORTB_7 is USART1_RX  I2C1_SDA
 
   * Format README.md so that it wraps as it is meant to.
 
