@@ -153,4 +153,19 @@ InitDevices
 ; So, with that in mind (and, itertively):
 ; Line 40 says to load register 0 (r0) with the address, 0x40020C00 .. which is GPIOD.  Perhaps!
 
+
+; Wed Dec 18 01:41:19 UTC 2019
+
+; p. 67 Rev 18 datasheet:
+
+; 2.3 Memory Map
+
+; "Table 1 gives the boundary addresses of the peripherals available IN ALL STM32F4xx devices." (w00t)
+; That 'IN ALL' business is going to help here, quite a bit.
+
+; Table 1.  STM32Fxx register boundary addresses (continued)
+
+; 0x4002 0C00 - 0x4002 0FFF   GPIOD  (so there you go!)
+; 0x4002 0800 - 0x4002 0BFF   GPIOC  (our target port)
+
 END.
