@@ -84,3 +84,30 @@ InitDevices
 ; these mean '01' gen purpose output and they mean it,
 ; positionally, for the 'top four' places (15..12)
 ; which matches with expectation.
+
+
+; detail - decode 0x55000000 in-context:
+
+;    0x55000000
+
+;      7    6    5    4    3    2    1    0
+;    0101 0101 0000 0000 0000 0000 0000 0000
+
+;    7b 7a  6b 6a  5b 5a  4b 4a     3b 3a  2b 2a  1b 1a  0b 0a
+;    01 01  01 01  00 00  00 00     00 00  00 00  00 00  00 00
+
+; PINS, PORTD:
+;    15 14  13 12  11 10  09 08     07 06  05 04  03 02  01 00
+
+
+; Wed Dec 18 00:58:51 UTC 2019
+
+; Again: (LINES 39-45, from above)
+
+; LINE 39: ; Configure PD12-15 as output with push-pull
+; LINE 40: ldr	r0, =GPIOD 	; GPIOD
+; LINE 41: mov	r1, #0x55000000	; output
+; LINE 42: str	r1, [r0, #0x00]
+; LINE 43: mov	r1, #0xF000 	; set PD12-15, turn on LEDs
+; LINE 44: str	r1, [r0, #0x14]
+; LINE 45: bx	lr
