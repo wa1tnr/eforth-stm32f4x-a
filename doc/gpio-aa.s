@@ -36,7 +36,7 @@ InitDevices
 	strh	r1, [r0, #12]	; +12 USART_CR1 = 0x2000
 	movs	r1, #139		; 16MHz/8.6875 (139, 0x8B) == 115200
 	strh	r1, [r0, #8]	;  +8 USART_BR
-; Configure PD12-15 as output with push-pull 
+; Configure PD12-15 as output with push-pull
 	ldr	r0, =GPIOD 	; GPIOD
 	mov	r1, #0x55000000	; output
 	str	r1, [r0, #0x00]
