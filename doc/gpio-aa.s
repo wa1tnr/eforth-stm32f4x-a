@@ -45,3 +45,9 @@ InitDevices
 	bx	lr
 	ALIGN
 	LTORG
+
+; LINE 43: mov	r1, #0xF000 	; set PD12-15, turn on LEDs
+;          b 1111 0000 0000 0000
+;            fedc ba98 7654 3210
+
+; suspect: 0xF000 is a list of port pins, PD15-0 and is bitmapped.
