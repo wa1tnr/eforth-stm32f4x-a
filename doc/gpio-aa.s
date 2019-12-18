@@ -168,4 +168,22 @@ InitDevices
 ; 0x4002 0C00 - 0x4002 0FFF   GPIOD  (so there you go!)
 ; 0x4002 0800 - 0x4002 0BFF   GPIOC  (our target port)
 
+
+; Wed Dec 18 01:45:49 UTC 2019
+
+; was:
+;  99 RCC     EQU     0x40023800
+; 100 GPIOB   EQU     0x40020400
+; 101 GPIOD   EQU     0x40020C00
+; 102 USART1  EQU     0x40011000
+
+; change to:
+;  99 RCC     EQU     0x40023800
+; 100 GPIOB   EQU     0x40020400
+; 101 GPIOC   EQU     0x40020800
+; 102 GPIOD   EQU     0x40020C00
+; 103 USART1  EQU     0x40011000
+
+; That should provide a new symbol, 'GPIOC' for our present use case.
+
 END.
