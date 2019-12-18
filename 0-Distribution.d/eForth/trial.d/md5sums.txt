@@ -1,0 +1,3 @@
+72792a1dbc2de0d359b0cd2465c9333c  native-hex-to-bin.txt
+8a170bc4b999200cc32cf6c5eb69feaf  stm32F4eForth720.bin
+509ffb2aef66abc82036e342f9aa521d  stm32F4eForth720.hex
