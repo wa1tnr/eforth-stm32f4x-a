@@ -46,8 +46,41 @@ InitDevices
 	ALIGN
 	LTORG
 
+
+; Wed Dec 18 00:27:18 UTC 2019
+
+; LINE 41: mov	r1, #0x55000000	; output
+;          b 0101 0101 0000 0000 0000 0000 0000 0000
+;            1098 7654
 ; LINE 43: mov	r1, #0xF000 	; set PD12-15, turn on LEDs
 ;          b 1111 0000 0000 0000
 ;            fedc ba98 7654 3210
 
 ; suspect: 0xF000 is a list of port pins, PD15-0 and is bitmapped.
+
+
+; Wed Dec 18 00:27:19 UTC 2019
+
+; Datasheet: Rev 18, Page 281:
+
+; 8.4.1 GPIO port mode register (GPIOx_MODER) (x = A through I)
+
+; Address offset: 0x00
+
+; Reset values:
+; 0xA800 0000 for Port A
+; 0x0000 0280 for Port B
+; 0x0000 0000 for all other ports (want: Port C)
+; Bits 2y:2y+1  MODERy[1:0] Port x configuration bits (y= 0..15)
+; 00 input
+; 01 gen purpose output
+; 10 alternate function mode
+; 11 analog mode
+
+; So, two bits per port pin here.  That's the 2y:2y+1 business.
+
+; and so, in LINE 41, above, the '55' means:
+; 01  01  01  01   at the top end of the 0x55000000
+; these mean '01' gen purpose output and they mean it,
+; positionally, for the 'top four' places (15..12)
+; which matches with expectation.
