@@ -111,3 +111,29 @@ InitDevices
 ; LINE 43: mov	r1, #0xF000 	; set PD12-15, turn on LEDs
 ; LINE 44: str	r1, [r0, #0x14]
 ; LINE 45: bx	lr
+
+
+; Wed Dec 18 01:15:12 UTC 2019:
+
+; Line 40 says to load register 0 (r0) with 'GPIOD'?
+; Line 41 says to move the constant, 0x55.. into r1
+; Line 42 says to store what's in r0 ('GPIOD') into r1, at offset 0x00?
+; the offset guess is based on the datasheet mentioning 'offset 0x00' in same context, iirc.
+; Line 43 says to move the constant, 0xF000 (decoded earlier as 'positions 15-12 e.g. 0xf = 1111')
+; i.e. select the top four port pins of PORTD, for what is to follow ..
+; Line 44 says to store what's in r0 ('GPIOD' .. hasn't been changed) into r1, at offset 0x14?
+; .. if all guesses were good, so far, and not propagating bad guesswork down the page. ;)
+
+; Line 45 is 'bx lr' which iirc Dr. Ting specifies as how we do things around here.
+;
+; to wit:
+;  26 ;    All low level code words are terminaled by
+;  27 ;    BX      LR      (_NEXT)
+
+; btw R1 looks like Forth's Stack Pointer (usual data stack, not its 'return' stack) here.
+; TOS will be R5 (not used here).
+; R0 Dr. Ting specifies as 'scratch' register
+; (and/or the Forth Virtual Machine's so-called 'Instruction Pointer').
+; perhaps the designation as 'scratch' just means it's okay to borrow
+; it, and restore the Instruction Pointer, afterward, once the VM is
+; looping and processing instructions. ;)
