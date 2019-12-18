@@ -1,0 +1,4 @@
+ $ cat ~/.arduino15/packages/STM32/tools/STM32Tools/1.3.1/tools/linux/stm32CubeProg.sh| tail -4 | egrep dfu ; echo
+
+  dfu-util -a 0 --dfuse-address 0x08000000 -D ${FILEPATH}
+
