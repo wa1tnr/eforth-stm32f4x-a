@@ -137,3 +137,20 @@ InitDevices
 ; perhaps the designation as 'scratch' just means it's okay to borrow
 ; it, and restore the Instruction Pointer, afterward, once the VM is
 ; looping and processing instructions. ;)
+
+
+; Wed Dec 18 01:23:04 UTC 2019
+
+; LINE 101:
+; 101 GPIOD   EQU     0x40020C00
+
+; Line 101 says to equate the machine address 0x40020C00 with 'GPIOD'
+; as a symbol to represet that address, in this assembler code/document.
+
+; guess basis is: recognition of that address space as (vaguely) appropriate.
+; datasheet can confirm that PORT_D is related to that address in some way. ;)
+
+; So, with that in mind (and, itertively):
+; Line 40 says to load register 0 (r0) with the address, 0x40020C00 .. which is GPIOD.  Perhaps!
+
+END.
