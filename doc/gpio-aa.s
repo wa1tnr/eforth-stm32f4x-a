@@ -137,3 +137,53 @@ InitDevices
 ; perhaps the designation as 'scratch' just means it's okay to borrow
 ; it, and restore the Instruction Pointer, afterward, once the VM is
 ; looping and processing instructions. ;)
+
+
+; Wed Dec 18 01:23:04 UTC 2019
+
+; LINE 101:
+; 101 GPIOD   EQU     0x40020C00
+
+; Line 101 says to equate the machine address 0x40020C00 with 'GPIOD'
+; as a symbol to represet that address, in this assembler code/document.
+
+; guess basis is: recognition of that address space as (vaguely) appropriate.
+; datasheet can confirm that PORT_D is related to that address in some way. ;)
+
+; So, with that in mind (and, itertively):
+; Line 40 says to load register 0 (r0) with the address, 0x40020C00 .. which is GPIOD.  Perhaps!
+
+
+; Wed Dec 18 01:41:19 UTC 2019
+
+; p. 67 Rev 18 datasheet:
+
+; 2.3 Memory Map
+
+; "Table 1 gives the boundary addresses of the peripherals available IN ALL STM32F4xx devices." (w00t)
+; That 'IN ALL' business is going to help here, quite a bit.
+
+; Table 1.  STM32Fxx register boundary addresses (continued)
+
+; 0x4002 0C00 - 0x4002 0FFF   GPIOD  (so there you go!)
+; 0x4002 0800 - 0x4002 0BFF   GPIOC  (our target port)
+
+
+; Wed Dec 18 01:45:49 UTC 2019
+
+; was:
+;  99 RCC     EQU     0x40023800
+; 100 GPIOB   EQU     0x40020400
+; 101 GPIOD   EQU     0x40020C00
+; 102 USART1  EQU     0x40011000
+
+; change to:
+;  99 RCC     EQU     0x40023800
+; 100 GPIOB   EQU     0x40020400
+; 101 GPIOC   EQU     0x40020800
+; 102 GPIOD   EQU     0x40020C00
+; 103 USART1  EQU     0x40011000
+
+; That should provide a new symbol, 'GPIOC' for our present use case.
+
+END.
