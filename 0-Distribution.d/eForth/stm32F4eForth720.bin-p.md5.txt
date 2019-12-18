@@ -1,0 +1,2 @@
+8a170bc4b999200cc32cf6c5eb69feaf  stm32F4eForth720.bin-p
+8a170bc4b999200cc32cf6c5eb69feaf  trial.d/stm32F4eForth720.bin
