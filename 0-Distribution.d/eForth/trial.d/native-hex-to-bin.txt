@@ -1,0 +1,1 @@
+ $ arm-none-eabi-objcopy -I ihex -O binary stm32F4eForth720.hex stm32F4eForth720.bin
