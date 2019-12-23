@@ -1,0 +1,1 @@
+dfu-util -a 0 --dfuse-address 0x08000000 -D ../0-Distribution.d/eForth/stm32F4eForth720.bin-p
