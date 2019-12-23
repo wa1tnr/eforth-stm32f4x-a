@@ -1,6 +1,7 @@
 COLD 
 
-: RCC 40023800 ; : RCC_AHB1ENR RCC 30 + ;
+: RCC 40023800 ;
+: RCC_AHB1ENR RCC 30 + ;
 : GPIOC 40020800 ;
 : SETUPLED RCC @
   4 OR RCC_AHB1ENR ! ( GPIOCEN )
@@ -22,17 +23,13 @@ COLD
   IF EXIT THEN
   1 - ( normalize )
   FOR LED ON BDELAY LED OFF BDKDEL
-  NEXT FINISHMSG ;
+  NEXT ;
 : LINIT  FFFFFF9D SETUPLED 3 BLINKS ;
 : RAMB          0 ; ( base of Forth vmem? )
 : FLASHB  8000000 ; ( base of flash - turnkey here )
 : MEMB   20000000 ; ( base of RAM )
-: DDP OVER OVER DUMP ( 8000000 32 -- 8000000 32 )
-  OVER OVER ( 8m 32 -- 8m 32 8m 32 )
-  + ( 8m 32 8m 32 -- 8m 32 8m32 )
-  ROT ( 8m 32 8m32 -- 32 8m32 8m )
-  DROP SWAP ( 32 8m32 8m -- 8M32 32 )
-  ;
+: DDP OVER OVER DUMP OVER OVER + ROT
+  DROP SWAP ;
 
  ( - - - - - )
 
