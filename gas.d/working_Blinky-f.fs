@@ -30,6 +30,14 @@ COLD
 : MEMB   20000000 ; ( base of RAM )
 : DDP OVER OVER DUMP OVER OVER + ROT
   DROP SWAP ;
+: NOTES.TXT CR ." notes.txt follows." CR
+  ."    flash ......  example:   0x800BD00  ..  seems to be copied over"   CR
+  ."    into RAM ...  example:  0x2000BD00  ..  irrespective of if the"    CR
+  ."    uploaded program contains it."                                     CR
+  CR
+  ." Old code from other programs is not only still resident in flash"     CR
+  ." memory, but is also copied into RAM, even though it is not currently" CR
+  ." in use.  This can be leveraged. ;)" CR ;
 
  ( - - - - - )
 
