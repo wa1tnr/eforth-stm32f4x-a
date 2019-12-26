@@ -6,7 +6,10 @@ COLD
 : RCC_AHB1ENR ( -- addr )
   RCC 30 + ;
 
-: GPIOCEN 4 ; ( -- n )
+: << ( n shifts -- )
+  1 - FOR 2* NEXT ;
+
+: GPIOCEN 1 2 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
 
 : RCC! ( -- )
@@ -19,7 +22,7 @@ COLD
   GPIOC 0 + ; ( explicit alias, )
 ( offset 0x00 8.4.1 p.281 )
 
-: MODER1 4 ; ( -- n )
+: MODER1 1 2 << ; ( -- n ) ( 4 )
 ( 8.4.1 p.281 ) ( GPIOC_1 )
 
 : GPIOC_MODER! ( -- )
@@ -37,29 +40,25 @@ COLD
 ( word half-word byte )
 ( byte 8 bits  half word 16 bits word 32 bits )
 
-: << ( n shifts -- )
-  1 - FOR 2* NEXT ;
-
 : <1? ( n -- BOOL )
   DUP 1 - 0< IF
     DROP -1 EXIT
   THEN
   DROP 0 ;
 
-: PIN ( n -- )
+: 2^ ( n -- )
   DUP <1?  0< IF
     DROP 1 EXIT
   THEN
   1 SWAP << ;
 
-( GPIO pin is assigned through this API, using TPIN )
+: PIN NOP ; ( -- )
 
-: TPIN 1 ; ( -- n )
 : BS1 ( -- n )
-  TPIN PIN ;
+  1 PIN 2^ ;
 
 : BR1 ( -- n )
-  TPIN 10 + PIN ;
+  1 PIN 10 + 2^ ;
 
 : GPIOC_BSRR_SETB! ( -- )
 ( set PORTC_1 - turn )
