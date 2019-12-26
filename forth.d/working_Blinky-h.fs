@@ -37,13 +37,29 @@ COLD
 ( word half-word byte )
 ( byte 8 bits  half word 16 bits word 32 bits )
 
-: BIT17 20000 ; ( -- n )
-: BIT1 2 ; ( -- n )
+: << ( n shifts -- )
+  1 - FOR 2* NEXT ;
 
-( TODO: use <<  2/ stuff here to bitshift )
+: <1? ( n -- BOOL )
+  DUP 1 - 0< IF
+    DROP -1 EXIT
+  THEN
+  DROP 0 ;
 
-: BR1 BIT17 ; ( -- n )
-: BS1 BIT1 ; ( -- n )
+: PIN ( n -- )
+  DUP <1?  0< IF
+    DROP 1 EXIT
+  THEN
+  1 SWAP << ;
+
+( GPIO pin is assigned through this API, using TPIN )
+
+: TPIN 1 ; ( -- n )
+: BS1 ( -- n )
+  TPIN PIN ;
+
+: BR1 ( -- n )
+  TPIN 10 + PIN ;
 
 : GPIOC_BSRR_SETB! ( -- )
 ( set PORTC_1 - turn )
@@ -244,5 +260,11 @@ COLD
     (possibly offset).
 
     updated:
-    Thu Dec 26 14:41:06 UTC 2019
+    Thu Dec 26 21:22:09 UTC 2019
+
+: BIT1 2 ; ( -- n )
+: BIT17 20000 ; ( -- n )
+: BS1_NO BIT1 ; ( -- n )
+: BR1_NO BIT17 ; ( -- n )
+
 [THEN]
