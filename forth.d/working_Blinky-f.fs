@@ -57,6 +57,10 @@ COLD
 
     December 26 2019, 14:24 UTC:
 
+
+    TURNKEY - PRELIMINARY INTRUX - tested just once, seems
+    to be free of obvious error:
+
     Updating flash (Turnkey):
 
         ( cold boot - cycle power; then: )
@@ -65,19 +69,32 @@ COLD
         ( or paste to the serial terminal, using the mouse, )
         ( or type in by hand )
 
-        COLD
         0 ERASE_SECTOR
         TURNKEY
 
-    Remove your old code:
+
+    Remove your old code (requires .bin upload using dfu-util):
 
         ( cold boot - cycle power; then: )
 
         COLD
         0 ERASE_SECTOR
 
-    Now cycle power.  Old (original) eForth image will be loaded
-    where it belongs, and the target is then ready for your code
+    Cycle power again. TARGET NO LONGER RESPONSIVE (has no progam!)
+
+    Restore eForth (pristine copy) with:
+
+        Connect B0 to Vcc 3.3 VDC; press RESET.
+
+        Then:
+
+        $ cd ../0-Distribution.d/eForth
+        $ dfu-util -a 0 --dfuse-address 0x08000000 -D ./stm32F4eForth720.bin-p
+
+        Remove jumper from B0 to Vcc, press RESET.
+
+    Old (original) eForth image will be loaded where it
+    belongs, and the target is then ready for your code
     update, and another turnkey.
 
     This is the only way to remove a colon definition from the
