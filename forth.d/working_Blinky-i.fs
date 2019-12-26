@@ -54,45 +54,34 @@ COLD
 
 : PIN NOP ; ( -- )
 
-: BS1 ( -- n )
-  1 PIN 2^ ;
+: BS1 ( n -- n )
+  PIN 2^ ;
 
-: BR1 ( -- n )
-  1 PIN 10 + 2^ ;
-
-: GPIOC_BSRR_SETB! ( -- )
-( set PORTC_1 - turn )
-( on the LED on D13, Adafruit STM32F405 )
-  BS1 GPIOC_BSRR ! ;
-
-: GPIOC_BSRR_CLR! ( -- )
-( clear PORTC_1 )
-  BR1 GPIOC_BSRR ! ;
+: BR1 ( n -- n )
+  PIN 10 + 2^ ;
 
 : GPIOC_BSRR! ( n -- )
 ( generic - may setb or clr the port pin )
   GPIOC_BSRR ! ;
 
-: LED ( -- n n )
-  BR1 BS1 ; ( push both possibilities )
+: LED ( -- n )
+  1 ; ( PORTC_1 )
+  ( BR1 BS1 ) ( push both possibilities )
+
+: LED! ( n -- )
+  GPIOC_BSRR! ;
+
+: ON ( n -- )
+  BS1 LED! ;
+: OFF ( n -- )
+  BR1 LED! ;
 
 : SETUPLED ( -- )
   RCC!
   GPIOC_MODER!
-  LED ( push both possibilities )
-  DROP ( want: reset )
-  GPIOC_BSRR! ; ( GPIOC_BSRR_CLR! )
+  LED OFF ;
 
 ( LED GPIOC 14 + 2 )
-
-: LED! ( n n -- )
-  DROP GPIOC_BSRR! ;
-
-: ON ( n n -- )
-  SWAP
-      LED! ;
-: OFF ( n n -- )
-      LED! ;
 
 : DELAY ( n -- )
   DEPTH 1 - 0<
