@@ -1,68 +1,122 @@
 COLD 
 
-: RCC 40023800 ;
-: RCC_AHB1ENR RCC 30 + ;
-: GPIOCEN 4 ; ( 6.3.10 p.180 Rev 18 datasheet)
-: RCC! RCC_AHB1ENR @ GPIOCEN OR RCC_AHB1ENR ! ;
+: RCC ( -- addr )
+  40023800 ;
 
-: GPIOC 40020800 ; ( 2.3 p.65 )
-: GPIOC_MODER GPIOC 0 + ; ( explicit alias, )
+: RCC_AHB1ENR ( -- addr )
+  RCC 30 + ;
+
+: GPIOCEN 4 ; ( -- n )
+( 6.3.10 p.180 Rev 18 datasheet)
+
+: RCC! ( -- )
+  RCC_AHB1ENR @ GPIOCEN OR RCC_AHB1ENR ! ;
+
+: GPIOC ( -- addr )
+  40020800 ; ( 2.3 p.65 )
+
+: GPIOC_MODER (  -- addr )
+  GPIOC 0 + ; ( explicit alias, )
 ( offset 0x00 8.4.1 p.281 )
-: MODER1 4 ; ( 8.4.1 p.281 ) ( GPIOC_1 )
 
-: GPIOC_MODER!
+: MODER1 4 ; ( -- n )
+( 8.4.1 p.281 ) ( GPIOC_1 )
+
+: GPIOC_MODER! ( -- )
   GPIOC_MODER @ MODER1 OR GPIOC_MODER ! ;
 
-: GPIOC_ODR  GPIOC 14 + ; ( explicit alias, )
+: GPIOC_ODR ( -- addr )
+  GPIOC 14 + ; ( explicit alias, )
 ( offset 0x14 8.4.6 p.283 )
-: GPIOC_BSRR GPIOC 18 + ; ( alias for )
+
+: GPIOC_BSRR ( -- addr )
+  GPIOC 18 + ; ( alias for )
 ( bit write access - see note 8.4.6 )
 
 ( BSRR scheme: 0xRRRRSSSS ) 
 ( word half-word byte )
 ( byte 8 bits  half word 16 bits word 32 bits )
 
-: BIT17 2000 ;
-: BIT1 2 ;
-: BR1 BIT17 ;
-: BS1 BIT1 ;
+: BIT17 20000 ; ( -- n )
+: BIT1 2 ; ( -- n )
 
-: GPIOC_BSRR_SETB! ( set PORTC_1 - turn )
+( TODO: use <<  2/ stuff here to bitshift )
+
+: BR1 BIT17 ; ( -- n )
+: BS1 BIT1 ; ( -- n )
+
+: GPIOC_BSRR_SETB! ( -- )
+( set PORTC_1 - turn )
 ( on the LED on D13, Adafruit STM32F405 )
   BS1 GPIOC_BSRR ! ;
 
-: GPIOC_BSRR_CLR! ( clear PORTC_1 )
+: GPIOC_BSRR_CLR! ( -- )
+( clear PORTC_1 )
   BR1 GPIOC_BSRR ! ;
 
-: SETUPLED RCC!
-  GPIOC_MODER!
-  GPIOC_BSRR_CLR! ;
+: GPIOC_BSRR! ( n -- )
+( generic - may setb or clr the port pin )
+  GPIOC_BSRR ! ;
 
-: LED GPIOC 14 + 2 ;
-: ON SWAP ! ;
-: OFF DROP 0 SWAP ! ;
-: DELAY DEPTH 1 - 0<
+: LED ( -- n n )
+  BR1 BS1 ; ( push both possibilities )
+
+: SETUPLED ( -- )
+  RCC!
+  GPIOC_MODER!
+  LED ( push both possibilities )
+  DROP ( want: reset )
+  GPIOC_BSRR! ; ( GPIOC_BSRR_CLR! )
+
+( LED GPIOC 14 + 2 )
+
+: LED! ( n n -- )
+  DROP GPIOC_BSRR! ;
+
+: ON ( n n -- )
+  SWAP
+      LED! ;
+: OFF ( n n -- )
+      LED! ;
+
+: DELAY ( n -- )
+  DEPTH 1 - 0<
   IF EXIT THEN
   FOR 3 FOR 11 FOR 100
       FOR 1 DROP NEXT
   NEXT NEXT NEXT ;
-: BDELAY 3 DELAY ;
-: BDKDEL 8 DELAY ;
-: LDELAY 188 DELAY ;
-: FINISHMSG ."  done." ;
+
+: BDELAY ( -- )
+  3 DELAY ;
+: BDKDEL ( -- )
+  8 DELAY ;
+: LDELAY ( -- )
+  188 DELAY ;
+
+: FINISHMSG ( -- )
+  ."  done." ;
 ( 100 blinks per minute )
-: BLINKS DEPTH 1 - 0<
+
+: BLINKS ( n -- )
+  DEPTH 1 - 0<
   IF EXIT THEN
   1 - ( normalize )
   FOR LED ON BDELAY LED OFF BDKDEL
   NEXT ;
-: LINIT  FFFFFF9D SETUPLED 3 BLINKS ;
+
+: LINIT ( -- n )
+  FFFFFF9D SETUPLED 3 BLINKS ;
+
 : VMEMB         0 ; ( base of Forth vmem )
 : FLASHB  8000000 ; ( base of on-chip flash - turnkey here )
 : RAMB   20000000 ; ( base of physical RAM )
-: DDP OVER OVER DUMP OVER OVER + ROT
+
+: DDP ( addr count -- addr+count count )
+  OVER OVER DUMP OVER OVER + ROT
   DROP SWAP ;
-: NOTES.TXT CR ." notes.txt follows." CR
+
+: NOTES.TXT ( -- )
+  CR ." notes.txt follows." CR
   ."    flash ......  example:   0x800BD00  ..  seems to be copied over"   CR
   ."    into RAM ...  example:  0x2000BD00  ..  irrespective of if the"    CR
   ."    uploaded program contains it."                                     CR
