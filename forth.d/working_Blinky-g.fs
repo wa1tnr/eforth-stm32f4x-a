@@ -6,15 +6,38 @@ COLD
 : RCC! RCC_AHB1ENR @ GPIOCEN OR RCC_AHB1ENR ! ;
 
 : GPIOC 40020800 ; ( 2.3 p.65 )
-: GPIOC_MODER GPIOC 0 + ; ( explicit alias, offset 0x00 8.4.1 p.281 )
+: GPIOC_MODER GPIOC 0 + ; ( explicit alias, )
+( offset 0x00 8.4.1 p.281 )
 : MODER1 4 ; ( 8.4.1 p.281 ) ( GPIOC_1 )
 
 : GPIOC_MODER!
   GPIOC_MODER @ MODER1 OR GPIOC_MODER ! ;
 
+: GPIOC_ODR  GPIOC 14 + ; ( explicit alias, )
+( offset 0x14 8.4.6 p.283 )
+: GPIOC_BSRR GPIOC 18 + ; ( alias for )
+( bit write access - see note 8.4.6 )
+
+( BSRR scheme: 0xRRRRSSSS ) 
+( word half-word byte )
+( byte 8 bits  half word 16 bits word 32 bits )
+
+: BIT17 2000 ;
+: BIT1 2 ;
+: BR1 BIT17 ;
+: BS1 BIT1 ;
+
+: GPIOC_BSRR_SETB! ( set PORTC_1 - turn )
+( on the LED on D13, Adafruit STM32F405 )
+  BS1 GPIOC_BSRR ! ;
+
+: GPIOC_BSRR_CLR! ( clear PORTC_1 )
+  BR1 GPIOC_BSRR ! ;
+
 : SETUPLED RCC!
   GPIOC_MODER!
-  0 GPIOC 14 + ! ;
+  GPIOC_BSRR_CLR! ;
+
 : LED GPIOC 14 + 2 ;
 : ON SWAP ! ;
 : OFF DROP 0 SWAP ! ;
