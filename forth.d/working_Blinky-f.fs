@@ -25,9 +25,9 @@ COLD
   FOR LED ON BDELAY LED OFF BDKDEL
   NEXT ;
 : LINIT  FFFFFF9D SETUPLED 3 BLINKS ;
-: RAMB          0 ; ( base of Forth vmem? )
-: FLASHB  8000000 ; ( base of flash - turnkey here )
-: MEMB   20000000 ; ( base of RAM )
+: VMEMB         0 ; ( base of Forth vmem )
+: FLASHB  8000000 ; ( base of on-chip flash - turnkey here )
+: RAMB   20000000 ; ( base of physical RAM )
 : DDP OVER OVER DUMP OVER OVER + ROT
   DROP SWAP ;
 : NOTES.TXT CR ." notes.txt follows." CR
@@ -43,5 +43,49 @@ COLD
 
 : DOME FOR 1 DROP NEXT 2B EMIT 2B EMIT 2B EMIT 20 EMIT ;
 
-( newline 50 char 10 - delays in ms in minicom used 23 December )
-( control A T accesses the Terminal settings in minicom )
+0 [IF]
+
+    special note: the '0 if' block comment - here - is
+    gforth specific and was used - here - for the benefit
+    of vim text editor, rather than of eforth.
+
+    Additional Notes
+    ~~~~~~~~~~~~~~~~
+
+    newline 50 char 10 - delays in ms in minicom used 23 December
+    control A T accesses the Terminal settings in minicom
+
+
+    December 26 2019, 13:56 UTC:
+
+    Dr. Ting's documentation says exactly what the three
+    memory spaces are, and are for.
+
+
+    An address of '0' (zero) is virtual memory, if local
+    understanding is correct.
+
+    VMEMB         0   ( base of Forth vmem )
+
+
+    An address beginning with 0x20000000 is real RAM space.
+
+    It is machine dependent and is consistent across several
+    ARM Cortex M4 chips (possibly all of them?)
+
+    RAMB   20000000   ( base of physical RAM )
+
+
+    The third address space is physical flashROM, on-chip
+    (not an SPI connected flashROM, which is also present,
+    but unused, here).
+
+    FLASHB  8000000   ( base of on-chip flash - turnkey here )
+
+    This is the address passed to dfu-util to tell it where
+    to <foo verb> what is uploaded as a .bin file to the
+    target -- which appears to store it, either beginning at
+    this location, or at a location related to this location
+    (possibly offset).
+
+[THEN]
