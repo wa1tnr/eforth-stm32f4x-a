@@ -55,8 +55,60 @@ COLD
     newline 50 char 10 - delays in ms in minicom used 23 December
     control A T accesses the Terminal settings in minicom
 
+    December 26 2019, 14:24 UTC:
 
-    December 26 2019, 13:56 UTC:
+    Updating flash (Turnkey):
+
+        ( cold boot - cycle power; then: )
+
+        ( define new Forth words: ascii upload your code, )
+        ( or paste to the serial terminal, using the mouse, )
+        ( or type in by hand )
+
+        COLD
+        0 ERASE_SECTOR
+        TURNKEY
+
+    Remove your old code:
+
+        ( cold boot - cycle power; then: )
+
+        COLD
+        0 ERASE_SECTOR
+
+    Now cycle power.  Old (original) eForth image will be loaded
+    where it belongs, and the target is then ready for your code
+    update, and another turnkey.
+
+    This is the only way to remove a colon definition from the
+    turnkey image stored on-device, in flashROM.
+
+
+    (Untested) erase all eForth flashROM space:
+
+        COLD
+        0 ERASE_SECTOR ok
+        1 ERASE_SECTOR ok
+        2 ERASE_SECTOR ok
+        3 ERASE_SECTOR ok
+
+    This will erase (the lowest) 64 kB of on-device flashROM.
+
+    That is most likely the limit for a turnkey'd system;
+    unclear what is allowed above this 64 kB boundary,
+    within the eForth context.
+
+    Quite clear that legacy code still exists there, from
+    other uploads of other development systems (such as
+    Arduino IDE based development, as well as raw .bin
+    uploads (mecrisp, for example).
+
+    That'd (possibly) be dfu-util dependent; the Cube programmer
+    sometimes will erase everything, seemingly (dfu-util seems
+    more friendly in this regard).
+
+
+    Dec 26  13:56 UTC:
 
     Dr. Ting's documentation says exactly what the three
     memory spaces are, and are for.
