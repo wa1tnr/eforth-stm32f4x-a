@@ -1,4 +1,4 @@
-COLD 
+COLD
 
 : RCC ( -- addr )
   40023800 ;
@@ -24,9 +24,46 @@ COLD
 
 : MODER1 1 2 << ; ( -- n ) ( 4 )
 ( 8.4.1 p.281 ) ( GPIOC_1 )
+( here's how to setup any port pin on PORTC )
+(  as OUTPUT: )
+( 1 4 << ok ) ( 1 is just the universal binary bit )
+( 4 here is the selected port pin - PORTC MODER2 - low bit )
+( as in 8.4.1 )
+( GPIOC_MODER @ SWAP OR GPIOC_MODER ! ok )
+( that was PORTC_2  aka  PORTC MODER2 )
 
-: GPIOC_MODER! ( -- )
-  GPIOC_MODER @ MODER1 OR GPIOC_MODER ! ;
+( PORTC_1 is the D13 LED )
+
+( here's PORTC_3 aka PORTC MODER3 )
+( 1 6 << ok
+( GPIOC_MODER @ SWAP OR GPIOC_MODER ! ok )
+
+: MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
+: MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
+
+( : GPIOC_MODER1! )
+( GPIOC_MODER @ MODER1 OR GPIOC_MODER ! ; )
+
+: GPIOC_MODER!
+  GPIOC_MODER @ SWAP   OR GPIOC_MODER ! ; ( n -- ) ( wants MODER2 or MODER3 &c )
+
+: OUTPUT ( n -- )
+  1 MAX 3 MIN ( kludge don't want pin0 or > pin3 )
+  2 * 1 SWAP << GPIOC_MODER! ;
+
+( trial run: )
+( LINIT ok )
+( 1 ON ok )
+( 1 OFF ok )
+( 2 OUTPUT ok )
+( 2 ON ok )
+( 2 OFF ok )
+( 3 OUTPUT ok )
+( 3 ON ok )
+( 3 OFF ok )
+
+( evidently GPIOC_ODR effort is incomplete )
+( nothing asks for this word, anymore: )
 
 : GPIOC_ODR ( -- addr )
   GPIOC 14 + ; ( explicit alias, )
@@ -52,13 +89,11 @@ COLD
   THEN
   1 SWAP << ;
 
-: PIN NOP ; ( -- )
+: BSX ( n -- n ) ( BS1 for PORTC_1 )
+  2^ ;
 
-: BS1 ( n -- n )
-  PIN 2^ ;
-
-: BR1 ( n -- n )
-  PIN 10 + 2^ ;
+: BRX ( n -- n ) ( BR1 for PORTC_1 )
+  10 + 2^ ;
 
 : GPIOC_BSRR! ( n -- )
 ( generic - may setb or clr the port pin )
@@ -66,19 +101,24 @@ COLD
 
 : LED ( -- n )
   1 ; ( PORTC_1 )
-  ( BR1 BS1 ) ( push both possibilities )
+
+: LED2 ( -- n )
+  2 ; ( PORTC_2 )
+
+: LED3 ( -- n )
+  3 ; ( PORTC_3 )
 
 : LED! ( n -- )
   GPIOC_BSRR! ;
 
 : ON ( n -- )
-  BS1 LED! ;
+  BSX LED! ;
 : OFF ( n -- )
-  BR1 LED! ;
+  BRX LED! ;
 
 : SETUPLED ( -- )
   RCC!
-  GPIOC_MODER!
+  LED OUTPUT ( GPIOC_MODER1! )
   LED OFF ;
 
 ( LED GPIOC 14 + 2 )
@@ -100,6 +140,10 @@ COLD
 : FINISHMSG ( -- )
   ."  done." ;
 ( 100 blinks per minute )
+
+( blinks isn't facile enough to )
+( blink a specified port on command )
+( it always blinks PORTC_1 aka D13 )
 
 : BLINKS ( n -- )
   DEPTH 1 - 0<
