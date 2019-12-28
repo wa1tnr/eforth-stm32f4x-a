@@ -7,7 +7,8 @@ COLD
   RCC 30 + ;
 
 : << ( n shifts -- )
-  1 - FOR 2* NEXT ;
+  LSHIFT ;
+  ( 1 - FOR 2* NEXT )
 
 : GPIOCEN 1 2 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
@@ -35,7 +36,7 @@ COLD
 ( PORTC_1 is the D13 LED )
 
 ( here's PORTC_3 aka PORTC MODER3 )
-( 1 6 << ok
+( 1 6 << ok )
 ( GPIOC_MODER @ SWAP OR GPIOC_MODER ! ok )
 
 : MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
@@ -172,6 +173,8 @@ COLD
   ." Old code from other programs is not only still resident in flash"     CR
   ." memory, but is also copied into RAM, even though it is not currently" CR
   ." in use.  This can be leveraged. ;)" CR ;
+
+: VERS SPACE ." 0.0.0.1.d-" ;
 
  ( - - - - - )
 
