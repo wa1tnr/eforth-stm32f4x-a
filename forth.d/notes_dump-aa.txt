@@ -1,0 +1,28 @@
+notes_dump-aa.txt
+
+The DUMP word already provides what the Intel HEX format
+provides, in terms of binary digits encoded as hex.
+
+What it's missing is the control information (all of that)
+except addressing, which is probably very close already,
+or just right.
+
+Since (all of) that is the case, copying the DUMP function
+to a new word, and adding the enhancements, should be an
+achievable task.
+
+In this manner, the target should be able to generate its
+own code image, to be replicated on another target -- or on
+the same target, in a subsequent iteration of
+
+    'dfu-util ./this.bin'
+
+after a hex2bin type of util is made use of, to convert it
+back into a .bin file.
+
+The 'hex2bin' stand-in (above) is more correctly:
+
+    arm-none-eabi-objcopy -I ihex -O binary thisfile.hex thisfile.bin
+
+Mon Dec 30 18:23:27 UTC 2019
+
