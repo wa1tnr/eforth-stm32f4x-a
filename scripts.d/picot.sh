@@ -28,7 +28,7 @@ fi
 
 echo "Control A, Control Q to quit"
 echo "Control A, Control S to send a file from the local directory"
-picocom -f n -p n -d 8 -b 115200 --send-cmd "ascii-xfr -sn -l 50 -c 10" ${1}
+picocom -f n -p n -d 8 -b 115200 --omap delbs --send-cmd "ascii-xfr -sn -l 50 -c 10" ${1}
 
 exit 0
 
