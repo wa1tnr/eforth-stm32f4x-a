@@ -1,4 +1,7 @@
-relocateable_Forth.txt
+relocatable_Forth.txt
+
+Incept: 02 January 2020
+
 
 Confidence level: wild speculation - do not obstruct this. ;)
 
@@ -100,6 +103,11 @@ laid out).
 
 Thu Jan  2 16:13:56 UTC 2020
 
+IV.
+
+The low-hanging fruit is the .hex dumper.  Also need a utility
+to compare the contents of two blocks of memory (looking
+especially for differences, where they are almost the same).
 
 
 END.
