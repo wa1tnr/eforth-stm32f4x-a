@@ -98,8 +98,7 @@ on this target for the USART, and labled as such -- probably
 the D0/D1 pair, as in other Feather form-factor targets are
 laid out).
 
-
-
+Thu Jan  2 16:13:56 UTC 2020
 
 
 
