@@ -80,6 +80,24 @@ that are distributed with the host PC's operating system
 been useful all along in many contexts, such as the Arduino IDE
 and in Atmel Start (for SAMD21/SAMD51, separate topic here ;)
 
+III.
+
+IN the earliest stages, hand-wave all concerns regarding the
+various address spaces/memory maps and just get the new USART
+going, and talk to it.
+
+This should be a straighforward exercise in writing to
+specific addresses, using the @ (fetch) and ! (store)
+words, as with (already demonstrated) GPIO setup (D13 in
+Arduino-land, already done as of this writing).
+
+At some point, under eForth as it is today, a second connection
+to the target board is made, electrically, talking to the new
+TX/RX pair (targeted as the default port Adafruit is using
+on this target for the USART, and labled as such -- probably
+the D0/D1 pair, as in other Feather form-factor targets are
+laid out).
+
 
 
 
