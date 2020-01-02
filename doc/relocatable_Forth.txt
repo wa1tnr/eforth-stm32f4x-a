@@ -1,0 +1,28 @@
+relocateable_Forth.txt
+
+The plan:
+
+Construct .hex output program in Forth, on the
+STM32F405 target running eForth.
+
+Construct the simplest possible TX/RX USART setup
+program, in support of the target USART within the
+F405 (use the TX/RX labeled pins for this).
+
+Construct a simple echo loop (pseudo text interpreter II)
+using the new USART, in eForth.
+
+Do that in a way that can be used as a .bin upload
+(dfu-util) to another STM32F405 device (or this one,
+at a new location in memory).
+
+Since dfu-util does not zap old programs that were stored
+in high flashROM space, it should be possible to have
+two entirely independent images on flashROM, but in
+different sectors.  Probably go above the first 16k;
+maybe above the first 24k (save three sectors for the
+first eForth - the main one at this juncture; using the
+fourth sector for the new Forth primitive).
+
+
+
