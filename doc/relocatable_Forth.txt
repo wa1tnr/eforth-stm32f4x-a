@@ -62,6 +62,25 @@ at the second sector (maybe the third sector) so that it
 is not in the way of the assembled image (in active memory,
 low as it goes in address space, where eForth resides now).
 
+At every point, a .hex output is required to export the
+code outside the target, to be reloaded back into the
+target (almost immediately) to demonstrate a loadable
+Forth/system at each (major) step.
+
+The main idea is to write a new Forth, in Forth, bypassing
+the entire upstream toolchain used (which isn't quite
+OpenSourced) when constructing the most base system
+possible.
+
+Eventually, this Forth might be able to bootstrap itself
+(code itself) or a similar idea that only leverages tools
+that are distributed with the host PC's operating system
+(Debian Linux) along with tools that do not require special
+(commercial) licensing (ARM toolchain eabi okay as it has
+been useful all along in many contexts, such as the Arduino IDE
+and in Atmel Start (for SAMD21/SAMD51, separate topic here ;)
+
+
 
 
 
