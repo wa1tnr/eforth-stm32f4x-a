@@ -41,5 +41,29 @@ At some point (hand waving how it got done) the idea is
 to have a simple loop running that echo's keystrokes
 back to the host PC with the controlling tty.
 
+II.
+
+So, ideally, a binary that is uploaded to the target, that
+does all its own setups to get a simple loop-echo going
+on STM32F405.
+
+Not sure which address space to put this in, but it will
+probably run on the end-point USART (the one meant for
+a full Forth, later in development).
+
+This is proof-of-concept stuff.
+
+The longer goal might be to be writing an assembler base
+(decoding a few instructions written in pseudo-assembler,
+on the target itself, in a full eForth interpreter).
+
+Perhaps .. perhaps .. eForth itself is relocated to start
+at the second sector (maybe the third sector) so that it
+is not in the way of the assembled image (in active memory,
+low as it goes in address space, where eForth resides now).
+
+
+
+
 
 END.
