@@ -1,5 +1,7 @@
 relocateable_Forth.txt
 
+Confidence level: wild speculation - do not obstruct this. ;)
+
 The plan:
 
 Construct .hex output program in Forth, on the
@@ -24,5 +26,20 @@ maybe above the first 24k (save three sectors for the
 first eForth - the main one at this juncture; using the
 fourth sector for the new Forth primitive).
 
+IN SOME MANNER get the new TX/RX pair going.  Go ahead
+and write this is ordinary (non-assembler oriented)
+eForth dialect.  Prove that a new TX/RX pair can be used
+as a second loop/echo (use another machine to talk to
+it, or hot-swap the TX/RX pairs, with DPDT from the
+host machine with the controlling tty).
+
+Try real hard to write an independent program that can
+be reaped as a binary (using .hex conversion as required,
+if this isn't too chicken/egg-ish).
+
+At some point (hand waving how it got done) the idea is
+to have a simple loop running that echo's keystrokes
+back to the host PC with the controlling tty.
 
 
+END.
