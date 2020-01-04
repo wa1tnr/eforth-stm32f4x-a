@@ -20,5 +20,39 @@ The two (together) constitute the only power routes to the
 project (overall) -- each has its own 5VDC source (via their
 respective USB cables).
 
+The two target boards (Trinket M0, STM32F405) are linked via
+their USART ports.
+
+This has the unwanted side-effect of allowing the Trinket M0
+(in particular) to mis-operate, due to some finite amount of
+backpowering of the Trinket M0 through its USART pins.
+
+The solution to that is to make sure the Trinket M0 is powered
+first, and to go ahead and make the connection to its /dev/ttyACM0
+device (as presented by the host PC's driver for CDC/ACM use
+cases).
+
+This seems fairly reliable - just sequence the plugging in of
+the two cables so that the Trinket M0 gets there first.
+
+Another solution would be to add a 10k resistor inline with
+both USART pins, along with (or without!) diode clamps (two
+diodes, connected reversed-biased, across the local 3.3VDC
+power supply - the voltage regulator -- with the USART port
+pin 'trapped' in the middle (at the junction of the two
+diodes).  Do that for both pins, and on both targets (each
+referencing its own voltage regulator - they only share
+three wires spanning the distance between them, rather than
+the fourth wire (+3.3 VDC) which is not interconnected.
+
+That would substantially protect the pins; allow them to
+operate normally, and it would reduce backpowering to a
+non-interfering level: either target could then be plugged
+in first, and they would possibly/probably both initialize
+correctly, from a cold start, even when sequenced 'backwards'
+(STM32F405 powered on first) in this use case.
 
 
+
+
+END.
