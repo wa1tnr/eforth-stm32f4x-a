@@ -1,0 +1,24 @@
+operational_Notes.txt
+
+First instance of this file:
+
+Sat Jan  4 16:26:46 UTC 2020
+
+USB Connections
+
+The project calls for two USB connections to the host PC.
+
+One is for Trinket M0, acting as a kind of serial terminal
+for the STM32F405 target (which communicates on its SDA/SCL
+pair, but pinmuxed to be an USART; therefore could have been
+silcscreened as TX/RX instead of SDA/SCL (or swapped; not
+documented here which is the operational case ;)
+
+The other is the USB-C connection to the STM32F405 itself.
+
+The two (together) constitute the only power routes to the
+project (overall) -- each has its own 5VDC source (via their
+respective USB cables).
+
+
+
