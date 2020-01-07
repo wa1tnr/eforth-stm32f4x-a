@@ -19,6 +19,31 @@ for its serial bootloader, and interactively (from
 within gforth-based tethered terminal, with options
 to execute code on F330D via HDMI, gforth, USB keyboard).
 
+C8051F330D may be leveraged to do direct talking to
+STM32F405/407 GPIO (8 bits wide, maybe 9 or 10 bits -
+it's a 20 pin package, less (say) 6 pins that won't
+do GPIO - up to 14 bits, perhaps, to include a few
+toggle switch (SPST with pullups to Vcc) reads or
+similations to STM32 (as additional inputs, to supervise
+early .BIN construction, with LOAD/STORE and RUN type
+services -- later, perhaps, SINGLE_STEP type stuff).
+
+Might take two F330D's and/or shift registers to add
+all desired functions cheaply (all meant to simply
+set or reset GPIO pin states on STM32, which is
+projected to be the easier path to programming that
+chip, from remote, rather than resident (previously).
+
+All speculative.
+
+Want a physical substrate to support all this easily
+(or at least 'more' easily, than otherwise).
+
+Which means several things must be in near physical
+proximity, and held (fairly) rigid, in terms of the
+lengths of the wires used to interconnect.
+
+
  . . .
 
 The eventual goal:
@@ -104,5 +129,5 @@ Date:   Tue Jan 7 17:23:10 2020 +0000
 
     On branch assy-exp-ae-console-
 
-Tue Jan  7 17:29:34 UTC 2020
+Tue Jan  7 17:52:03 UTC 2020
 END.
