@@ -40,5 +40,27 @@ This .BIN would:
      stone knives' monitoring, only).
 
 
-Tue Jan  7 17:22:30 UTC 2020
+Recent commit message reads:
+
+commit 0929e425297f41653e960fdb62c156249004465c
+Date:   Tue Jan 7 17:23:10 2020 +0000
+
+    Edits - lay out function of .BIN monitor program,
+    constructed in GNU assembler, most likely.
+
+    Target: STM32F405 (or, 407 Disovery)
+
+    Subgoal: establish physical parameters for a
+    chassis (dimensions, holes to drill and such)
+    for the console, based on programmatic requirements
+    (presence or absence of RPi or Mini-ITX motherboard,
+    its PSU, the C8051F330D, the STM32 target, support
+    wiring and breadboarding requirements, interconnects
+    using IDC ribbon cables, and the like).
+
+            modified:   console.txt
+
+    On branch assy-exp-ae-console-
+
+Tue Jan  7 17:29:34 UTC 2020
 END.
