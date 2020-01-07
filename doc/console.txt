@@ -1,0 +1,14 @@
+console.txt
+07 jan 17:09 UTC begin.
+
+The RPi, breadboarded C8051F330D, and the STM32F405
+(or 407 Discovery) are all riding on a chassis,
+together.
+
+The RPi is connected to HDMI display and USB keyboard.
+In one mode, this subsystem acts as the terminal
+(running picoterm or a python serial widget program)
+to talk directly to the STM32 chip via its TX/RX pair
+(USART) (one of them).
+
+
