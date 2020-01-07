@@ -11,4 +11,34 @@ In one mode, this subsystem acts as the terminal
 to talk directly to the STM32 chip via its TX/RX pair
 (USART) (one of them).
 
+The eventual goal:
 
+A .BIN is uploaded to STM32F405/7 that does only one
+thing: it reads a full width port pin array (PORT_C
+maybe?) and acts on what it sees.
+
+This would allow very minimal .BIN construction on an
+existing system, to bootstrap quite minimally, STM32.
+
+This .BIN would:
+
+ * setup GPIO on those pins - in INPUT mode (reading
+   only).
+
+ * loop:
+   * Scan port pins (per above).
+   * Load an address register (faked or real) with a new
+     address, as specified on the bit pattern presented
+     to the GPIO pin array
+   * Scan port pins (again) per above.
+   * Load the data (16 bits, twice iterated for a full
+     32-bit wide memory-word) into the specfified address
+     from the earlier step
+   * Iterate until an additional .BIN image is created
+     (in RAM, whatever seems easiest to accomplish, as
+     the minimal .BIN is there to do 'bear claws and
+     stone knives' monitoring, only).
+
+
+Tue Jan  7 17:22:30 UTC 2020
+END.
