@@ -38,7 +38,39 @@ This .BIN would:
      (in RAM, whatever seems easiest to accomplish, as
      the minimal .BIN is there to do 'bear claws and
      stone knives' monitoring, only).
+   * When deemed complete, the new .BIN sub-image is then
+     branched to and thereby executed.
 
+   * In theory, this adds additional functionality to
+     the overall program running on the STM32F405/407
+     target - possibly offering a bootloader segment that
+     simply operates the GPIO port scan more effectively,
+     to bootstrap further from 'near scratch' conditions
+     (not written in GNU assembler, but more or less
+     translated into address/data pairs to load into STM32
+     RAM as a new subprogram to branch to).
+
+   * Later, this becomes more fully implemented, possibly
+     switching to another USART to start conversing with
+     some other system that is used to help develop
+     further.
+
+   * It will not be desirable to carry the manual adding of
+     bytes to STM32 RAM via 'bear claws' methodologies all
+     that far, due to operator fatigue (and disinterest in
+     doing things that way).
+
+   * There should be a reasonable divide between methods,
+     such that bootstrapping (even further) is somehow .. um ..
+     made to be 'fun'.
+
+   * Fault tolerance ought to be kept in mind, so that
+     minor mistakes aren't as costly in early manual input
+     iterations.
+
+     Nobody wants to redo a done thing very many times, when
+     the cost to do so is so high.  Early efforts to make
+     this iteration cycle less costly (in time and effort).
 
 Recent commit message reads:
 
