@@ -11,6 +11,16 @@ In one mode, this subsystem acts as the terminal
 to talk directly to the STM32 chip via its TX/RX pair
 (USART) (one of them).
 
+The RPi may or may not be suitable for a gforth basis,
+to reprogram C8051F330D.
+
+CP2104 is (possibly) used to talk to C8051F330D, both
+for its serial bootloader, and interactively (from
+within gforth-based tethered terminal, with options
+to execute code on F330D via HDMI, gforth, USB keyboard).
+
+ . . .
+
 The eventual goal:
 
 A .BIN is uploaded to STM32F405/7 that does only one
