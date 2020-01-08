@@ -1,4 +1,31 @@
 console.txt
+08 Jan 14:15 UTC begin (again) (append)
+
+32 bits of address.
+RUN/STOP  LOAD  SINGLE-STEP  STEP_EXE  (or tri-state RUN-STOP-SSTEP)
+ACCUMULATOR [R1 R2 R3 R4 R5 R6 R7] (three bits/switches)
+TOS
+
+DATA:
+Accumulator 32 bits maybe.  Hmm.
+Each register holds 32 bits; but maybe report in 8 bits.
+Want to shift all the way up, though.
+ACC and TOS may be treated similarly?
+Stack Pointer (real) (or Forth) (or both)
+Instruction Pointer (also for both)
+Ring buffer stuff
+Serial activity
+Parallel activity
+LCD gfx disply operated as TTY/TXT interface
+LED 7-segment for foo 4 digits or more
+Maybe 2 and 2 digits there
+shift registers
+FETs or BJTs or both
+Some DPDT's some SPST's some center off or springy
+(ON-A--OFF--ON-B) (or otherwise)
+
+Already needs research and factoring. ;)
+
 07 jan 17:09 UTC begin.
 
 The RPi, breadboarded C8051F330D, and the STM32F405
