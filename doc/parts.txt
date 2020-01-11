@@ -1,0 +1,14 @@
+parts.txt
+
+first instance: 11 Jan 2020 16:12 UTC
+
+  interconnects - adafruit's new ribbon cable to green sloper binding posts (set screw)
+
+  Had considered real binding posts; this does a similar job.
+
+  LED arrays: how to connect directly to the LED arrays (and how to
+  provide for common anode (cathode) connections, close by).
+
+  The two may be related.
+ 
+
