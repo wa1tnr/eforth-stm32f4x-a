@@ -4,6 +4,11 @@ first instance: 11 Jan 2020 16:12 UTC
 
   interconnects - adafruit's new ribbon cable to green sloper binding posts (set screw)
 
+  http://adafru.it/4436 DIN rail adaptor, IDC 2x8 to terminal blocks
+
+  http://adafru.it/4170 2x8 12" IDC cable (not a good solution to
+                                           a breadboard termination)
+
   Had considered real binding posts; this does a similar job.
 
   LED arrays: how to connect directly to the LED arrays (and how to
