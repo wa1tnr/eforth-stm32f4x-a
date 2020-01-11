@@ -1,0 +1,19 @@
+motivation.txt
+
+Sat Jan 11 16:20:02 UTC 2020
+
+MOTIVATION
+
+Some of this looks like a fool's errand; the purpose
+(initially) of this file is to counter that. ;)
+
+There are lots (and lots) of unfinished or abandoned
+efforts found on github, wrt forth (generally) and to
+assembler (mostly incomplete or simplified or both).
+
+At least one project maintainer bothered to create a
+decent (follow-able) Makefile and such (.ld file for
+example) that looks correct and fairly complete.
+
+Language barrier is another issue (mecrisp written
+in what appears to be a dialect of 'german' (guessing).
