@@ -11,3 +11,35 @@ First instance: 11 Jan 2020 at 16:13 UTC
     when rubbing out words to clear a copied block; maybe
     other crashes).  Reliable enough to experiment with,
     however.
+
+    cf appears to support both ethernet and RS-232, already.
+
+    The rs-232 in particular may be of interest in this project.
+
+    The howerd port/modification to cf only supports HTNL (AOEU)
+    ch'dvorak keymapping.
+
+    On the Via Epia, 1024x768 comes up automatically and seems
+    to function fairly well (VESA).
+
+    On same, both USB and PS/2 keyboads work fine.
+
+    The USB flash drive used is a dirt cheap Staples branded
+    one (in silver with a prominent red LED) at 64 MB (iirc).
+
+    Boots fine, but is slow to startup (> 30 seconds).
+
+    Saves back to USB fine, also (amazing!)
+
+    This provides a completely silent experience (the Epia
+    motherboard is fanless and is configured with a DC-DC
+    converter @12 VDC input supply, regulated).
+
+    Other versions of ColorForth boot from FDD on this
+    same substrate (and are even more stable; in fact one
+    of them is remembered as never crashing at all -- not
+    sure which version that was; maybe 2.0 and may be
+    CM sourced COLOR.COM in origin).
+
+
+END.
