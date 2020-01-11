@@ -12,3 +12,23 @@ first instance: 11 Jan 2020 16:12 UTC
   The two may be related.
  
 
+
+  1456WL1BKBU - Hammond aluminum sloped chassis.
+
+  Assumption was that the drawing showed a realistic scaling,
+  whereas the photo of this chassis clearly shows the flanges
+  are *much* smaller than as drawn, so the drawing is more
+  conceptual than a 1:1 dimensional representation (in the
+  very same way some road maps exxagerate road widths for
+  sake of clarity and simplicity of understanding).
+
+  This is very good news, as the originally depiction led
+  to a belief that the chassis flanges would interfere (quite
+  strongly) with separation for work to be done to each half
+  in different contexts.
+
+  Specifically, joining the two halves, electrically, using
+  the base as an active substrate (mounting surface for
+  larger assemblies, including target boards and breadboards).
+
+END.
