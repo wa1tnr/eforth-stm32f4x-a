@@ -1,0 +1,13 @@
+other_Forths.txt
+
+First instance: 11 Jan 2020 at 16:13 UTC
+
+  ColorForth
+
+    Howerd (@uk) ported ColorForth to a USB booting/saving
+    config, which does run on Via Epia (ML600 possibly; has
+    the cle266 foo part in it).  It crashes very often,
+    though seems to be highly deterministic (be very careful
+    when rubbing out words to clear a copied block; maybe
+    other crashes).  Reliable enough to experiment with,
+    however.
