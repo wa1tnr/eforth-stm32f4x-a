@@ -4,7 +4,16 @@ first instance: 11 Jan 2020 16:12 UTC
 
   interconnects - adafruit's new ribbon cable to green sloper binding posts (set screw)
 
+  Adafruit 4435 (an 'also' to the below) - DIN rail pcb holder
+
   http://adafru.it/4436 DIN rail adaptor, IDC 2x8 to terminal blocks
+
+  61 x 51   35 on the DIN rail - datasheet says
+
+  ADR3575-S1700-ND 17" 7.5 din rail 35mm - Value Added (shows backordered but is fulfilled anyway)
+
+  1920-1122-ND 1 meter long many in stock but is steel
+
 
   http://adafru.it/4170 2x8 12" IDC cable (not a good solution to
                                            a breadboard termination)

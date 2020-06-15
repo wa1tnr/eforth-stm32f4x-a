@@ -41,5 +41,12 @@ First instance: 11 Jan 2020 at 16:13 UTC
     sure which version that was; maybe 2.0 and may be
     CM sourced COLOR.COM in origin).
 
+    UI: cf generally executes on space bar flogging, so
+        that can explain bias towards that method of input
+        seen in other forth implementations.
+
+        If the typist (operator) has been trained on ColorForth,
+        they may well prefer this method to 'only when the line ends'
+        input methods.
 
 END.
