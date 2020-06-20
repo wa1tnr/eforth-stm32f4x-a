@@ -1,4 +1,4 @@
-\ Sat Jun 20 13:50:00 UTC 2020
+\ Sat Jun 20 14:20:35 UTC 2020
 
 \ bring in some USART6 stuff. ;)
 
@@ -45,12 +45,23 @@
 \ PC6/TX PC7/RX
 : USART6EN 1 5 << ; ( -- n )
 
+\ PB_6/TX,  USART1
+: USART1EN 1 4 << ; ( -- n )
+
 : RCC! ( -- ) ( verif SED )
   RCC_AHB1ENR @
   GPIODEN or
   RCC_AHB1ENR !
-  USART6EN
-  RCC_APB2ENR ! ; \ overwrite
+
+  RCC_APB2ENR @
+  USART6EN or
+  RCC_APB2ENR !
+
+\ try to break it a little by setting USART1EN, again.
+  RCC_APB2ENR @
+  USART1EN or
+  RCC_APB2ENR !
+;
 
 \ : GPIOC ( -- addr ) 40020800 ;
 : GPIOD 40020C00 ; ( -- addr )
@@ -168,8 +179,8 @@
   ;
 
 : vers space
-  ." 0.0.0.1.v- "
-  ." Sat Jun 20 08:10:45 UTC 2020 "
+  ." 0.0.0.1.w- "
+  ." Sat Jun 20 14:20:35 UTC 2020 "
 ; \ green orange red blue
  ( trial run: ) ( LINIT ) ( green OUTPUT )
  ( green on ) ( green off )
