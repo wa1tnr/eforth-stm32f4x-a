@@ -17,13 +17,25 @@
 : char CHAR ; : preset PRESET ; : dump DUMP ;
 : .s .S ; : see SEE ; : words WORDS ; : cold COLD ;
 
+: <1?  ( n -- BOOL )
+  dup 1 - 0< IF
+    drop -1 EXIT
+  THEN
+  drop 0 ;
+
+: << ( n shifts -- )
+  LSHIFT ;
+
+: 2^ ( n -- )
+  dup <1?  0< IF
+    drop 1 EXIT
+  THEN
+  1 swap << ;
+
 : RCC 40023800 ; ( -- addr )
   ( page 65 )
 
 : RCC_AHB1ENR RCC 30 + ; ( -- addr )
-
-: << ( n shifts -- )
-  LSHIFT ;
 
 : GPIODEN 1 3 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
@@ -72,17 +84,6 @@
 ( word half-word byte )
 ( byte 8 bits  half word 16 bits word 32 bits )
 
-: <1?  ( n -- BOOL )
-  dup 1 - 0< IF
-    drop -1 EXIT
-  THEN
-  drop 0 ;
-
-: 2^ ( n -- )
-  dup <1?  0< IF
-    drop 1 EXIT
-  THEN
-  1 swap << ;
 
 : BSX 2^ ; ( n -- n )
 : BRX 10 + 2^ ; ( n -- n )
