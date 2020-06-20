@@ -102,17 +102,17 @@
 
 : MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
 
-: MODER14 1 1C << ;
+: MODER14 1 1C << ; ( want SED )
 
 ( : GPIOC_MODER1! )
 
 ( GPIOC_MODER @ MODER1 OR GPIOC_MODER ! ; )
 
-: GPIOD_MODER!
+: GPIOD_MODER! ( want SED )
   GPIOD_MODER @ swap
   or GPIOD_MODER ! ;
 
-: GPIOC_MODER!
+: GPIOC_MODER! ( want SED )
   GPIOC_MODER @ swap
   or GPIOC_MODER ! ;
 
@@ -162,12 +162,10 @@
 ( explicit alias, )
 ( offset 0x14 8.4.6 p.283 )
 
-: GPIOD_BSRR
-( -- addr )
+: GPIOD_BSRR ( -- addr )
   GPIOD 18 + ;
 
-: GPIOC_BSRR
-( -- addr )
+: GPIOC_BSRR ( -- addr )
   GPIOC 18 + ;
 
 ( alias for )
@@ -177,15 +175,13 @@
 ( word half-word byte )
 ( byte 8 bits  half word 16 bits word 32 bits )
 
-: <1?
-( n -- BOOL )
+: <1?  ( n -- BOOL )
   dup 1 - 0< IF
     drop -1 EXIT
   THEN
   drop 0 ;
 
-: 2^
-( n -- )
+: 2^ ( n -- )
   dup <1?  0< IF
     drop 1 EXIT
   THEN
@@ -209,19 +205,15 @@
 ( PORTC_1 )
 
 \ PORT D pins 12-15:
-: green C ;
-: orange D ;
-: red E ;
-: blue F ;
+: green C ; ( -- n )
+: orange D ; ( -- n )
+: red E ; ( -- n )
+: blue F ; ( -- n )
 
-: led2
-( -- n )
-  2 ;
+: led2 2 ; ( -- n )
 ( PORTC_2 )
 
-: led3
-( -- n )
-  3 ;
+: led3 3 ; ( -- n )
 ( PORTC_3 )
 
 : led!  GPIOC_BSRR! ; ( n -- )
@@ -246,8 +238,7 @@
 
 ( led GPIOC 14 + 2 )
 
-: DELAY
-( n -- )
+: DELAY ( n -- )
   DEPTH 1 - 0<
   IF EXIT THEN
 
@@ -257,21 +248,13 @@
 
   NEXT NEXT NEXT ;
 
-: BDELAY
-( -- )
-  3 DELAY ;
+: BDELAY 3 DELAY ; ( -- )
 
-: BDKDEL
-( -- )
-  8 DELAY ;
+: BDKDEL 8 DELAY ; ( -- )
 
-: LDELAY
-( -- )
-  188 DELAY ;
+: LDELAY 188 DELAY ; ( -- )
 
-: FINISHMSG
-( -- )
-  ."  done." ;
+: FINISHMSG ."  done." ; ( -- )
 
 ( 100 blinks per minute )
 
@@ -279,24 +262,17 @@
 ( blink a specified port on command )
 ( it always blinks PORTC_1 aka D13 )
 
-: BLINKS
-( n -- )
+: BLINKS ( n -- )
   DEPTH 1 - 0<
   IF EXIT THEN
 
   1 - ( normalize )
 
   FOR led on
-  C don
-  D don
-  E don
-  F don
+  C don D don E don F don
   BDELAY
   led off
-  C doff
-  D doff
-  E doff
-  F doff
+  C doff D doff E doff F doff
   BDKDEL
 
   NEXT ;
@@ -331,8 +307,8 @@
   ;
 
 : vers space
-  ." 0.0.0.1.s- "
-  ." Sat Jun 20 06:59:07 UTC 2020 "
+  ." 0.0.0.1.t- "
+  ." Sat Jun 20 07:06:35 UTC 2020 "
 ;
 
 .( 0 ERASE_SECTOR )
