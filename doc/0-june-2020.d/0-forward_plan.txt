@@ -1,0 +1,75 @@
+forward plan
+II. (Reverse collated II here)
+
+18 June: Hardware setup looking well.  Three plans
+ of approach have surfaced:
+
+ a. bit-bang primitive write-only serial (treat
+    USART port pins as GPIO using a different
+    AF register setting, and just bitbang it.
+
+ b. Follow Ting's Hello World approach, and perhaps
+    borrow (also/supplementally) from Mecrisp to
+    get something going on the second USART
+    (already hardwired to the 96x display, at
+    this time).
+
+ c. Arduino IDE.
+
+    PA8/9 (low,hi is tx,rx so PA8/TX,PA9/RX) is the
+    currently chosen Discovery board pins used for
+    Lumex display.
+
+I.
+
+Find Lumex doco and suss if 115200 is going to
+be acceptable to Lumex module.
+
+Seem to recall 57600 was used elsewhere.
+
+Test Lumex with Trinket M0 or ItsyM4 direct (no STM Disc).
+
+
+Consider single (universal) USART baud rate, if
+this can be achieved simply.
+
+The chosen speed has to be supported both in
+regular eForth session (as interpreter text
+input/output interface, for conversation with
+eForth's day-to-day CLI) .. both that, and
+the Lumex dot matrix display (96 cols x 8 RGB,
+iirc).
+
+First thing: re-examine Lumex doco for baud
+rate and voltage stuff.
+
+FINDINGS
+
+  a.  Lumex wants 115200, per datasheet.
+
+  b.  Lumex logic levels probably 3.3 - verify in datasheet _strike_TODO_strike_ DONE.
+
+      LOGIC is 3.3 VDC for Lumex, due to the fact its interface
+      is realized as an STM microcontroller.
+
+      Self-reported to be: "STM32F030 or somesuch microcontroller"
+
+      (STM Discovery doco probably the source of this part number)
+
+  c.  Lumex four-wire interface to external world is:
+
+      Red: +5 VDC
+      Black: GND
+
+      Yellow: TX
+      White:  RX
+
+      That's also from datasheet Lumex RGB.
+
+  d.  picocom is the usual means to talk to Lumex RGB array.
+
+      comms are 115200 and all is in ASCII in the form of Hayes 'AT' commands.
+
+      A glance at existing work shows this is (mostly or always) lower case,
+      including the 'at' part.
+END.
