@@ -1,5 +1,7 @@
-\ Sat Jun 20 06:59:07 UTC 2020
-\ add colored LEDs 0x0C D E and F
+\ Sat Jun 20 07:33:10 UTC 2020
+
+\ remove some PORTC stuff in prep for USART6.
+
 ( HEX )
 ( COLD )
 
@@ -25,19 +27,17 @@
 
   LSHIFT ;
 
-  ( RESCIND comment: 1 - FOR 2* NEXT )
-
 : GPIODEN 1 3 << ; ( -- n )
 
-: GPIOCEN 1 2 << ; ( -- n )
+\ : GPIOCEN 1 2 << ; ( -- n )
 
 ( 6.3.10 p.180 Rev 18 datasheet)
 
 : RCC! ( -- ) ( verif SED )
 
-  RCC_AHB1ENR @
-  GPIOCEN or
-  RCC_AHB1ENR !
+  \ RCC_AHB1ENR @
+  \ GPIOCEN or
+  \ RCC_AHB1ENR !
 
   RCC_AHB1ENR @
   GPIODEN or
@@ -46,12 +46,12 @@
 : GPIOD 40020C00 ; ( -- addr )
 ( 2.3 p.65 )
 
-: GPIOC ( -- addr ) 40020800 ;
+\ : GPIOC ( -- addr ) 40020800 ;
 ( 2.3 p.65 )
 
 : GPIOD_MODER GPIOD 0 + ; ( -- addr )
 
-: GPIOC_MODER GPIOC 0 + ; (  -- addr )
+\ : GPIOC_MODER GPIOC 0 + ; (  -- addr )
 
 ( explicit alias, )
 
@@ -99,25 +99,25 @@
   GPIOD_MODER @ swap
   or GPIOD_MODER ! ;
 
-: GPIOC_MODER! ( want SED )
-  GPIOC_MODER @ swap
-  or GPIOC_MODER ! ;
+\ : GPIOC_MODER! ( want SED )
+\  GPIOC_MODER @ swap
+\  or GPIOC_MODER ! ;
 
 ( n -- ) ( wants MODER2 or MODER3 &c )
 
-: OUTPUT ( n -- )
+\ : xxOUTPUT ( n -- )
 
-  1 max 3 min
+\  1 max 3 min
 
   ( kludge don't want pin0 or > pin3 )
 
-  2 * 1
+\  2 * 1
 
-  swap <<
+\  swap <<
 
-  GPIOC_MODER! ;
+\  GPIOC_MODER! ;
 
-: DOUTPUT ( n -- )
+: OUTPUT ( n -- )
   C max F min
 
   2 * 1
@@ -143,8 +143,8 @@
 : GPIOD_ODR ( -- addr )
   GPIOD 14 + ;
 
-: GPIOC_ODR ( -- addr )
-  GPIOC 14 + ;
+\ : GPIOC_ODR ( -- addr )
+\  GPIOC 14 + ;
 
 ( explicit alias, )
 ( offset 0x14 8.4.6 p.283 )
@@ -152,8 +152,8 @@
 : GPIOD_BSRR ( -- addr )
   GPIOD 18 + ;
 
-: GPIOC_BSRR ( -- addr )
-  GPIOC 18 + ;
+\ : GPIOC_BSRR ( -- addr )
+\  GPIOC 18 + ;
 
 ( alias for )
 ( bit write access - see note 8.4.6 )
@@ -180,47 +180,52 @@
 : BRX 10 + 2^ ; ( n -- n )
 ( BR1 for PORTC_1 )
 
+\ most PORTC refs commented out, above this line.
+
 : GPIOD_BSRR!  ( n -- )
   GPIOD_BSRR ! ;
 
-: GPIOC_BSRR!  ( n -- )
+\ : GPIOC_BSRR!  ( n -- )
 ( generic - may setb or clr the port pin )
-  GPIOC_BSRR ! ;
+\  GPIOC_BSRR ! ;
 
-: led 1 ; ( -- n )
+\ : led 1 ; ( -- n )
 
 ( PORTC_1 )
 
 \ PORT D pins 12-15:
+\ green orange red blue C D E F
 : green C ; ( -- n )
 : orange D ; ( -- n )
 : red E ; ( -- n )
 : blue F ; ( -- n )
 
-: led2 2 ; ( -- n )
+: led blue ; \ alias
+
+\ : led2 2 ; ( -- n )
 ( PORTC_2 )
 
-: led3 3 ; ( -- n )
+\ : led3 3 ; ( -- n )
 ( PORTC_3 )
 
-: led!  GPIOC_BSRR! ; ( n -- )
+\ : led!  GPIOC_BSRR! ; ( n -- )
 
-: dled!  GPIOD_BSRR! ; ( n -- )
+: led!  GPIOD_BSRR! ; ( n -- )
 
 : on BSX led! ; ( n -- )
 
-: don BSX dled! ; ( n -- )
+\ : don BSX dled! ; ( n -- )
 
 : off BRX led! ; ( n -- )
 
-: doff BRX dled! ; ( n -- )
+\ : doff BRX dled! ; ( n -- )
 
 : setupled ( -- )
   RCC!
   led OUTPUT
-  1C DOUTPUT
+  \ 1C DOUTPUT \ research what is 1c
   led off
-  1C doff
+  \ 1C doff
   ;
 
 ( led GPIOC 14 + 2 )
@@ -255,11 +260,14 @@
 
   1 - ( normalize )
 
-  FOR led on
-  C don D don E don F don
+  FOR \ led on
+\ green orange red blue C D E F
+  \ C don D don E don F don
+  green on orange on red on blue on
   BDELAY
-  led off
-  C doff D doff E doff F doff
+  \ led off
+  \ C doff D doff E doff F doff
+  green off orange off red off blue off
   BDKDEL
 
   NEXT ;
@@ -295,7 +303,7 @@
 
 : vers space
   ." 0.0.0.1.t- "
-  ." Sat Jun 20 07:06:35 UTC 2020 "
+  ." Sat Jun 20 07:33:10 UTC 2020 "
 ;
 
 .( 0 ERASE_SECTOR )
