@@ -113,16 +113,9 @@
 \ 0x8000 for pin 7 by itself
 \ 0x2000 0x8000 or \ 0xA000 and there you have it. ;)
 
-: SET_GPIOC_MODER_PC6_PC7 ( -- )
+: SET_GPIOC_MODER_PC6_PC7_ALT_B ( -- )
   PC6,7_AF_MODE
   GPIOC_MODER! ;
-
-: GPIOC_AFRL GPIOC 20 + ; ( -- addr )
-\ USART6 needs AF8 not AF7
-
-: GPIOC_AFRL! ( n -- )
-  GPIOC_AFRL @ swap
-  or GPIOC_AFRL ! ;
 
 : AF_MODE ( n -- ) \ modeled on the OUTPUT word
   \ F000 \ mask for PC6/PC7
@@ -130,6 +123,17 @@
   2 * 1 + 1
   swap <<
   GPIOC_MODER! ;
+
+: SET_GPIOC_MODER_PC6_PC7_ALT_A ( -- )
+  6 AF_MODE
+  7 AF_MODE ;
+
+: GPIOC_AFRL GPIOC 20 + ; ( -- addr )
+\ USART6 needs AF8 not AF7
+
+: GPIOC_AFRL! ( n -- )
+  GPIOC_AFRL @ swap
+  or GPIOC_AFRL ! ;
 
 : OUTPUT ( n -- )
   C max F min
