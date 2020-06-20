@@ -2,10 +2,24 @@
 
 ## local studies by wa1tnr
 
-Target board:  Adafruit STM32F405 Express
+Primary Target board:  STM32F407VGT6 Discovery
+other Target board:  Adafruit STM32F405 Express
 
 
-### Tue Dec 17 22:00:36 UTC 2019
+### Sat Jun 20 13:09:01 UTC 2020
+
+Current effort:
+
+get a second USART working, on PC6/TX, PC7/RX pair.
+
+Intent is to send messages to a Lumex 96x8 display,
+while retaining full dialogue with the target, in
+the eForth environment.
+
+The remainder of this README.md file has not been
+reviewed for current relevance (June 20, 2020).
+
+# - - - -
 
 from: doc/notes.txt
 
