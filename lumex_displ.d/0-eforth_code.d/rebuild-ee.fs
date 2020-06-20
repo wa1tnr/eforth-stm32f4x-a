@@ -73,6 +73,7 @@
 
 : USART_CR1_TE 1 3 << ; \ 0x8 ( -- n )
 : USART_CR1_RE 1 2 << ; \ 0x4 ( -- n )
+
 : USART_CR1_SETUPS
   USART_CR1_UE \ -- 0x2000
   USART_CR1_TE or \ 0x2000 -- 0x2008
@@ -84,10 +85,11 @@
   USART_CR1_SETUPS or
   USART_CR1 ! ;
 
-\ : GPIOC ( -- addr ) 40020800 ;
+: GPIOC 40020800 ; ( -- addr )
 : GPIOD 40020C00 ; ( -- addr )
 ( 2.3 p.65 )
 
+: GPIOC_MODER GPIOC 0 + ; ( -- addr )
 : GPIOD_MODER GPIOD 0 + ; ( -- addr )
 ( explicit alias, )
 ( offset 0x00 8.4.1 p.281 )
@@ -97,9 +99,37 @@
 \ : MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
 \ : MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
 
-: GPIOD_MODER! ( want SED )
+: GPIOC_MODER! ( n -- )
+  GPIOC_MODER @
+  or GPIOC_MODER ! ;
+
+: GPIOD_MODER! ( n -- )
   GPIOD_MODER @ swap
   or GPIOD_MODER ! ;
+
+\ combi AF_MODE both pins in one go: 0xA000
+: PC6,7_AF_MODE A C << ; \ 0xA000
+\ 0x2000 for pin 6 by itself
+\ 0x8000 for pin 7 by itself
+\ 0x2000 0x8000 or \ 0xA000 and there you have it. ;)
+
+: SET_GPIOC_MODER_PC6_PC7 ( -- )
+  PC6,7_AF_MODE
+  GPIOC_MODER! ;
+
+: GPIOC_AFRL GPIOC 20 + ; ( -- addr )
+\ USART6 needs AF8 not AF7
+
+: GPIOC_AFRL! ( n -- )
+  GPIOC_AFRL @ swap
+  or GPIOC_AFRL ! ;
+
+: AF_MODE ( n -- ) \ modeled on the OUTPUT word
+  \ F000 \ mask for PC6/PC7
+  6 max 7 min \ restrict to pins 6 and 7
+  2 * 1 + 1
+  swap <<
+  GPIOC_MODER! ;
 
 : OUTPUT ( n -- )
   C max F min
