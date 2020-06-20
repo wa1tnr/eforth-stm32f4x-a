@@ -60,8 +60,10 @@
 \ try to break it a little by setting USART1EN, again.
   RCC_APB2ENR @
   USART1EN or
-  RCC_APB2ENR !
-;
+  RCC_APB2ENR ! ;
+
+: USART1 40011000 ; ( -- addr )
+: USART6 40011400 ; ( -- addr )
 
 \ : GPIOC ( -- addr ) 40020800 ;
 : GPIOD 40020C00 ; ( -- addr )
