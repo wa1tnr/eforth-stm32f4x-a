@@ -15,30 +15,25 @@
 : char CHAR ; : preset PRESET ; : dump DUMP ;
 : .s .S ; : see SEE ; : words WORDS ; : cold COLD ;
 
-: RCC ( -- addr )
-
-  40023800 ;
+: RCC 40023800 ; ( -- addr )
 
   ( page 65 )
 
-: RCC_AHB1ENR ( -- addr )
-
-  RCC 30 + ;
+: RCC_AHB1ENR RCC 30 + ; ( -- addr )
 
 : << ( n shifts -- )
 
   LSHIFT ;
 
-  ( 1 - FOR 2* NEXT )
+  ( RESCIND comment: 1 - FOR 2* NEXT )
 
 : GPIODEN 1 3 << ; ( -- n )
-( needs verif .. just guessed )
 
 : GPIOCEN 1 2 << ; ( -- n )
 
 ( 6.3.10 p.180 Rev 18 datasheet)
 
-: RCC! ( -- )
+: RCC! ( -- ) ( verif SED )
 
   RCC_AHB1ENR @
   GPIOCEN or
@@ -48,23 +43,15 @@
   GPIODEN or
   RCC_AHB1ENR ! ;
 
-: GPIOD
-( -- addr )
-  40020C00 ; ( 2.3 p.65 )
+: GPIOD 40020C00 ; ( -- addr )
+( 2.3 p.65 )
 
-: GPIOC
-( -- addr )
+: GPIOC ( -- addr ) 40020800 ;
+( 2.3 p.65 )
 
-  40020800 ; ( 2.3 p.65 )
+: GPIOD_MODER GPIOD 0 + ; ( -- addr )
 
-: GPIOD_MODER
-( -- addr )
-
-  GPIOD 0 + ;
-
-: GPIOC_MODER (  -- addr )
-
-  GPIOC 0 + ;
+: GPIOC_MODER GPIOC 0 + ; (  -- addr )
 
 ( explicit alias, )
 
