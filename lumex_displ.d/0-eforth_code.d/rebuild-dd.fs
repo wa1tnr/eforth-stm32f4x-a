@@ -53,10 +53,10 @@
 ( explicit alias, )
 ( offset 0x00 8.4.1 p.281 )
 
-: MODER1 1 2 << ; ( -- n ) ( 4 )
+\ : MODER1 1 2 << ; ( -- n ) ( 4 )
 ( 8.4.1 p.281 ) ( GPIOC_1 )
-: MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
-: MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
+\ : MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
+\ : MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
 
 : GPIOD_MODER! ( want SED )
   GPIOD_MODER @ swap
