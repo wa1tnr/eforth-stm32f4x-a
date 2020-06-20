@@ -65,6 +65,25 @@
 : USART1 40011000 ; ( -- addr )
 : USART6 40011400 ; ( -- addr )
 
+: USART_CR1 USART6 C + ; ( -- addr )
+( 30.6.4 p.1010 )
+
+: USART_CR1_UE 1 D << ; \ 0x2000 ( -- n )
+\ bit 13 ref page 1010
+
+: USART_CR1_TE 1 3 << ; \ 0x8 ( -- n )
+: USART_CR1_RE 1 2 << ; \ 0x4 ( -- n )
+: USART_CR1_SETUPS
+  USART_CR1_UE \ -- 0x2000
+  USART_CR1_TE or \ 0x2000 -- 0x2008
+  USART_CR1_RE or \ 0x2008 -- 0x200C
+;
+
+: SETUP_USART6_CR1
+  USART_CR1 @
+  USART_CR1_SETUPS or
+  USART_CR1 ! ;
+
 \ : GPIOC ( -- addr ) 40020800 ;
 : GPIOD 40020C00 ; ( -- addr )
 ( 2.3 p.65 )
@@ -157,7 +176,18 @@
 
 : LINIT ( -- n )
   FFFFFF9D setupled
-  3 BLINKS ;
+  3 BLINKS
+  7 FOR BDKDEL NEXT
+
+  \ lower payload
+  SETUP_USART6_CR1 \ tested GOOD - LINIT returns control to ok prompt as usual.
+
+  blue on
+  7 FOR BDKDEL NEXT
+  blue off
+  7 FOR BDKDEL NEXT
+  3 BLINKS
+;
 
 \ untested: key, type
 \ : base-ten 7 3 + base ! ;
