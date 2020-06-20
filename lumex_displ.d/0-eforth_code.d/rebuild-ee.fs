@@ -36,13 +36,21 @@
 
 : RCC_AHB1ENR RCC 30 + ; ( -- addr )
 
+: RCC_APB2ENR RCC 44 + ; ( -- addr )
+\ p. 187 6.3.14
+
 : GPIODEN 1 3 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
+
+\ PC6/TX PC7/RX
+: USART6EN 1 5 << ; ( -- n )
 
 : RCC! ( -- ) ( verif SED )
   RCC_AHB1ENR @
   GPIODEN or
-  RCC_AHB1ENR ! ;
+  RCC_AHB1ENR !
+  USART6EN
+  RCC_APB2ENR ! ; \ overwrite
 
 \ : GPIOC ( -- addr ) 40020800 ;
 : GPIOD 40020C00 ; ( -- addr )
