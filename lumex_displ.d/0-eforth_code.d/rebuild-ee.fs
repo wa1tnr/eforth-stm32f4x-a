@@ -128,12 +128,31 @@
   6 AF_MODE
   7 AF_MODE ;
 
+: AF_MASK_PC6_PC7 ( -- mask )
+  F 1C << F 18 << or ; \ 0xFF000000
+
+: PIN_MASK_PC6_PC7 7 1C << 7 18 << or ; \ want comment
+
+: AF8 3 + ; ( n -- n+3 )
+
 : GPIOC_AFRL GPIOC 20 + ; ( -- addr )
 \ USART6 needs AF8 not AF7
 
 : GPIOC_AFRL! ( n -- )
   GPIOC_AFRL @ swap
   or GPIOC_AFRL ! ;
+
+: AF8_BITS ( n -- ) \ as OUTPUT word is structured
+  6 max 7 min
+  4 *
+  AF8 1 swap << \ 0x88foo
+  \ GPIOC_AFRL!
+;
+
+: SET_AF8_BITS_GPIOC_AFRL
+  6 AF8_BITS
+  7 AF8_BITS or
+  GPIOC_AFRL! ;
 
 : OUTPUT ( n -- )
   C max F min
@@ -211,11 +230,15 @@
 : LINIT ( -- n )
   FFFFFF9D setupled
   3 BLINKS
-  7 FOR BDKDEL NEXT
+  \ 7 FOR BDKDEL NEXT
 
   \ lower payload
   SETUP_USART6_CR1 \ tested GOOD - LINIT returns control to ok prompt as usual.
+  SET_GPIOC_MODER_PC6_PC7_ALT_A
+  SET_AF8_BITS_GPIOC_AFRL
 
+  7 FOR BDKDEL NEXT
+  7 FOR BDKDEL NEXT
   blue on
   7 FOR BDKDEL NEXT
   blue off
@@ -245,8 +268,8 @@
   ;
 
 : vers space
-  ." 0.0.0.1.w- "
-  ." Sat Jun 20 14:20:35 UTC 2020 "
+  ." 0.0.0.1.x- "
+  ." Sat Jun 20 15:57:29 UTC 2020 "
 ; \ green orange red blue
  ( trial run: ) ( LINIT ) ( green OUTPUT )
  ( green on ) ( green off )
