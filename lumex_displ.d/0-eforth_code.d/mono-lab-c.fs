@@ -1,5 +1,11 @@
 \ mono-lab-c.fs
-\ ." Tue Jun 23 15:22:16 UTC 2020 "
+\ ." Tue Jun 23 18:09:07 UTC 2020 "
+
+\ : signon go ; \ alias
+\ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
+
+\ That's basically how you automatically start an
+\ arbitrary forth word.
 
 ( HEX ) ( COLD )
 
@@ -363,8 +369,8 @@
 41 outc 42 outc 43 outc 44 outc 20 outc
 41 outc 42 outc 43 outc 44 outc 20 outc
 ;
-: vers space ." 0.0.0.4.e- "
-  ." Tue Jun 23 15:22:16 UTC 2020 "
+: vers space ." 0.0.0.5.a- "
+  ." Tue Jun 23 18:09:07 UTC 2020 "
 ;
 : gogg
   led OUTPUT
@@ -391,8 +397,8 @@ hex
   cr cr cr vers cr cr ;
 
 \ untested: key, type
-\ : base-ten 7 3 + base ! ;
-\ : base-sixteen 7 7 2 + + base ! ;
+: base-ten 7 3 + base ! ;
+: base-sixteen 7 7 2 + + base ! ;
 
 : go
   vers crufta   44 delay
@@ -404,3 +410,15 @@ hex
 .( 0 ERASE_SECTOR ) ( TURNKEY )
 
  ( - - - - - )
+
+\ : signon ( -- )
+
+  led OUTPUT 2 blinks
+  SETUP_USART6 sent atef=(1) sent
+  hash_symb outc hash_symb outc hash_symb outc
+  sent
+  clearit sent
+  20 outc 20 outc 20 outc 20 outc 20 outc
+  65 outc 46 outc 6F outc 72 outc 74 outc
+  68 outc SET_USART1_CR1_UE HI
+
