@@ -1,4 +1,8 @@
-\ ." Tue Jun 23 09:22:44 UTC 2020 "
+\ ." Tue Jun 23 10:50:22 UTC 2020 "
+
+\  Not very sure that TC gets validated;
+\  may be writing blind (without feedback
+\ from USART6_SR bit 6: TC, to guide).  
 
 \  Working program - talks to Lumex 96x8 successfully.
 \  Bugs very much expected - initial effort complete.
@@ -204,9 +208,10 @@
 ;
 
 : USART6_SR_TC?
-  TC NOT \ mask
-  USART6_SR @ NOT
-  AND \ stopped abruptly to solve this word's definition
+  USART6_SR @ NOT 1 blinks
+  TC AND \ stopped abruptly to solve this word's definition
+  0 = IF -1 EXIT THEN
+  0
 ;
 
 : boutsent?  BEGIN USART6_SR_TXE?  2B EMIT UNTIL -1 ;
@@ -223,16 +228,13 @@
     \ NOT
   UNTIL
   -1
-  ." outsent_TC? " space
+  \ ." outsent_TC? " space
 ;
 
-: outc ( n -- ) \ functions as-is.  Need to carefully look at outsent_TC? for factual information.
-  FF
-  AND
-  USART6_DR !
-  outsent_TC? IF ." paw " space THEN
-  ." patch " space
-;
+: outc ( n -- ) \ functions as-is.
+  FF AND USART6_DR !
+  outsent_TC? IF EXIT THEN
+  ." ouch " space ;
 
 : SETUP_USART6 \ main entry into Lumex support
   SIO_RCC!
@@ -243,9 +245,9 @@
   SETUP_USART6_CR1_TE \ setup USART6_CR1 TE and RE - UE done previously
 ;
 
-
 : goneff
   SETUP_USART6
+  \ ." USART6  was setup in goneff. " cr
   \ output 12 hash symbols per Ting
   hash_symb outc hash_symb outc hash_symb outc hash_symb outc
   hash_symb outc hash_symb outc hash_symb outc hash_symb outc
@@ -265,25 +267,42 @@
 
 \ ++++++++++++++++++++++++++++++++++++
 \ 123456789012345678901234567890123456 36 total
-: goff
+
+\ REDEFINE intended:
+: go
   led OUTPUT
   2 blinks 43 delay
-  UNSET_USART1_CR1_UE
-  SET_USART1_CR1_UE
-
+  \ UNSET_USART1_CR1_UE
   goneff
+  \ SET_USART1_CR1_UE
 
   7 blinks 33 delay
   30 spaces 2B emit 2B emit 2B emit CR
 ;
 
-: versff space ." 0.0.0.4.a- "
-  ." Tue Jun 23 09:22:44 UTC 2020 "
+\ REDEFINE intended:
+: vers space ." 0.0.0.4.c- "
+  ." Tue Jun 23 10:50:22 UTC 2020 "
 ; \ green orange red blue
  ( trial run: ) ( LINIT ) ( green OUTPUT )
  ( green on ) ( green off )
  ( 5 blinks ) ( led on ldelay led off )
 
 .( 0 ERASE_SECTOR ) ( TURNKEY )
+
+: crufta
+vers
+cr
+led OUTPUT
+2 blinks 43 delay
+SETUP_USART6
+." setup of usart6 complete. " cr
+hex
+41 outc
+42 outc
+43 outc
+44 outc
+45 outc
+;
 
  ( - - - - - )
