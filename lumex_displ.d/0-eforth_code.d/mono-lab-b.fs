@@ -112,10 +112,6 @@
   3 blinks
 ;
 
-\ untested: key, type
-\ : base-ten 7 3 + base ! ;
-\ : base-sixteen 7 7 2 + + base ! ;
-
 : nullemit 0 emit ;
 : readkeyc
   BEGIN
@@ -138,13 +134,6 @@
 : carr_ret   D ;
 
  ( - - - - - )
-
-\  Not very sure that TC gets validated;
-\  may be writing blind (without feedback
-\  from USART6_SR bit 6: TC, to guide).  
-
-\  Working program - talks to Lumex 96x8 successfully.
-\  Bugs very much expected - initial effort complete.
 
 : GPIOCEN 1 2 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
@@ -193,47 +182,31 @@
   USART1_CR1_RE or \ 0x2008 -- 0x200C
 ;
 
-\ 0x23 hash symbol, #35 not seen so not sure what Ting is saying.
 : USART6_BRR USART6 8 + ; ( -- addr ) \ #8
-\ Ting had USART_BR not USART_BRR not sure why
-\ 0x8B  or #139
 
 : SET_USART6_BRR ( -- )
-  \ USART6_BRR @
-  8B \ or
-  USART6_BRR !
-;
+  8B USART6_BRR ! ;
 
 : SETUP_USART6_CR1
   USART6_CR1 @
   USART6_CR1_UE or
-  USART6_CR1 ! \ old end of word
-;
+  USART6_CR1 ! ;
 
 : SETUP_USART6_CR1_TE
   USART6_CR1 @
   USART6_CR1_TE or \ 0x00 -- 0x08
   USART6_CR1_RE or \ 0x08 -- 0x0C
-  USART6_CR1 !
-;
-
-  \ USART6_CR1_UE \ -- 0x2000
-  \ USART6_CR1_TE or \ 0x2000 -- 0x2008
-  \ USART6_CR1_RE or \ 0x2008 -- 0x200C
+  USART6_CR1 ! ;
 
 : UNSET_USART1_CR1_UE
   USART1_CR1 @
   USART1_CR1_SETUPS or
   USART1_CR1_UE \ 0x2000 ( -- n )
-  not and USART1_CR1 !
-  \ FFFF0FFF
-  \ FFFFDFFF and \ mask bit 13 to unset it
-;
+  not and USART1_CR1 ! ;
 
 : SET_USART1_CR1_UE \ SETUP_USART1_CR1
   USART1_CR1 @
   USART1_CR1_SETUPS or
-  \ USART1_CR1_UE \ 0x2000 ( -- n )
   USART1_CR1 !
 ;
 
@@ -241,13 +214,7 @@
 ( 2.3 p.65 )
 
 : GPIOC_MODER GPIOC 0 + ; ( -- addr )
-( explicit alias, )
 ( offset 0x00 8.4.1 p.281 )
-
-\ : MODER1 1 2 << ; ( -- n ) ( 4 )
-( 8.4.1 p.281 ) ( GPIOC_1 )
-\ : MODER2 1 4 << ; ( -- n ) ( 16 aka 0x10 )
-\ : MODER3 1 6 << ; ( -- n ) ( 64 aka 0x40 )
 
 : GPIOC_MODER! ( n -- )
   GPIOC_MODER @
@@ -282,17 +249,16 @@
 : nAF8 3 + ; ( n -- n+3 )
 
 : GPIOC_AFRL GPIOC 20 + ; ( -- addr )
-\ USART6 needs AF8 not AF7
 
 : GPIOC_AFRL! ( n -- )
   GPIOC_AFRL @ swap
   or GPIOC_AFRL ! ;
 
+\ USART6 needs AF8 not AF7
 : AF8_BITS ( n -- ) \ as OUTPUT word is structured
   6 max 7 min
   4 *
   nAF8 1 swap << \ 0x88foo
-  \ GPIOC_AFRL!
 ;
 
 : SET_AF8_BITS_GPIOC_AFRL
@@ -304,17 +270,7 @@
 : USART6_DR USART6 4 + ; ( -- addr )
 
 : ralfc 15 BEGIN 1 - DUP 0 = 2B EMIT UNTIL ;
-\ ralfc+++++++++++++++++++++
-\ ralfc+++++++++++++++++++++
-\      123456789012345678901
-\ so this 'ralfc' word emits 21 copies of the plus sign,
-\ even factoring it a '1 -' right at the top of the loop.
-
-\ when UNTIL is encountered, it looks for a BOOL and acts on that.
-\ MAYBE.
-
 : USART6_SR USART6 0 + ; ( -- addr ) \ explicit 0x0
-
 : TXE 80 ; \ USART_SR
 : TC 40 ; \ USART_SR
 
@@ -322,40 +278,24 @@
   TXE NOT
   USART6_SR @
   AND 0 = IF -1 EXIT THEN
-  0
-;
+  0 ;
 
 : OLD_A_USART6_SR_TC?
-  TC NOT
-  USART6_SR @
+  TC NOT USART6_SR @
   AND 0 = IF -1 EXIT THEN
-  0
-;
-
+  0 ;
 : USART6_SR_TC?
   USART6_SR @ NOT
   TC AND \ stopped abruptly to solve this word's definition
   0 = IF -1 EXIT THEN
-  0
-;
+  0 ;
 
-: boutsent?  BEGIN USART6_SR_TXE?  2B EMIT UNTIL -1 ;
-
+: boutsent?  BEGIN USART6_SR_TXE?
+  2B EMIT UNTIL -1 ;
 : outsent_TC?
   BEGIN
-    \ USART6_SR_TXE? is a status register fetch, with
-    \  artificial true or false results, determined
-    \  by forth, locally.
     USART6_SR_TC?
-    \ DROP 0 NOT \ force very first iteration to TRUE
-    \ 2B EMIT
-    \ correct, but never returns:
-    \ NOT
-  UNTIL
-   \ 1 blinks
-  -1
-  \ ." outsent_TC? " space
-;
+  UNTIL -1 ;
 
 : outc ( n -- ) \ functions as-is.
   FF AND USART6_DR !  outsent_TC? IF EXIT THEN
@@ -369,7 +309,6 @@
   SET_USART6_BRR \ setup USART6 baud rate mantissa and fraction
   SETUP_USART6_CR1_TE \ setup USART6_CR1 TE and RE - UE done previously
 ;
-
 : goneff
   SETUP_USART6
   \ output 12 hash symbols per Ting
@@ -387,67 +326,54 @@
 : s_atd1=()
  29 28 3D 31   64 74 61
  7 1 - FOR outc NEXT
- line_end
-;
-
+ line_end ;
 : atef=(1)
  29 31 28 3D   66 65 74 61
  outc outc outc outc outc outc outc outc
  line_end
- s_atd1=()
-;
-
+ s_atd1=() ;
 : at80=(0,0,4)
  29 34 2C 30   2C 30 28 3D   30 38 74 61
  outc outc outc outc outc outc outc outc
  outc outc outc outc
  line_end
- s_atd1=()
-;
-
+ s_atd1=() ;
 : at80=(0,1,0)
  29 30 2C 31   2C 30 28 3D   30 38 74 61
  C 1 - FOR outc NEXT
  line_end
- s_atd1=()
-;
-
+ s_atd1=() ;
 : at80=(0,2,C)
  29 43 2C 32   2C 30 28 3D   30 38 74 61
  C 1 - FOR outc NEXT
  line_end
- s_atd1=()
-;
-
-: sent 14 delay ;
+ s_atd1=() ;
+\ : sent 14 delay ;
+\ : sent 21 delay ; \ more delay to,
+: sent 14 delay ; \ more delay to,
+\  give complex Lumex 'at' commands
+\  additional time, to complete
 
 : said
   atef=(1) sent
   at80=(0,0,4) sent
   at80=(0,1,0) sent
-  at80=(0,2,C) sent
-;
-
+  at80=(0,2,C) sent ;
 : kayle
 41 outc 42 outc 43 outc 44 outc 20 outc
 41 outc 42 outc 43 outc 44 outc 20 outc
 ;
-
 : vers space ." 0.0.0.4.d- "
   ." Tue Jun 23 14:33:03 UTC 2020 "
 ;
-
 : gogg
   led OUTPUT
   2 blinks 43 delay
   goneff
   7 blinks 33 delay
-  30 spaces 2B emit 2B emit 2B emit CR
-;
-
-: clearit
-  16 FOR 20 outc NEXT ;
-
+  30 spaces
+  2B emit 2B emit 2B emit CR ;
+: clearit 16 FOR 20 outc NEXT ;
 : crufta
 vers
 cr
@@ -457,14 +383,22 @@ SETUP_USART6
 ." setup of usart6 complete. " cr
 hex
 \ this sent 'ABCDE' five concurrent chars to Lumex:
-41 outc 42 outc 43 outc 44 outc 45 outc
-;
+41 outc 42 outc 43 outc 44 outc 45 outc ;
 
 : gohh clearit vers crufta gogg kayle said ;
+: goii vers said ldelay gohh ;
+: gojj vers crufta said gogg kayle
+  cr cr cr vers cr cr ;
 
-: oldgo vers said ldelay gohh ;
+\ untested: key, type
+\ : base-ten 7 3 + base ! ;
+\ : base-sixteen 7 7 2 + + base ! ;
 
-: go vers crufta said gogg kayle
+: go
+  vers crufta   44 delay
+  said          44 delay
+  gogg          44 delay
+  kayle
   cr cr cr vers cr cr ;
 
 .( 0 ERASE_SECTOR ) ( TURNKEY )
