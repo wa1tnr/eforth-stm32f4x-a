@@ -208,7 +208,7 @@
 ;
 
 : USART6_SR_TC?
-  USART6_SR @ NOT 1 blinks
+  USART6_SR @ NOT
   TC AND \ stopped abruptly to solve this word's definition
   0 = IF -1 EXIT THEN
   0
@@ -227,13 +227,13 @@
     \ correct, but never returns:
     \ NOT
   UNTIL
+   \ 1 blinks
   -1
   \ ." outsent_TC? " space
 ;
 
 : outc ( n -- ) \ functions as-is.
-  FF AND USART6_DR !
-  outsent_TC? IF EXIT THEN
+  FF AND USART6_DR !  outsent_TC? IF EXIT THEN
   ." ouch " space ;
 
 : SETUP_USART6 \ main entry into Lumex support
@@ -250,16 +250,10 @@
   \ ." USART6  was setup in goneff. " cr
   \ output 12 hash symbols per Ting
   hash_symb outc hash_symb outc hash_symb outc hash_symb outc
-  hash_symb outc hash_symb outc hash_symb outc hash_symb outc
-  hash_symb outc hash_symb outc hash_symb outc hash_symb outc
   \ first real data output:
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-  plus_sign outc carr_ret outc plus_sign outc carr_ret outc
-
+  plus_sign outc plus_sign outc plus_sign outc carr_ret outc
+  5 blinks 33 delay
+  hash_symb outc hash_symb outc hash_symb outc carr_ret outc
   5 blinks 33 delay
   \ SET_USART1_CR1_UE \ absolutely required following UNSET_USART1_CR1_UE
                     \ or USART1, the command line interpreter, never returns.
@@ -298,11 +292,12 @@ led OUTPUT
 SETUP_USART6
 ." setup of usart6 complete. " cr
 hex
-41 outc
-42 outc
-43 outc
-44 outc
-45 outc
+\ this sent 'ABCDE' five concurrent chars to Lumex:
+41 outc 42 outc 43 outc 44 outc 45 outc
+;
+
+: c0ffee-sign
+
 ;
 
  ( - - - - - )
