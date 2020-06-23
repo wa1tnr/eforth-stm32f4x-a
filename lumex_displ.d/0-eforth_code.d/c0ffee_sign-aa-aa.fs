@@ -1,25 +1,51 @@
 \ : c0ffee-sign
-: cbsb
- \ atef=(1)
- 0A 29 31 28     3D 66 65 74     61
- 9 1 - FOR outc NEXT
-
+: line_end 0A outc ;
+: s_atd1=()
  \ atd1=()
- 0A 29 28 3D     31 64 74 61
- 8 1 - FOR outc NEXT
+ 29 28 3D 31   64 74 61
+ 7 1 - FOR outc NEXT
+ line_end
+;
 
- \ at80=(0,0,4)
- 0A 29 34 2C   30 2C 30 28   3D 30 38 74  61
- D 1 - FOR outc NEXT
+: atef=(1)
+ 29 31 28 3D   66 65 74 61
+ outc outc outc outc outc outc outc outc
+ line_end
+ \ 8 1 - FOR outc NEXT
+ s_atd1=()
+;
+
+: at80=(0,0,4)
+ 29 34 2C 30   2C 30 28 3D   30 38 74 61
+ outc outc outc outc outc outc outc outc
+ outc outc outc outc
+ line_end
+ \ C 1 - FOR outc NEXT
+ s_atd1=()
+;
+
+: at80=(0,1,0)
+ 29 30 2C 31   2C 30 28 3D   30 38 74 61
+ C 1 - FOR outc NEXT
+ line_end
+ s_atd1=()
+;
+
+: at80=(0,2,C)
+ 29 43 2C 32   2C 30 28 3D   30 38 74 61
+ C 1 - FOR outc NEXT
+ line_end
+ s_atd1=()
+;
+
+: sent 14 delay ;
+
+: said
+  atef=(1) sent
+  at80=(0,0,4) sent
+  at80=(0,1,0) sent
+  at80=(0,2,C) sent
+\ s_atd1=()
 ;
 
  ( - - - - - )
-
-\ c0ffee sign hexdump:
-
-\ 00000000  61 74 65 66 3d 28 31 29  0a 61 74 64 31 3d 28 29  |atef=(1).atd1=()|
-\ 00000010  0a 61 74 38 30 3d 28 30  2c 30 2c 34 29 0a 61 74  |.at80=(0,0,4).at|
-\ 00000020  64 31 3d 28 29 0a 61 74  38 30 3d 28 30 2c 31 2c  |d1=().at80=(0,1,|
-\ 00000030  30 29 0a 61 74 64 31 3d  28 29 0a 61 74 38 30 3d  |0).atd1=().at80=|
-\ 00000040  28 30 2c 32 2c 43 29 0a  61 74 64 31 3d 28 29 0a  |(0,2,C).atd1=().|
-\ 00000050  61 74 38 30 3d 28 30 2c  33 2c 30 29 0a 61 74 64  |at80=(0,3,0).atd|
