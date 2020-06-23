@@ -462,7 +462,10 @@ hex
 
 : gohh clearit vers crufta gogg kayle said ;
 
-: go vers said ldelay gohh ;
+: oldgo vers said ldelay gohh ;
+
+: go vers crufta said gogg kayle
+  cr cr cr vers cr cr ;
 
 .( 0 ERASE_SECTOR ) ( TURNKEY )
 
