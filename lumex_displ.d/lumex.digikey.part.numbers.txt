@@ -1,0 +1,14 @@
+
+Lumex LDM-968-P3-UR  on the upper top of datasheet.
+
+67-2325-ND
+LDM-968-P3-UR
+96X8 RGB LED DOT MTRX, 3MM PITCH
+
+Dot Matrix Display Module 96 x 8
+    Red, Green, Blue (RGB)
+    ASCII
+    11.34" L x 1.34" W x 0.50" H (288.00mm x 34.00mm x 12.79mm)
+
+ [ https://www.digikey.com/short/zh1bqw ]
+
