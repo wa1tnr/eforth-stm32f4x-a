@@ -1,6 +1,139 @@
-\ ." Wed Jun 24 10:22:19 UTC 2020 "
+\ ." Wed Jun 24 18:44:17 UTC 2020 "
+
 \ scratch pad forth source - no organization
 \ some word defs repeated - ignore
+
+\ progress: at81 positioning helps paint
+\ multi-color message blocks
+
+\ [ CHAR J ] LITERAL
+
+\ works fine:
+: signal-james
+
+  [ CHAR s ] LITERAL
+  [ CHAR e ] LITERAL
+  [ CHAR m ] LITERAL
+  [ CHAR a ] LITERAL
+  [ CHAR J ] LITERAL
+
+  5 1 - FOR outc NEXT ;
+
+\ atef=(4) is nice mid green
+: msg_koylijj $" at81=(0,0,fine brew) "   DUP C@ 1 - DUP . ;
+: line_end 0A outc ;
+: msg_koyligg $" at81=(0,10,C0FFEE) "          DUP C@ 1 - DUP . ;
+: msg_koyliff $" fine by me. "   DUP C@ 1 - DUP . ;
+: msg_c0ffee-green $" atef=(4) " DUP C@ 1 - DUP . ;
+: msg_c0ffee-blue  $" atef=(1) " DUP C@ 1 - DUP . ;
+: msg_dlocator $" at80=(0,B,x) " DUP C@ 1 - DUP . ;
+: intermsg 1 - FOR 1 + dup C@ outc NEXT drop ;
+: msg_refresh  $" atd1=() "
+  21 delay DUP C@ 1 - DUP . intermsg ;
+: idelay 21 delay ;
+: fifmsg msg_c0ffee-blue intermsg idelay
+  msg_koyligg intermsg idelay msg_refresh ;
+: sendmsg clearit idelay msg_c0ffee-green intermsg
+  idelay msg_koylijj intermsg idelay msg_refresh idelay
+  27 delay fifmsg 22 delay msg_refresh ;
+
+\ - - -  current work is above this line - - -
+
+
+\ - - -  all below this line somewhat outdated.  - - -
+
+\ 42 kind of stark white a bit of a tinge
+: msg_c0ffee-a $" atef=(42) " DUP C@ 1 - DUP . ;
+: sendmsg clearit 25 delay msg_c0ffee-a
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ;
+
+
+\ sendmsg F+++++++++++++++ ok
+\          123456789abcdef
+: msg_koyliee $" fine by me C0ff " DUP C@ 1 - DUP . ;
+: sendmsg clearit 25 delay msg_koyliee
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ;
+
+
+\ seems to be counting by itself, now:
+: msg_koylidd $" fine by me. " DUP C@ 1 - DUP . ;
+: sendmsg clearit 25 delay msg_koylidd
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ;
+
+
+: msg_koylicc $" fine by me. " DUP B ;
+: sendmsg clearit 25 delay msg_koylicc
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ;
+
+\ TODO: $" may be counted somehow.
+
+: msg_koyliaa $" fine by me. " B ;
+: sendmsg clearit 25 delay msg_koyliaa
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ;
+
+\ log follows good forth words, below
+cold
+stm32eForth v7.20
+: msg_koyliaa $" fine by me. " B ; ok
+: sendmsg clearit 25 delay msg_koyliaa
+  1 - FOR 1 + dup C@ outc 2B EMIT NEXT drop ; ok
+.s   ok
+decimal -99 hex ok
+.s  FFFFFF9D  ok
+sendmsg+++++++++++ ok
+.s  FFFFFF9D  ok
+
+
+
+
+
+
+: sdely 1 drop 1 drop 1 drop ;
+
+\            123456789AB
+
+\ koyliaa+++++++++++ ok
+\        123456789AB
+\ .s  FFFFFF9D  ok
+
+
+
+
+: koylexx $" fine by me " 10 1 - FOR 1 + dup C@ outc sdely NEXT ;
+
+: koylepp $" fine by me. " 11 1 - FOR 1 + dup C@ outc NEXT ;
+
+\ really close, very good indeed:
+: koylemm $" fine by me " 9 1 - FOR 1 + dup C@ EMIT NEXT ;
+
+\ okay not great:
+: koylekk $" fine by me " 9 1 - FOR 1 + dup EMIT NEXT ;
+
+: koylejj $" fine by me " 9 1 - FOR 1 + dup . NEXT ;
+
+: koylehh $" fine by me " 9 1 - FOR over 1 + dup . NEXT ;
+
+
+: koyleff $" fine by me " 1 - 9 1 - FOR 1 + dup @ NEXT ;
+
+: koyledd $" fine by me " 1 - 9 1 - FOR 1 + dup C@ NEXT ;
+: koyleaa ." here to go " PAD ;
+
+\ eForth p.79 EXTRACT
+\ 1421 10 EXTRACT EMIT 10 EXTRACT EMIT 10 EXTRACT EMIT 10 EXTRACT EMIT1241 ok
+
+: sigg
+
+  [ CHAR s ] LITERAL
+  [ CHAR e ] LITERAL
+  [ CHAR m ] LITERAL
+  [ CHAR a ] LITERAL
+  [ CHAR J ] LITERAL
+
+  5 1 - FOR outc NEXT
+;
+
+
 
 \ : c0ffee-sign
 : line_end 0A outc ;
