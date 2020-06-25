@@ -8,6 +8,21 @@ for the Lumex 96x8 display (found the box and
 checked the part number and added a file to describe
 those facts; see recent commits).
 
+Verified that Adafruit target D5 D6 are mapped to
+the Lumex, so the code is apt to run, unmodified,
+on that target (this is untested; current platform
+is STM32F407 Discovery).
+
+PC6/TX,PC7/RX is the working pair (they're very
+close to the edge of the Discovery, so were easy
+to wire to the Lumex display).
+
+PORTC is also used for D8 and D13 on Adafruit target,
+and support for those pins should be prioritized
+(to make sure registers set for the Lumex USART6
+connection on PC6/PC7 do not clobber PC0 (D8) and
+PC1 (D13).
+
 Mon Jun 15 18:02:05 UTC 2020
 
 First instance: 15 June 2020
