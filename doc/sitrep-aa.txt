@@ -1,5 +1,13 @@
 sitrep-aa.txt
 
+Thu Jun 25 07:45:50 UTC 2020
+
+Situation is stable - easy to upload and turnkey,
+a working system, with reasonable demo support
+for the Lumex 96x8 display (found the box and
+checked the part number and added a file to describe
+those facts; see recent commits).
+
 Mon Jun 15 18:02:05 UTC 2020
 
 First instance: 15 June 2020
