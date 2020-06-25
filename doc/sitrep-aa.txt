@@ -23,6 +23,38 @@ and support for those pins should be prioritized
 connection on PC6/PC7 do not clobber PC0 (D8) and
 PC1 (D13).
 
+'monolab' style naming is meant as a monolithic
+upload (single-shot programming) laboratory - a
+sandbox to use most of the developed tools.
+
+Most dev occurs in practice, in smaller segments
+(see the 'all code' series) which are uploaded
+piecemeal, then TURNKEY'd to lock in the changes.
+
+The last one or two files of this grouping are
+generally reused and not TURNKEY'd as they are
+not as stable.
+
+ - - -
+
+These recent commits to this (very) file are from
+recollection; no fact checking so some errors
+in remembering what files got named for what
+purpose, may be in error. ;)
+
+ - - -
+
+THE BIG mistake earlier was AF8, which is also
+a valid hexadecimal number!  The error was not
+spotted, and much work was done assuming the
+code itself was flawed.
+
+In fact, once AF8 was spotted (and renamed to
+'nAF8' for a quick test) .. it followed very
+quickly, a working USART6 conversation with the
+Lumex display (which was entirely unresponsive,
+prior to finding this bug).
+
 Mon Jun 15 18:02:05 UTC 2020
 
 First instance: 15 June 2020
