@@ -46,6 +46,29 @@
 : inchar nop ;
 : incol  nop ;
 
+: _twocol
+  incol outc incol outc 2C outc \ two places for column as with 10 decimal
+  inchar outc
+  29 outc line_end s_atd1=() ;
+
+: at80= ( char col0 col10 -- )
+  61 outc 74 outc 38 outc 30 outc \ at80
+  3D outc 28 outc \ at80=(
+  30 outc 2C outc \ at80=(0,
+  _twocol
+;
+\ sample run
+\ clearit ok
+\ : dy 8 delay ; ok
+\ ch0 chA at80 dy  ch1 chB at80 dy  ch2 chC at80 ok
+\ ch3 chD at80 dy  ch4 chE at80 dy  ch5 chF at80 ok
+\ ch6 chG at80 dy  ch7 chH at80 dy ok
+\ ch8 chI at80 dy  ch9 chJ at80 ok
+\ chK ch0 ch1 at80=    dy   chL ch1 ch1 at80=   dy   chM ch2 ch1 at80= ok
+\ chN ch3 ch1 at80=  dy  chO ch4 ch1 at80=  dy  chP ch5 ch1 at80= ok
+
+\ display 'ABCDEFGHIJKLMNOP'
+
 : at80 ( col char -- )
  swap
  \ 'at80'                of 'at80=(0,col,char)'
