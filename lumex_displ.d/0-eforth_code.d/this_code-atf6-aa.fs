@@ -1,5 +1,70 @@
+\ Fri Jul  3 14:05:26 UTC 2020
+
 \ atf6=() hex mode
 \ 00000000  61 74 66 36 3D 28 29 0A                           |atf6=().|
+
+\ : koylexx $" fine by me " 10 1 - FOR 1 + dup C@ outc sdely NEXT ;
+
+: qtesta $" fine_by_me_too " E 1 - FOR 1 + dup C@ emit NEXT ;
+: qtestp $" thats_fine_for_you " E 1 - FOR 1 + dup C@ emit NEXT ;
+: qtestq $" thats_fine_for_them " dup C@ 1 - FOR 1 + dup C@ emit NEXT ;
+: qtestr $" thats_fine_for_them " dup dup C@ 1 - FOR 1 + dup C@ emit NEXT ;
+
+: qtests $" thats_fine_for_them " dup dup
+  C@ 1 - FOR 1 + dup C@ emit NEXT drop drop ;
+
+: qtestt $" thats_fine_for_them " dup dup C@ 1 - FOR
+  1 + dup C@ emit NEXT 1B emit drop drop ;
+
+: qtestu $" thats_fine_for_them " dup dup C@ 1 - FOR
+  1 + dup C@ emit NEXT 2B emit 2B emit 2B emit drop drop ;
+
+: qtestv $" thats_fine_for_them " dup dup C@ 2 - FOR
+  1 + dup C@ emit NEXT 2B emit 2B emit 2B emit drop drop ;
+
+: qtestw $" thats_fine_for_them"  dup dup C@ 1 - FOR
+  1 + dup C@ emit NEXT 2B emit 2B emit 2B emit drop drop ;
+
+\ qtestw shows that the quote delimiter ending the string,
+\ can be flush against the string.  If it is not, the
+\ padding counts towards the composition of the string.
+
+\ the two dup's preserve the string's address (which is
+\ where count of the strings elements is) and the second
+\ dup of this pair gets incremented, such that it points
+\ near (or at) the end of the string, when the for/next
+\ loop finishes iterating.
+
+\ thus dup dup .. statements .. drop drop  is a good way
+\ to preserve all available intel, but hide it from the
+\ stack effect (by dropping the two addresses, just before
+\ exiting this word).
+
+\ does not look like the for/next loop's internal counter
+\ is referenced in any way; the '1 +' idiom increments
+\ the end-user supplied address (the second 'dup') inside
+\ this for/next loop.  The 'dup' immediately following
+\ gives a fresh copy of the incremented address (user
+\ supplied loop memory-index address) and the C@ destroys
+\ that copy (returning just the value of the byte stored
+\ at that address).
+
+\ You could prove this by not incrementing inside the
+\ for/next loop: it should terminate at the correct
+\ length, but would just echo the first char over and
+\ over, to the same length as the string:
+
+
+: qtestxdummy $" thats_fine_for_them"  dup dup
+  C@ 1 - FOR
+  1 + dup C@ emit NEXT 2B emit 2B emit 2B emit drop drop ;
+
+: qtestxproof $" thats_fine_for_them"  dup dup
+  C@ 1 -
+  swap 1 + swap
+         FOR
+      dup C@ emit NEXT 2B emit 2B emit 2B emit drop drop ;
+
 
 : atf6_ ( -- )
   61 outc 74 outc 66 outc 36 outc
@@ -20,6 +85,7 @@
   F6 outc 1 outc ;
 
 : hexmode atf6-0 ;
+: hayes nop ;
 
 : testhx77 ( -- )
   \ atf6 dy - retains mode so do this separately
