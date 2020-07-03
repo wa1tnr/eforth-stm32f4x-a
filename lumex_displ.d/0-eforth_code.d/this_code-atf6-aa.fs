@@ -33,7 +33,7 @@
 
 : fabb \ enable HEX commands
   61 outc 74 outc 66 outc 36 outc 3D outc 28 outc 30 outc
-  29 outc 0A outc ;
+  29 outc ;
 : foxx \ re-enable AT commands
 \ F6 outc 1 outc 0A outc ;
   F6 outc 1 outc ;
@@ -48,6 +48,76 @@
   80 outc 0 outc 5 outc 35 outc dy
   foxx dy
 ;
+
+: msgbb
+  [ char ! ] LITERAL
+  [ char y ] LITERAL
+  [ char l ] LITERAL
+  [ char l ] LITERAL
+  [ char o ] LITERAL
+  [ char P ] LITERAL
+  BL
+  [ char p ] LITERAL
+  [ char u ] LITERAL
+  BL
+  [ char e ] LITERAL
+  [ char k ] LITERAL
+  [ char a ] LITERAL
+  [ char W ] LITERAL
+;
+
+: textcc-works \ doesn't crash
+  msgbb
+  fabb
+  81 outc 0 outc 0 outc
+  outc outc outc outc
+  outc outc outc outc
+  outc outc outc outc
+  0A outc
+  foxx
+;
+
+: textcc
+  msgbb
+  fabb
+  81 outc 0 outc 0 outc
+  outc outc outc outc
+  outc outc outc outc
+  outc outc outc outc
+  0 outc \ null terminated string
+  \ 0A outc
+  dy dy
+  D1 outc
+  dy dy
+  foxx
+;
+
+: drwsqr ( -- )
+  fabb dy 93 outc 48 outc 1 outc 4 outc 2 outc dy foxx dy ;
+
+: drwstr ( -- )
+  fabb dy 81 outc 0 outc 1 outc 50 outc 52 outc dy foxx dy ;
+
+: drwp ( -- )
+  fabb dy
+  80 outc 0 outc 0 outc 50 outc dy
+  80 outc 0 outc 1 outc 52 outc dy
+  80 outc 0 outc 2 outc 54 outc dy
+  80 outc 0 outc 3 outc 56 outc dy
+  80 outc 0 outc 4 outc 58 outc
+  dy foxx ;
+
+\ LESSON LEARNED:
+
+\ Just write the bytes to the display normally, and
+\ pad with spaces (BL) as required, to do string output.
+\ To do placed output (specific locations) use the other
+\ method (fabb/foxx delimited stuff).
+\ so far, fabb/foxx only works well with at80=(row,col,char)
+\ as the construct.  'drwp' (just above) is typical usage.
+\ It's probably most useful after a color change, for
+\ mixed color messages.
+
 
 \ this sequence was recoverable!
 \ fabb ok
