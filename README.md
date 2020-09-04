@@ -70,15 +70,21 @@ rename repository:
 
 Tue Dec 17 22:03:02 UTC 2019
 
+```bash
 ** initial-dev
   master
+```
 
+```bash
  $ git checkout -b initial-dev
+```
 Switched to a new branch 'initial-dev'
+```bash
  $ mkdir doc
  $ cd doc
  $ rvim -n notes.txt
  $ git branch >> notes.txt
+```
 
  and the rest of what's seen here (now).
 
