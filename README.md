@@ -2,7 +2,7 @@
 
 ## local studies by wa1tnr
 ```
-Target board:  Adafruit STM32F405 Express
+Target board:  **Adafruit STM32F405 Express**
 Target board:  STM32F407 Discovery
 ```
 
