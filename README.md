@@ -82,8 +82,11 @@ Switched to a new branch 'initial-dev'
 
  and the rest of what's seen here (now).
 
+
 **REFERENCES**
+
     **Markdown**:
-    https://guides.github.com/features/mastering-markdown/
+
+        https://guides.github.com/features/mastering-markdown/
 
 END.
