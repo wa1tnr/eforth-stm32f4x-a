@@ -3,9 +3,43 @@
 ## local studies by wa1tnr
 
 Target board:  Adafruit STM32F405 Express
+Target board:  STM32F407 Discovery
 
 
-### Tue Dec 17 22:00:36 UTC 2019
+### Fri Sep  4 14:48:33 UTC 2020
+
+#### NEWS
+
+##### STM32F407 Discovery - primary target
+
+The STM32F407 Discovery was received in the post, from
+DigiKey, earlier in the year, and became the primary
+target for the program, as a result (needed to have
+the extra GPIO pins not available on the Adafruit
+target, which is otherwise suitable).
+
+##### Lumex 96x8 RGB matrix, 3mm pitch, supported.
+
+The Lumex display uses Hayes style 'AT' commands.
+
+The trick to messaging to the display is to do so
+continuously; if there's much of a delay, then the
+display will not accumulate the message - it will
+start over again at the left margin, after blanking
+the entire display.
+
+The Lumex display support was written entirely in Forth. ;)
+
+Including the setup for the second USART pin pair.
+
+Code that exists is either in a branch (not master)
+or hasn't even been uploaded to github.  Sorry. ;)
+
+That will change at some point; too much work was
+done without public commits.  Hard to separate out
+private code from public.
+
+### older: Tue Dec 17 22:00:36 UTC 2019
 
 from: doc/notes.txt
 
