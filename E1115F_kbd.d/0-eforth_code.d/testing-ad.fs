@@ -1,4 +1,6 @@
 \ testing-ad.fs
+\ Fri Sep 18 20:32:25 UTC 2020
+\ Fairly robust now.  Question about GPIOCEN unanswered.
 : emit EMIT ; : nop NOP ; : drop DROP ; : dup DUP ; : swap SWAP ;
 : over OVER ; : or OR ; : and AND ; : rot ROT ; : 2drop 2DROP ;
 : 2dup 2DUP ; : not NOT ; : negate NEGATE ; : abs ABS ; : max MAX ;
