@@ -55,12 +55,6 @@
 : RCC_AHB1ENR RCC 30 + ; ( -- addr )
 : RCC_APB2ENR RCC 44 + ; ( -- addr )
 
-
-\ USART1 would only be referenced to restore a conversation already in progress,
-\ as eForth (upstream, binary) already sets up USART1.
-
-\ : USART1EN 1 4 << ; ( -- n )
-
 : nullemit 0 emit ;
 : readkeyc
   BEGIN
