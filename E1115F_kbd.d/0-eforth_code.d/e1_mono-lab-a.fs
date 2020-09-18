@@ -50,6 +50,7 @@
 
  ( - - - - - )
 
+\ USART wants RCC.  Keep.
 : RCC 40023800 ; ( -- addr )
 : RCC_AHB1ENR RCC 30 + ; ( -- addr )
 : RCC_APB2ENR RCC 44 + ; ( -- addr )
@@ -166,9 +167,6 @@
 : BSX 2^ ; ( n -- n )
 : BRX 10 + 2^ ; ( n -- n )
 
-: GPIOCEN 1 2 << ; ( -- n )
-( 6.3.10 p.180 Rev 18 datasheet)
-
 \ : led 6 ; \ PD6 convenience selection
 : led 1 ; \ PD6 convenience selection
 : led!  GPIOC_BSRR! ; ( n -- )
@@ -212,6 +210,9 @@
   RCC_AHB1ENR !
 ;
 
+: GPIOCEN 1 2 << ; ( -- n )
+( 6.3.10 p.180 Rev 18 datasheet)
+
 \ PC6/TX PC7/RX
 : USART6EN 1 5 << ; ( -- n )
 
@@ -226,10 +227,6 @@
   USART6EN or
   RCC_APB2ENR !
 
-\ try to break it a little by setting USART1EN, again.
-  \ RCC_APB2ENR @
-  \ USART1EN or
-  \ RCC_APB2ENR !
 ;
 
 : USART1 40011000 ; ( -- addr )
