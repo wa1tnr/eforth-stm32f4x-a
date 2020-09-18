@@ -203,11 +203,9 @@
 
 : RCC! \ factored out
   \ This used to setup for GPIODEN
-  \ but now with GPIOCEN handled elsewhere, is factored out entirely.
-  RCC_AHB1ENR @
+  \ RCC_AHB1ENR @
   \ GPIODEN or
-  GPIOCEN or
-  RCC_AHB1ENR !
+  \ RCC_AHB1ENR !
 ;
 
 : GPIOCEN 1 2 << ; ( -- n )
