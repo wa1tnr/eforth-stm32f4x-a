@@ -143,8 +143,15 @@
 : GPIOC 40020800 ; ( -- addr )
 ( 2.3 p.65 )
 
+: GPIOC_MODER GPIOC 0 + ; ( -- addr )
+( offset 0x00 8.4.1 p.281 )
+
 : GPIOC_BSRR ( -- addr )
   GPIOC 18 + ; \ VERIFY 18 SEP - may not be same on GPIOC as it was on GPIOd
+
+: GPIOC_MODER! ( n -- )
+  GPIOC_MODER @
+  or GPIOC_MODER ! ;
 
 : GPIOC_BSRR!  ( n -- )
   GPIOC_BSRR ! ;
@@ -254,13 +261,6 @@
   USART1_CR1_SETUPS or
   USART1_CR1 !
 ;
-
-: GPIOC_MODER GPIOC 0 + ; ( -- addr )
-( offset 0x00 8.4.1 p.281 )
-
-: GPIOC_MODER! ( n -- )
-  GPIOC_MODER @
-  or GPIOC_MODER ! ;
 
 \ the OUTPUT word operated on PD6, PDC, PDD, PDE and PDF
 \ want: PC1 only
