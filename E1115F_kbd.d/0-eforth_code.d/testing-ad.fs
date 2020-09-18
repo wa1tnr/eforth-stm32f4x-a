@@ -1,5 +1,5 @@
 \ testing-ad.fs
-\ Fri Sep 18 20:32:25 UTC 2020
+\ Fri Sep 18 21:11:46 UTC 2020
 \ Fairly robust now.  Question about GPIOCEN unanswered.
 : emit EMIT ; : nop NOP ; : drop DROP ; : dup DUP ; : swap SWAP ;
 : over OVER ; : or OR ; : and AND ; : rot ROT ; : 2drop 2DROP ;
@@ -19,14 +19,12 @@
 : GPIOC 40020800 ; : GPIOC_MODER GPIOC 0 + ;
 : GPIOC_BSRR GPIOC 18 + ; ( -- addr )
 : GPIOC_MODER! GPIOC_MODER @ or GPIOC_MODER ! ; ( n -- )
-\ : GPIOCEN 1 2 << ; ( -- n ) \ verify this
-: OUTPUT
-  \ RCC_AHB1ENR @ GPIOCEN or RCC_AHB1ENR !
-  1 max 1 min 2 * 1 swap << GPIOC_MODER! ; ( n -- )
+: GPIOCEN 1 2 << ; ( -- n )
+: GPIOC_RCC!  RCC_AHB1ENR @ GPIOCEN or RCC_AHB1ENR ! ; ( -- )
+: OUTPUT GPIOC_RCC!  1 max 1 min 2 * 1 swap << GPIOC_MODER! ; ( n -- )
 : PC6,7_AF_MODE A C << ; \ 0xA000
 : SET_GPIOC_MODER_PC6_PC7_ALT_B PC6,7_AF_MODE GPIOC_MODER! ; ( -- )
-: GPIOC_BSRR! GPIOC_BSRR ! ; ( n -- )
-: BSX 2^ ; : BRX 10 + 2^ ; ( n -- n )
+: GPIOC_BSRR! GPIOC_BSRR ! ; ( n -- ) : BSX 2^ ; : BRX 10 + 2^ ; ( n -- n )
 : led 1 ; \ PC1 D13 STM32F405
 : led!  GPIOC_BSRR! ; : on BSX led! ; : off BRX led! ; ( n -- )
 : setupled led OUTPUT led off ; ( -- )
@@ -34,5 +32,8 @@
   FOR led on bdelay led off bdkdel NEXT ; ( n -- )
 : linit FFFFFF9D setupled led off 3 blinks 5 FOR bdkdel NEXT
   led off 3 blinks ; ( -- n )
-: go linit ;
-: vers ." this would be the version" cr ;
+: USART6EN 1 5 << ; ( -- n ) \ PC6/TX PC7/RX
+: SIO_RCC! ( -- )
+  GPIOC_RCC!  RCC_APB2ENR @ USART6EN or RCC_APB2ENR ! ;
+: go linit ; : vers ." 2020 SEP 18th @21:10  " cr ;
+\ END.
