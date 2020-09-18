@@ -54,25 +54,7 @@
 : RCC 40023800 ; ( -- addr )
 : RCC_AHB1ENR RCC 30 + ; ( -- addr )
 : RCC_APB2ENR RCC 44 + ; ( -- addr )
-\ : GPIODEN 1 3 << ; ( -- n )
 : USART1EN 1 4 << ; ( -- n )
-
-\ : GPIOD 40020C00 ; ( -- addr )
-\ : GPIOD_MODER GPIOD 0 + ; ( -- addr )
-\ : GPIOD_MODER! ( n -- )
-\  GPIOD_MODER @ swap
-\  or GPIOD_MODER ! ;
-
-\ : GPIOD_BSRR ( -- addr )
-\  GPIOD 18 + ;
-
-\ : GPIOD_BSRR!  ( n -- )
-\  GPIOD_BSRR ! ;
-
-\ : green C ; ( -- n )
-\ : orange D ; ( -- n )
-\ : red E ; ( -- n )
-\ : blue F ; ( -- n )
 
 
 
@@ -493,3 +475,34 @@ hex
   65 outc 46 outc 6F outc 72 outc 74 outc
   68 outc SET_USART1_CR1_UE HI
 
+
+
+
+
+
+
+
+
+
+
+
+
+\ factored out:
+: GPIOD 40020C00 ; ( -- addr )
+
+: GPIOD_MODER  GPIOD   0 + ; ( -- addr )
+: GPIOD_BSRR   GPIOD  18 + ; ( -- addr )
+
+: GPIOD_MODER! ( n -- )
+  GPIOD_MODER @ swap
+  or GPIOD_MODER ! ;
+
+: GPIODEN 1 3 << ; ( -- n )
+
+\ : GPIOD_BSRR!  ( n -- )
+\  GPIOD_BSRR ! ;
+
+\ : green C ; ( -- n )
+\ : orange D ; ( -- n )
+\ : red E ; ( -- n )
+\ : blue F ; ( -- n )
