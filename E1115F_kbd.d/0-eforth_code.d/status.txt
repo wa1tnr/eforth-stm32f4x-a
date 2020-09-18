@@ -1,0 +1,18 @@
+
+status.txt
+
+18 Sep 20:51z
+
+LED D13 Adafruit STM32F405 Express, blinks on command.
+
+GPIOCEN seems enabled by firmware (eForth kernel).
+
+Some skeletal code for support of a second USART is
+either already in a commit (from this very directory)
+or is on disk, but not commited.
+
+The delay in getting D13 functioning well has added
+a bit of confusion as to USART setup (too much of a
+side project; the main project of E1115F support was
+not much advanced, this day).
+
