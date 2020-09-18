@@ -5,6 +5,23 @@ GPIOC, USART6, PC6/PC7, eForth ascii Lumex display port.
 GPIOD  LED's in eForth ascii source, pins 6, BCDEF all GPIO LED.
        None of this is available on the Adafruit target.
 
+mono-lab-c.fs
+
+ 91 : led 6 ; \ PD6 convenience selection
+ 92 : led!  GPIOD_BSRR! ; ( n -- )
+ 93 : on BSX led! ; ( n -- )
+ 94 : off BRX led! ; ( n -- )
+
+So, GPIOD (not available Adafruit STM) does all the LED ON/OFF stuff.
+
+GPIOA not used at all in eForth, iirc.  May be a candidate
+for 'simple' LED blinking.
+
+PA6 and PA7 possibly.  They are A2, A3 on Adafruit target.
+
+PC1 is D13 Adafruit STM.  How difficult to set that up in eForth.
+
+
   Points:
 
     * eforth only talks to USART1 and USART6
