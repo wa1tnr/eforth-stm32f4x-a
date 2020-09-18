@@ -20,6 +20,13 @@ for 'simple' LED blinking.
 PA6 and PA7 possibly.  They are A2, A3 on Adafruit target.
 
 PC1 is D13 Adafruit STM.  How difficult to set that up in eForth.
+Share GPIOC between E1115F (repurposed Lumex USART6) and LED D13 (PC1).
+
+The ported program is to use only GPIOC, and borrow ideas from
+prior uses of GPIOD, but not to use that (GPIOD) itself.
+
+First step, then, is to comment out all GPIOD references.
+
 
 
   Points:
