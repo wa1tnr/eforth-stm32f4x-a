@@ -1,8 +1,9 @@
 
 GPIOA, unused in eForth (forth, ascii source)
-GPIOB, unused in eForth ascii source
-GPIOC, uncatalogued.
-GPIOD 6, BCDEF all GPIO LED.
+GPIOB, USART1, PB6/PB7, eForth interpreter. Unused in current eForth ascii source
+GPIOC, USART6, PC6/PC7, eForth ascii Lumex display port.
+GPIOD  LED's in eForth ascii source, pins 6, BCDEF all GPIO LED.
+       None of this is available on the Adafruit target.
 
   Points:
 
