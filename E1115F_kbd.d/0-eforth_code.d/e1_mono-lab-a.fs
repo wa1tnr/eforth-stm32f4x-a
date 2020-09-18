@@ -6,12 +6,6 @@
 
 \ ." Tue Jun 23 18:09:07 UTC 2020 "
 
-\ : signon go ; \ alias
-\ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
-
-\ That's basically how you automatically start an
-\ arbitrary forth word.
-
 ( HEX ) ( COLD )
 
 \ lower case vocabulary 24 May 09:07z
@@ -71,9 +65,6 @@
 \ : GPIOD_BSRR ( -- addr )
 \  GPIOD 18 + ;
 
-: BSX 2^ ; ( n -- n )
-: BRX 10 + 2^ ; ( n -- n )
-
 \ : GPIOD_BSRR!  ( n -- )
 \  GPIOD_BSRR ! ;
 
@@ -82,32 +73,7 @@
 \ : red E ; ( -- n )
 \ : blue F ; ( -- n )
 
-\ : led 6 ; \ PD6 convenience selection
-: led 1 ; \ PD6 convenience selection
-: led!  GPIOC_BSRR! ; ( n -- )
-: on BSX led! ; ( n -- )
-: off BRX led! ; ( n -- )
 
-: blinks ( n -- )
-  DEPTH 1 - 0<
-  IF EXIT THEN
-  1 - ( normalize )
-  FOR
-    led on green on orange on red on blue on
-    bdelay
-    led off green off orange off red off blue off
-    bdkdel
-  NEXT ;
-
-: linit ( -- n )
-  FFFFFF9D setupled
-  3 blinks
-
-  7 FOR bdkdel NEXT
-  7 FOR bdkdel NEXT
-  led off
-  3 blinks
-;
 
 : nullemit 0 emit ;
 : readkeyc
@@ -191,8 +157,49 @@
 
  ( - - - - - )
 
+: GPIOC_BSRR ( -- addr )
+  GPIOC 18 + ; \ VERIFY 18 SEP - may not be same on GPIOC as it was on GPIOD
+
+: GPIOC_BSRR!  ( n -- )
+  GPIOC_BSRR ! ;
+
+: BSX 2^ ; ( n -- n )
+: BRX 10 + 2^ ; ( n -- n )
+
 : GPIOCEN 1 2 << ; ( -- n )
 ( 6.3.10 p.180 Rev 18 datasheet)
+
+\ : led 6 ; \ PD6 convenience selection
+: led 1 ; \ PD6 convenience selection
+: led!  GPIOC_BSRR! ; ( n -- )
+: on BSX led! ; ( n -- )
+: off BRX led! ; ( n -- )
+
+: setupled ( -- )
+  \ RCC! \ factored out
+  led OUTPUT
+  led off ;
+
+: blinks ( n -- )
+  DEPTH 1 - 0<
+  IF EXIT THEN
+  1 - ( normalize )
+  FOR
+    led on \ green on orange on red on blue on
+    bdelay
+    led off \ green off orange off red off blue off
+    bdkdel
+  NEXT ;
+
+: linit ( -- n )
+  FFFFFF9D setupled
+  3 blinks
+
+  7 FOR bdkdel NEXT
+  7 FOR bdkdel NEXT
+  led off
+  3 blinks
+;
 
 \ 18 Sep - RCC! was for GPIOD - LED's
 
@@ -204,11 +211,6 @@
   GPIOCEN or
   RCC_AHB1ENR !
 ;
-
-: setupled ( -- )
-  \ RCC! \ factored out
-  led OUTPUT
-  led off ;
 
 \ PC6/TX PC7/RX
 : USART6EN 1 5 << ; ( -- n )
