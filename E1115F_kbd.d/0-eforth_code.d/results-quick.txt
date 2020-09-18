@@ -1,0 +1,39 @@
+
+GPIOA, unused in eForth (forth, ascii source)
+GPIOB, unused in eForth ascii source
+GPIOC, uncatalogued.
+GPIOD 6, BCDEF all GPIO LED.
+
+  Points:
+
+    * eforth only talks to USART1 and USART6
+
+    * Adafruit talks via USB, iirc, so DM DP mapping no clobber
+          PA11  DM
+          PA12  DP
+
+    * eforth usually updated via ST-LINK, Discovery, for kernel (only)
+
+    * eforth already loaded, F405 Express, talking on USART1 SDA/SCL Adafruit silcscreen pair
+
+          PB6   SCL  USART1_TX
+          PB7   SDA  USART1_RX
+
+
+    * USART6 looking more likely for E1115F connections.
+
+          PC6   USART6_TX D6
+          PC7   USART6_RX D5
+
+Adafruit used:
+
+  PA - USB
+  PB - i2c USART1
+       PB10 TX_D1 USART3_TX D1
+       PB11 RX_D0 USART3_RX D0
+
+  PC - blinkers
+
+  PD - SD card (one pin, PD2)
+
+
