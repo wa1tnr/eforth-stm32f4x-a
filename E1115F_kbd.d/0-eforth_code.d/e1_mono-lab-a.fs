@@ -141,7 +141,7 @@
  ( - - - - - )
 
 : GPIOC_BSRR ( -- addr )
-  GPIOC 18 + ; \ VERIFY 18 SEP - may not be same on GPIOC as it was on GPIOD
+  GPIOC 18 + ; \ VERIFY 18 SEP - may not be same on GPIOC as it was on GPIOd
 
 : GPIOC_BSRR!  ( n -- )
   GPIOC_BSRR ! ;
@@ -179,15 +179,6 @@
   7 FOR bdkdel NEXT
   led off
   3 blinks
-;
-
-\ 18 Sep - RCC! was for GPIOD - LED's
-
-: RCC! \ factored out
-  \ This used to setup for GPIODEN
-  \ RCC_AHB1ENR @
-  \ GPIODEN or
-  \ RCC_AHB1ENR !
 ;
 
 : GPIOCEN 1 2 << ; ( -- n )
@@ -499,10 +490,19 @@ hex
 
 : GPIODEN 1 3 << ; ( -- n )
 
-\ : GPIOD_BSRR!  ( n -- )
-\  GPIOD_BSRR ! ;
+: GPIOD_BSRR!  ( n -- )
+  GPIOD_BSRR ! ;
 
-\ : green C ; ( -- n )
-\ : orange D ; ( -- n )
-\ : red E ; ( -- n )
-\ : blue F ; ( -- n )
+: green C ; ( -- n )
+: orange D ; ( -- n )
+: red E ; ( -- n )
+: blue F ; ( -- n )
+
+\ 18 Sep - RCC! was for GPIOd - LED's
+
+: RCC! \ factored out
+  \ This used to setup for GPIOdEN
+  \ RCC_AHB1ENR @
+  \ GPIODEN or
+  \ RCC_AHB1ENR !
+;
