@@ -197,8 +197,7 @@
 \ PC6/TX PC7/RX
 : USART6EN 1 5 << ; ( -- n )
 
-\ PB_6/TX,  USART1
-
+\ SIO means Serial i/o
 : SIO_RCC! ( -- ) ( verif SED )
   RCC_AHB1ENR @
   GPIOCEN or
@@ -211,6 +210,7 @@
 ;
 
 : USART1 40011000 ; ( -- addr )
+\ : USART1EN 1 4 << ; ( -- n )
 : USART6 40011400 ; ( -- addr )
 
 : USART6_CR1 USART6 C + ; ( -- addr ) \ #12
