@@ -140,6 +140,9 @@
 
  ( - - - - - )
 
+: GPIOC 40020800 ; ( -- addr )
+( 2.3 p.65 )
+
 : GPIOC_BSRR ( -- addr )
   GPIOC 18 + ; \ VERIFY 18 SEP - may not be same on GPIOC as it was on GPIOd
 
@@ -251,9 +254,6 @@
   USART1_CR1_SETUPS or
   USART1_CR1 !
 ;
-
-: GPIOC 40020800 ; ( -- addr )
-( 2.3 p.65 )
 
 : GPIOC_MODER GPIOC 0 + ; ( -- addr )
 ( offset 0x00 8.4.1 p.281 )
@@ -502,7 +502,9 @@ hex
 
 : RCC! \ factored out
   \ This used to setup for GPIOdEN
-  \ RCC_AHB1ENR @
-  \ GPIODEN or
-  \ RCC_AHB1ENR !
+  RCC_AHB1ENR @
+  GPIODEN or
+  RCC_AHB1ENR !
 ;
+
+\ END.
