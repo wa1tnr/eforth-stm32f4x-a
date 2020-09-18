@@ -68,14 +68,6 @@
 \  GPIOD_MODER @ swap
 \  or GPIOD_MODER ! ;
 
-\ the OUTPUT word operated on PD6, PDC, PDD, PDE and PDF
-\ want: PC1 only
-: OUTPUT ( n -- )
-  \ 6 max F min \ was C not 6
-  1 max 1 min \ was C not 6
-  2 * 1 swap <<
-  GPIOC_MODER! ;
-
 \ : GPIOD_BSRR ( -- addr )
 \  GPIOD 18 + ;
 
@@ -299,6 +291,14 @@
 : GPIOC_MODER! ( n -- )
   GPIOC_MODER @
   or GPIOC_MODER ! ;
+
+\ the OUTPUT word operated on PD6, PDC, PDD, PDE and PDF
+\ want: PC1 only
+: OUTPUT ( n -- )
+  \ 6 max F min \ was C not 6
+  1 max 1 min \ was C not 6
+  2 * 1 swap <<
+  GPIOC_MODER! ;
 
 \ combi AF_MODE both pins in one go: 0xA000
 : PC6,7_AF_MODE A C << ; \ 0xA000
