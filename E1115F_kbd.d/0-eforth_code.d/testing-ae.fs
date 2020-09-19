@@ -35,5 +35,12 @@
 : USART6EN 1 5 << ; ( -- n ) \ PC6/TX PC7/RX
 : SIO_RCC! ( -- )
   GPIOC_RCC!  RCC_APB2ENR @ USART6EN or RCC_APB2ENR ! ;
+
+\ this DOES blink if the target isn't power cycled:
+: bypass-a led 1 max 1 min 2 * 1 swap << GPIOC_MODER! led off 3 blinks ;
+\    bypass-a ok   \ no blink
+\    bypass-a ok   \ no blink
+\    GPIOC_RCC! bypass-a ok   \ NOW, it does blink
+
 : go linit ; : vers 5 spaces ." 2020 SEP 18th @21:19  " cr ;
 \ END.
