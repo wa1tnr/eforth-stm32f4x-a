@@ -1,0 +1,26 @@
+wiring.txt
+
+New file: 19 Sep 16:39z
+
+The keyboard translator module (PS/2 to USART or to TTL)
+needs 5 volts to operate a PS/2 keyboard.  This can be
+a lot of current, up to 200 mA, iirc.
+
++5VDC is to be supplied by a 120 VAC to USB-A wall wart,
+via USB to 2.1 mm barrel plug, and a female inline
+barrel jack (broken out to screw terminals).
+
+That goes to a distribution bus (white plastic).
+
+That bus supplies:
+
+   * keyboard module E111F
+   * nothing else at the moment
+   * later: the Lumex 96x8 RGB display
+
+So, for now, the distibution bus can be omitted, and
+just use the female DC 2.1 barrel jack w/terminals,
+to gain +5VDC for the keyboard dongle - sharing ground
+to the STM32F405 Express.
+
+END.
