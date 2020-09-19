@@ -1,0 +1,33 @@
+Sat Sep 19 15:28:49 UTC 2020
+
+The method to read from USART6 is expected to be
+found in Dr. Ting's assembler source code.
+
+First order of the day is to try to get what's
+already been coded (in Forth ascii source code)
+in some semblance of order, by blindly importing
+existing work.
+
+The existing work was targeted to writing to the
+Lumex 96x8 RGB display panel.
+
+This time, that same code base will be (possibly)
+tasked not for (just?) writing, buf for reading
+(scanning the USART, or servicing its states of
+request).
+
+This is mostly unknown at this hour.
+
+Seems possible to, at a minimum, import some code
+that sets up the USART and its baud rate for
+communication, and (perhaps) test it for some
+semblance of correct operation - leveraging the
+CP2104 module that is at hand.
+
+No wiring has been done, at this juncture, so the
+very first iterations will mostly be to code in
+self-consistent Forth, testing for a simple non-
+interference with existing work.
+
+
+END.
