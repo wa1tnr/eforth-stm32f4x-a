@@ -1,5 +1,5 @@
 \ 00-turnkeyed.fs    from:  testing-af.fs
-\ Sat Sep 19 00:01:23 UTC 2020
+\ Sat Sep 19 00:16:50 UTC 2020
 \ Fairly robust now.  Question about GPIOCEN resolved.
 : emit EMIT ; : nop NOP ; : drop DROP ; : dup DUP ; : swap SWAP ;
 : over OVER ; : or OR ; : and AND ; : rot ROT ; : 2drop 2DROP ;
@@ -42,9 +42,10 @@
 \    bypass-a ok   \ no blink
 \    GPIOC_RCC! bypass-a ok   \ NOW, it does blink
 
-: vers00    5 spaces  ." Sat Sep 19 00:01:23 UTC 2020  " cr cr
-            5 spaces  ." target: STM32F405 Express     " cr ;
-: go00 linit ;   : signon00 go00 ;
+: vers00  ." stm32eForth v7.20 " 3 spaces
+  ." Sat Sep 19 00:16:50 UTC 2020 " cr
+  ." target: STM32F405 Express " ;
+: go00 linit ;   : signon00 3 spaces vers00 go00 ;
 
 \ ' signon00 'BOOT ! 0 ERASE_SECTOR TURNKEY
 
