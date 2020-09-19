@@ -1,0 +1,13 @@
+Fri Sep 18 17:00:37 UTC 2020
+
+E1115F Keyboard - PS2 to USART adaptor
+
+PID 1136 Adafruit
+
+
+Code effort, 18 Sep 2020:
+
+  * annunciate in morse, initially GPIO toggle (LED blink)
+  * listen for keyboard dongle 115200 bps (whatever that speed number is)
+  * send corresponding morse out LED blinkie to human, to confirm basic operation of this dongle
+
