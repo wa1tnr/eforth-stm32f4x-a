@@ -14,7 +14,7 @@ That goes to a distribution bus (white plastic).
 
 That bus supplies:
 
-   * keyboard module E111F
+   * keyboard module E1115F
    * nothing else at the moment
    * later: the Lumex 96x8 RGB display
 
