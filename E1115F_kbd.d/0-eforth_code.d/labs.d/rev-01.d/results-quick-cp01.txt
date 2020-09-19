@@ -1,0 +1,64 @@
+
+GPIOA, unused in eForth (forth, ascii source)
+GPIOB, USART1, PB6/PB7, eForth interpreter. Unused in current eForth ascii source
+GPIOC, USART6, PC6/PC7, eForth ascii Lumex display port.
+GPIOD  LED's in eForth ascii source, pins 6, BCDEF all GPIO LED.
+       None of this is available on the Adafruit target.
+
+mono-lab-c.fs
+
+ 91 : led 6 ; \ PD6 convenience selection
+ 92 : led!  GPIOD_BSRR! ; ( n -- )
+ 93 : on BSX led! ; ( n -- )
+ 94 : off BRX led! ; ( n -- )
+
+So, GPIOD (not available Adafruit STM) does all the LED ON/OFF stuff.
+
+GPIOA not used at all in eForth, iirc.  May be a candidate
+for 'simple' LED blinking.
+
+PA6 and PA7 possibly.  They are A2, A3 on Adafruit target.
+
+PC1 is D13 Adafruit STM.  How difficult to set that up in eForth.
+Share GPIOC between E1115F (repurposed Lumex USART6) and LED D13 (PC1).
+
+The ported program is to use only GPIOC, and borrow ideas from
+prior uses of GPIOD, but not to use that (GPIOD) itself.
+
+First step, then, is to comment out all GPIOD references.
+
+
+
+  Points:
+
+    * eforth only talks to USART1 and USART6
+
+    * Adafruit talks via USB, iirc, so DM DP mapping no clobber
+          PA11  DM
+          PA12  DP
+
+    * eforth usually updated via ST-LINK, Discovery, for kernel (only)
+
+    * eforth already loaded, F405 Express, talking on USART1 SDA/SCL Adafruit silcscreen pair
+
+          PB6   SCL  USART1_TX
+          PB7   SDA  USART1_RX
+
+
+    * USART6 looking more likely for E1115F connections.
+
+          PC6   USART6_TX D6
+          PC7   USART6_RX D5
+
+Adafruit used:
+
+  PA - USB
+  PB - i2c USART1
+       PB10 TX_D1 USART3_TX D1
+       PB11 RX_D0 USART3_RX D0
+
+  PC - blinkers
+
+  PD - SD card (one pin, PD2)
+
+

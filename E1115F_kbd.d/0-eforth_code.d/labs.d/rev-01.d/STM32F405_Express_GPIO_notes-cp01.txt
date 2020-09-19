@@ -1,0 +1,27 @@
+Fri Sep 18 17:10:30 UTC 2020
+
+STM32F405 Express (Adafruit) GPIO setup notes
+
+PID 4382
+http://adafru.it/4382
+
+Port C pin 0 - NeoPixel onboard
+Port C pin 1 - D13 (onboard monochrome LED)
+
+PB6  SCL USART1_TX
+PB7  SDA USART1_RX
+PB10 TX_D1 (Arduino, silcscreened TX)
+PB11 RX_D0
+
+PC0  D8_NEOPIX
+PC1  D13
+PC6  USART6_TX D6
+PC7  USART6_RX D5
+
+That may be enough.
+
+PB6/PB7  PC6/PC7 already in use on STM32F407 Discovery
+project (wired up for them).
+
+Not sure what pin the external (outside the cabinet) LEd
+is toggled on.
