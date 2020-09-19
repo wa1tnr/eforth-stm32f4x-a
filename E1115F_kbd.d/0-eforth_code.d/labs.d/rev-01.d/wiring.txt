@@ -1,5 +1,42 @@
 wiring.txt
 
+19:41z
+
+Comms
+
+The pin right next to the ground, on the PiUART, is the
+one to talk to.  This is the Raspberry Pi TX pin, so that
+is entirely consistent (here, the E1115F TX pin is
+substituted for the RPi's TX pin).
+
+Only the E1115F side gets the clamping diodes, as there
+is no convenient reference, to do so on the PiUART side
+(CP2104 based dongle).
+
+Keyboard recognized as expected.
+
+Only the ordinary alpha keys, backspace, and CR made
+much sense - all the others printed nonsense (which
+is somewhat expected; have not studied any of the
+encodings outlined in the E1115F datasheet).
+
+They look single or double-byte-ish (every other
+keystroke seems to produce a similar garbage symbol
+in the terminal (picocom was used).
+
+18:26z
+
+for: Locus Engineering E1115F PS/2 to Serial/TTL dongle
+
+Smoke tested good - keyboard LED lights up, and a monitor
+LED blinks when a key is pressed.
+
+5VDC wall-wart used, no protection.  Breadboard.  Plan on
+using the 3.3V terminal of E1115F to clamp diodes on TX and
+RX lines.
+
+Raise B1 to get 115k otherwise 57.6k bps
+
 New file: 19 Sep 16:39z
 
 The keyboard translator module (PS/2 to USART or to TTL)
