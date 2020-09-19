@@ -1,5 +1,18 @@
 wiring.txt
 
+19:47z Sat 19 Sep
+
+Since the E1115F has been validated (basically) it is
+near the time to wire it to the STM32F405 Express board
+(PC6 and PC7 come to mind; verify that).
+
+Only one of those will be utilized, since the dongle
+does not listen on any pin.  Or, not as a USART does.
+
+Unless that fact was missed, during brief examination
+of the documentation. (needs verif.)
+
+
 19:41z
 
 Comms
