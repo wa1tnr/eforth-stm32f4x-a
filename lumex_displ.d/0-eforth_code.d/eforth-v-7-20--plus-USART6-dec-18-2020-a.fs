@@ -358,6 +358,16 @@
 \ untested: key, type
 : base-ten 7 3 + base ! ;
 : base-sixteen 7 7 2 + + base ! ;
-: vers space ." 0.0.0.5.b- "
-  ." Tue Jun 23 18:15:22 UTC 2020 "
+
+\ signon-c-a.fs merged in, here:
+
+: eflogo ( -- ) \ send eForth v7.20 to Lumex 96x8 RGB LED matrix
+  clearit 3 delay 20 outc 20 outc
+  65 outc 46 outc 6F outc 72 outc 74 outc 68 outc
+  20 outc
+  76 outc 37 outc 2E outc 32 outc 30 outc ;
+
+: vers space ." 0.0.0.5.b2b-7- "
+  ." Fri Dec 18 18:21:26 UTC 2020 "
 ;
+\ ." Tue Jun 23 18:15:22 UTC 2020 "
