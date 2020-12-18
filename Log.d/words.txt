@@ -66,4 +66,14 @@ reflective (in any way) of eForth itself.
 
 18 Dec 2020 18:15:17 UTC
 
+Here is 'signon-b':
+
+see signon-b
+ signon FB38F7FC 3 delay eflogo FB04F852 3B01 67697308 2D6E6F6E 62 FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF FFFFFFFF 31313131 31313131 31313131 ok
+ ok
+
+Again, nothing to see here.  Should not seriously affect this release.
+
+18 Dec 2020 18:16 UTC
+
 END.
