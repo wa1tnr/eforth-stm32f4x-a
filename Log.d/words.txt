@@ -42,4 +42,28 @@ followed by three hash symbols displayed on the Lumex
 
 A toy word. ;)
 
+eflogo: just displays 'eForth v7.20' centered on the Lumex display.
+
+Literally:
+
+see eflogo
+ clearit FBA0F7FC 3 delay FB9AF7FC 20 outc FB94F7FC 20 outc FB8EF7FC 65 outc FB88F7FC 46 outc FB82F7FC 6F outc FB7CF7FC 72 ok
+ ok
+
+Note that these 'see' reports are based in a flawed terminal,
+so there may be missing information! (buffering the serial
+tty is still under development).
+
+The tell-tale: in the terminal used, had to press a key to
+get the rest of the message from eForth, which stopped
+after 'clearit' in the above.
+
+This is very specific to a personal setup and you will
+probably not see it in yours.  Has to do with how the
+serial TTY is connected back to the host PC, and may
+well be regarded as implementation-specific and not
+reflective (in any way) of eForth itself.
+
+18 Dec 2020 18:15:17 UTC
+
 END.
