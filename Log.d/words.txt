@@ -18,4 +18,28 @@ okay, missing only:
 
 GOOD: 18 December 2020 17:56 UTC
 
+
+Edit: simplest way to say this:
+
+signon is like this:
+
+see signon
+ led OUTPUT FC12F7FC 2 blinks SETUP_USART6 sent atef=(1) sent hash_symb outc hash_symb outc hash_symb outc sent clearit sent FBF2F7FC 20 outc ok
+ ok
+
+So it's just a 'toy' word that can be anything desired.
+Not critical; was meant to signal the human operator
+that 'something interesting is happening' and confirms,
+in a few different ways, that the system is up and
+operational, without, for example, requiring a terminal
+connected this forth.
+
+Literally: two links of an external front panel LED,
+followed by three hash symbols displayed on the Lumex
+96x8 RGB array (digital signage) followed by:
+'eForth' displayed in the middle of the display
+(the hash marks are overwritten).
+
+A toy word. ;)
+
 END.
