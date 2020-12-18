@@ -321,12 +321,13 @@
   SET_USART6_BRR \ setup USART6 baud rate mantissa and fraction
   SETUP_USART6_CR1_TE \ setup USART6_CR1 TE and RE - UE done previously
 ;
+: setupu SETUP_USART6 ;
 : line_end 0A outc ;
 : s_atd1=()
  29 28 3D 31   64 74 61
  7 1 - FOR outc NEXT
  line_end ;
-: atef=(1)
+: atef=(1) \ Blue text for Lumex - want this almost always
  29 31 28 3D   66 65 74 61
  outc outc outc outc outc outc outc outc
  line_end
@@ -362,12 +363,28 @@
 \ signon-c-a.fs merged in, here:
 
 : eflogo ( -- ) \ send eForth v7.20 to Lumex 96x8 RGB LED matrix
+  \ make it a nice blue color:
+  \ SETUP_USART6 atef=(1) sent
   clearit 3 delay 20 outc 20 outc
   65 outc 46 outc 6F outc 72 outc 74 outc 68 outc
   20 outc
   76 outc 37 outc 2E outc 32 outc 30 outc ;
 
-: vers space ." 0.0.0.5.b2b-7- "
-  ." Fri Dec 18 18:21:26 UTC 2020 "
+: signon 999 delay
+  setupled led on green on led off green off
+  setupu 222 delay
+  atef=(1) sent 111 delay eflogo ;
+
+: vers space ." 0.0.0.5.b2b-c- "
+  ." Fri Dec 18 23:17:05 UTC 2020 "
 ;
+
+\  ' signon 1 + 'BOOT !
+\  0 ERASE_SECTOR 33 delay
+\  1 ERASE_SECTOR 33 delay
+\  2 ERASE_SECTOR 33 delay
+\  3 ERASE_SECTOR 33 delay
+\  43 EMIT CR TURNKEY
+\  43 EMIT CR
+
 \ ." Tue Jun 23 18:15:22 UTC 2020 "
