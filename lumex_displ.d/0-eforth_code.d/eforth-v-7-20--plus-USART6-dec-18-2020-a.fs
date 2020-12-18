@@ -1,4 +1,10 @@
+\ eforth-v-7-20--plus-USART6-dec-18-2020-a.fs
+\ old:
+\ short-upload-aa.fs
+\ older:
 \ mono-lab-c.fs
+\ ." Fri Dec 18 18:21:26 UTC 2020 "
+\ old:
 \ ." Tue Jun 23 18:09:07 UTC 2020 "
 
 \ : signon go ; \ alias
