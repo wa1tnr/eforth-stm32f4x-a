@@ -1,0 +1,89 @@
+sitrep-aa.txt
+
+Mon Jun 15 18:02:05 UTC 2020
+
+First instance: 15 June 2020
+
+Situation Report
+
+Found the green barrel connector.  It has three extra-long
+header pins jammed into it (two are shared by Ground) and
+the third is +5VDC.
+
+The two ground pins act as a means to share ground with
+a larger project - one that has both a need for +5 at
+higher current ('external supply') and was meant for the
+Lumex display's Vcc; the other the low-current MCU target
+board.
+
+This looks to be a press-fit construction situation, using
+Dupont connectors throughout. (The kind used to interconnect
+with a host PC's motherboard, all the doo-dads hung on it,
+such as the reset switch, the speaker, hard disk activity
+lamp, and the like).
+
+Cabinet
+
+Nothing at all inside the cabinet (Hammond sloped) except
+for the four wires of the Lumex (passed through the front
+panel) and the large sheet of aluminum, that's bolted to
+the back side of the front panel (inside the cabinet).
+
+No other hardware is present inside the cabinet (which is
+good, from the point of view of fabrication of additional
+mounting points and pass-through holes).
+
+Circuit
+
+TODO: verify Vcc and logic voltage for Lumex module.
+
+Supplying of power to the project consists of some kind
+of 5 VDC power supply (usually this is a 7" Android tablet
+power supply) with the USB-A conection; a USB-A to 2.1 mm
+DC barrel plug (preformed both ends, nothing to figure
+out); and the green 2.1 mm to screw terminals DC jack
+described elsewhere.
+
+In addition, two other USB cables come into play.  One
+is always required, and is meant to pass along CDC/ACM
+stuff from the host PC, to conduct a dialogue with a
+subordinate target board (ItsyBitsy M4, Trinket M0 are
+both present and programmed - only one is put to use
+at a given instant; the other is left unwired when not
+utilized).
+
+The second (other) USB cable is a USB-B, meant only for
+the special firmware-update port of the (fancy) STM32
+development board (from st.com).  That dev board does
+blink slowly, if this secondary cable is not connected.
+
+Provision for power sharing from Trinket M0 (or ItsyM4)
+has been previously established.
+
+So ordinarily, the USB-B cable isn't required, and once
+the Discovery board is mounted inside the sloped cabinet,
+the blinking problem won't be constantly visible.
+
+The Lumex display will either be connected to the
+subordinate target (Trinket M0 or ItsyM4) or to the
+Discovery; if the Discovery is used, that means a
+second USART has to be setup in machine language
+programming paradigms (practically, though, this will
+be accomplished in eForth).
+
+Initial plan may consider both options; the Trinket/Itsy
+'comms' board is programmed under Arduino IDE (easy)
+*cough* .. whereas Discovery programmed in eForth (a bit
+of a challenge).
+
+The Lumex module could *also* be connected to the 'other'
+comm board (ItsyM4, when Trinket M0 is used for Discovery)
+or vice-versa (swapping roles).
+
+That would allow quick testing, during fabrication and
+mounting/wiring jobs, early on, without worrying about
+programming paradigmns and difficulties in getting two
+USARTs talking simultaneously.
+
+
+

@@ -1,0 +1,18 @@
+
+commit 12bd8e2aa30120bb5dea72c6623a00c38f5897b6
+Author: wa1tnr <wa1tnr@users.noreply.github.com>
+Date:   Tue Jun 23 18:21:39 2020 +0000
+
+    just uploaded to target
+
+Above is the baseline used for this branch, which
+is meant to become the new 'master' branch, if all
+goes well.
+
+ $ git branch
+ * for-release-PUBLISH
+
+words.txt (in this Log directory) comes next, at
+about 18 Dec 2020 17:59 UTC or thereabouts. ;)
+
+END.

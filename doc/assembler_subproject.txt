@@ -1,0 +1,11 @@
+assembler_subproject.txt
+
+Sat Jan 11 16:16:39 UTC 2020
+
+Seen several example code blocks on github that
+ought to run on STM32F407 Discovery.
+
+Looks good enough to count on for basic Makefile
+and blinky work with this target, in a preferred
+environment (GNU toolchain eabi).
+

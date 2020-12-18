@@ -1,0 +1,48 @@
+parts.txt
+
+first instance: 11 Jan 2020 16:12 UTC
+
+  interconnects - adafruit's new ribbon cable to green sloper binding posts (set screw)
+
+  Adafruit 4435 (an 'also' to the below) - DIN rail pcb holder
+
+  http://adafru.it/4436 DIN rail adaptor, IDC 2x8 to terminal blocks
+
+  61 x 51   35 on the DIN rail - datasheet says
+
+  ADR3575-S1700-ND 17" 7.5 din rail 35mm - Value Added (shows backordered but is fulfilled anyway)
+
+  1920-1122-ND 1 meter long many in stock but is steel
+
+
+  http://adafru.it/4170 2x8 12" IDC cable (not a good solution to
+                                           a breadboard termination)
+
+  Had considered real binding posts; this does a similar job.
+
+  LED arrays: how to connect directly to the LED arrays (and how to
+  provide for common anode (cathode) connections, close by).
+
+  The two may be related.
+ 
+
+
+  1456WL1BKBU - Hammond aluminum sloped chassis.
+
+  Assumption was that the drawing showed a realistic scaling,
+  whereas the photo of this chassis clearly shows the flanges
+  are *much* smaller than as drawn, so the drawing is more
+  conceptual than a 1:1 dimensional representation (in the
+  very same way some road maps exxagerate road widths for
+  sake of clarity and simplicity of understanding).
+
+  This is very good news, as the originally depiction led
+  to a belief that the chassis flanges would interfere (quite
+  strongly) with separation for work to be done to each half
+  in different contexts.
+
+  Specifically, joining the two halves, electrically, using
+  the base as an active substrate (mounting surface for
+  larger assemblies, including target boards and breadboards).
+
+END.

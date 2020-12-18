@@ -1,0 +1,12 @@
+
+
+source:
+
+  /some/path/to/project-notes.d/lumex_lab_report-aa.txt
+
+  * STM32F030 or somesuch microcontroller
+    (remembered: STM32 and '3' and probably < F100)
+  * 3.3v signalling on TX/RX pair
+  * 5v supply and 3.3v LDO prominently silcscreened
+
+So, signal at 3.3v not 5.0 volts. -JUNE 2020 CONFIRMED logic.

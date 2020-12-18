@@ -1,0 +1,82 @@
+Fri Dec 18 19:38:16 UTC 2020
+
+NOTE: after upload:
+
+0 ERASE_SECTOR TURNKEY
+
+and possibly 1, 2 and 3 there:
+
+0 ERASE_SECTOR
+1 ERASE_SECTOR
+2 ERASE_SECTOR
+3 ERASE_SECTOR
+TURNKEY
+
+Like that.
+
+Example (log of one and only TURNKEY done since eForth binary uploaded via ST-LINK):
+
+ \ Fri Dec 18 19:35:14 UTC 2020
+ \ .
+ \ .
+ \ untested: key, type ok
+ : base-ten 7 3 + base ! ; ok
+ : base-sixteen 7 7 2 + + base ! ; ok
+  ok
+ \ signon-c-a.fs merged in, here: ok
+  ok
+ : eflogo ( -- ) \ send eForth v7.20 to Lumex 96x8 RGB LED matrix
+   clearit 3 delay 20 outc 20 outc
+   65 outc 46 outc 6F outc 72 outc 74 outc 68 outc
+   20 outc
+   76 outc 37 outc 2E outc 32 outc 30 outc ; ok
+  ok
+ : vers space ." 0.0.0.5.b2b-7- "
+   ." Fri Dec 18 18:21:26 UTC 2020 "
+ ; ok
+ \ ." Tue Jun 23 18:15:22 UTC 2020 " ok
+
+*** exit status: 0 ***
+vers 0.0.0.5.b2b-7- Fri Dec 18 18:21:26 UTC 2020  ok
+0 ERASE_SECTOR ok
+1 ERASE_SECTOR ok
+2 ERASE_SECTOR ok
+3 ERASE_SECTOR ok
+TURNKEY ok
+COLD
+stm32eForth v7.20
+words
+ vers eflogo base-sixteen base-ten test6 clearit said sent at80=(0,2,C) at80=(0,1,0) at80=(0,0,4) atef=(1) s_atd1=() line_end SETUP_USART6 outc outsent_TC? boutsent? USART6_SR_TC? OLD_A_USART6_SR_TC? USART6_SR_TXE? TC TXE USART6_SR ralfc USART6_DR SET_AF8_BITS_GPIOC_AFRL AF8_BITS GPIOC_AFRL! GPIOC_AFRL nAF8 PIN_MASK_PC6_PC7 AF_MASK_PC6_PC7 SET_GPIOC_MODER_PC6_PC7_ALT_A AF_MODE SET_GPIOC_MODER_PC6_PC7_ALT_B PC6,7_AF_MODE GPIOC_MODER! GPIOC_MODER GPIOC SET_USART1_CR1_UE UNSET_USART1_CR1_UE SETUP_USART6_CR1_TE SETUP_USART6_CR1 SET_USART6_BRR USART6_BRR USART1_CR1_SETUPS USART1_CR1_RE USART6_CR1_RE USART1_CR1_TE USART6_CR1_TE USART1_CR1_UE USART6_CR1_UE USART1_CR1 USART6_CR1 USART6 USART1 SIO_RCC! USART6EN GPIOCEN carr_ret hash_symb plus_sign pollc readkeyc nullemit linit blinks setupled off on led! led blue red orange green GPIOD_BSRR! BRX BSX GPIOD_BSRR OUTPUT GPIOD_MODER! GPIOD_MODER GPIOD RCC! USART1EN GPIODEN RCC_APB2ENR RCC_AHB1ENR RCC finishmsg ldelay bdkdel bdelay delay 2^ << <1? cold words see .s dump preset char cr type spaces space key decimal hex here depth base min max abs negate not 2dup 2drop rot and or over swap dup drop nop emit COLD HI WORDS DECOMPILE SEE .ID >NAME .S DUMP VARIABLE CREATE CONSTANT IMMEDIATE : ] ; OVERT $COMPILE ?UNIQUE ." $" ABORT" WHILE ELSE AFT THEN REPEAT AHEAD IF AGAIN UNTIL NEXT BEGIN FOR LITERAL COMPILE [COMPILE] , ALLOT ' TURNKEY I! ERASE_SECTOR QUIT PRESET EVAL ?STACK .OK [ $INTERPRET ABORT QUERY ACCEPT NAME? SAME? NAME> TOKEN WORD CHAR \ ( .( PARSE ? . U. U.R .R CR TYPE SPACES SPACE KEY NUMBER? DIGIT? DECIMAL HEX #> SIGN #S # HOLD <# EXTRACT DIGIT PACK$ FILL MOVE CMOVE @EXECUTE TIB PAD HERE PICK DEPTH >CHAR ALIGNED */ */MOD / MOD /MOD M/MOD UM/MOD WITHIN LAST CP CONTEXT HLD 'EVAL #TIB >IN SPAN BASE 'BOOT DNEGATE COUNT 2@ 2! +! MIN MAX > < U< = ABS NEGATE NOT D+ 2DUP 2DROP ROT ?DUP 2/ 2* CELL/ CELLS BL CELL- CELL+ 2- 2+ 1- 1+ M* UM* * - + LSHIFT RSHIFT UM+ XOR OR AND 0< OVER SWAP DUP DROP SP@ >R R@ R> C@ C! @ ! EXIT EXECUTE NOP EMIT ?KEY ok
+
+
+
+The above is the tail end of the conversation with the target.
+
+
+Here's the first part of that conversation:
+
+
+UPLOAD user-specified code, in forth, to a fresh install of eForth:
+
+stm32eForth v7.20
+ ok
+WORDS
+ COLD HI WORDS DECOMPILE SEE .ID >NAME .S DUMP VARIABLE CREATE CONSTANT IMMEDIATE : ] ; OVERT $COMPILE ?UNIQUE ." $" ABORT" WHILE ELSE AFT THEN REPEAT AHEAD IF AGAIN UNTIL NEXT BEGIN FOR LITERAL COMPILE [COMPILE] , ALLOT ' TURNKEY I! ERASE_SECTOR QUIT PRESET EVAL ?STACK .OK [ $INTERPRET ABORT QUERY ACCEPT NAME? SAME? NAME> TOKEN WORD CHAR \ ( .( PARSE ? . U. U.R .R CR TYPE SPACES SPACE KEY NUMBER? DIGIT? DECIMAL HEX #> SIGN #S # HOLD <# EXTRACT DIGIT PACK$ FILL MOVE CMOVE @EXECUTE TIB PAD HERE PICK DEPTH >CHAR ALIGNED */ */MOD / MOD /MOD M/MOD UM/MOD WITHIN LAST CP CONTEXT HLD 'EVAL #TIB >IN SPAN BASE 'BOOT DNEGATE COUNT 2@ 2! +! MIN MAX > < U< = ABS NEGATE NOT D+ 2DUP 2DROP ROT ?DUP 2/ 2* CELL/ CELLS BL CELL- CELL+ 2- 2+ 1- 1+ M* UM* * - + LSHIFT RSHIFT UM+ XOR OR AND 0< OVER SWAP DUP DROP SP@ >R R@ R> C@ C! @ ! EXIT EXECUTE NOP EMIT ?KEY ok
+
+*** file: ./eforth-v-7-20--plus-USART6-dec-18-2020-a.fs
+$ ascii-xfr -s -l 1850 -c 10 ./eforth-v-7-20--plus-USART6-dec-18-2020-a.fs
+ASCII upload of "./eforth-v-7-20--plus-USART6-dec-18-2020-a.fs"
+Line delay: 1850 ms, character delay 10 ms
+
+\ eforth-v-7-20--plus-USART6-dec-18-2020-a.fs ok
+ \ old: ok
+ \ short-upload-aa.fs ok
+ \ older: ok
+ \ mono-lab-c.fs ok
+ \ ." Fri Dec 18 18:21:26 UTC 2020 " ok
+ \ old: ok
+ \ ." Tue Jun 23 18:09:07 UTC 2020 " ok
+ 
+(short log - just wanted to capture the situation. 18 Dec 19:08z)
+(see top of this file for the tail end of the conversation with the target. ;)
+END.

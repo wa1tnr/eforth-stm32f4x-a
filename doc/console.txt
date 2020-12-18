@@ -1,0 +1,160 @@
+console.txt
+08 Jan 14:15 UTC begin (again) (append)
+
+32 bits of address.
+RUN/STOP  LOAD  SINGLE-STEP  STEP_EXE  (or tri-state RUN-STOP-SSTEP)
+ACCUMULATOR [R1 R2 R3 R4 R5 R6 R7] (three bits/switches)
+TOS
+
+DATA:
+Accumulator 32 bits maybe.  Hmm.
+Each register holds 32 bits; but maybe report in 8 bits.
+Want to shift all the way up, though.
+ACC and TOS may be treated similarly?
+Stack Pointer (real) (or Forth) (or both)
+Instruction Pointer (also for both)
+Ring buffer stuff
+Serial activity
+Parallel activity
+LCD gfx disply operated as TTY/TXT interface
+LED 7-segment for foo 4 digits or more
+Maybe 2 and 2 digits there
+shift registers
+FETs or BJTs or both
+Some DPDT's some SPST's some center off or springy
+(ON-A--OFF--ON-B) (or otherwise)
+
+Already needs research and factoring. ;)
+
+07 jan 17:09 UTC begin.
+
+The RPi, breadboarded C8051F330D, and the STM32F405
+(or 407 Discovery) are all riding on a chassis,
+together.
+
+The RPi is connected to HDMI display and USB keyboard.
+In one mode, this subsystem acts as the terminal
+(running picoterm or a python serial widget program)
+to talk directly to the STM32 chip via its TX/RX pair
+(USART) (one of them).
+
+The RPi may or may not be suitable for a gforth basis,
+to reprogram C8051F330D.
+
+CP2104 is (possibly) used to talk to C8051F330D, both
+for its serial bootloader, and interactively (from
+within gforth-based tethered terminal, with options
+to execute code on F330D via HDMI, gforth, USB keyboard).
+
+C8051F330D may be leveraged to do direct talking to
+STM32F405/407 GPIO (8 bits wide, maybe 9 or 10 bits -
+it's a 20 pin package, less (say) 6 pins that won't
+do GPIO - up to 14 bits, perhaps, to include a few
+toggle switch (SPST with pullups to Vcc) reads or
+similations to STM32 (as additional inputs, to supervise
+early .BIN construction, with LOAD/STORE and RUN type
+services -- later, perhaps, SINGLE_STEP type stuff).
+
+Might take two F330D's and/or shift registers to add
+all desired functions cheaply (all meant to simply
+set or reset GPIO pin states on STM32, which is
+projected to be the easier path to programming that
+chip, from remote, rather than resident (previously).
+
+All speculative.
+
+Want a physical substrate to support all this easily
+(or at least 'more' easily, than otherwise).
+
+Which means several things must be in near physical
+proximity, and held (fairly) rigid, in terms of the
+lengths of the wires used to interconnect.
+
+
+ . . .
+
+The eventual goal:
+
+A .BIN is uploaded to STM32F405/7 that does only one
+thing: it reads a full width port pin array (PORT_C
+maybe?) and acts on what it sees.
+
+This would allow very minimal .BIN construction on an
+existing system, to bootstrap quite minimally, STM32.
+
+This .BIN would:
+
+ * setup GPIO on those pins - in INPUT mode (reading
+   only).
+
+ * loop:
+   * Scan port pins (per above).
+   * Load an address register (faked or real) with a new
+     address, as specified on the bit pattern presented
+     to the GPIO pin array
+   * Scan port pins (again) per above.
+   * Load the data (16 bits, twice iterated for a full
+     32-bit wide memory-word) into the specfified address
+     from the earlier step
+   * Iterate until an additional .BIN image is created
+     (in RAM, whatever seems easiest to accomplish, as
+     the minimal .BIN is there to do 'bear claws and
+     stone knives' monitoring, only).
+   * When deemed complete, the new .BIN sub-image is then
+     branched to and thereby executed.
+
+   * In theory, this adds additional functionality to
+     the overall program running on the STM32F405/407
+     target - possibly offering a bootloader segment that
+     simply operates the GPIO port scan more effectively,
+     to bootstrap further from 'near scratch' conditions
+     (not written in GNU assembler, but more or less
+     translated into address/data pairs to load into STM32
+     RAM as a new subprogram to branch to).
+
+   * Later, this becomes more fully implemented, possibly
+     switching to another USART to start conversing with
+     some other system that is used to help develop
+     further.
+
+   * It will not be desirable to carry the manual adding of
+     bytes to STM32 RAM via 'bear claws' methodologies all
+     that far, due to operator fatigue (and disinterest in
+     doing things that way).
+
+   * There should be a reasonable divide between methods,
+     such that bootstrapping (even further) is somehow .. um ..
+     made to be 'fun'.
+
+   * Fault tolerance ought to be kept in mind, so that
+     minor mistakes aren't as costly in early manual input
+     iterations.
+
+     Nobody wants to redo a done thing very many times, when
+     the cost to do so is so high.  Early efforts to make
+     this iteration cycle less costly (in time and effort).
+
+Recent commit message reads:
+
+commit 0929e425297f41653e960fdb62c156249004465c
+Date:   Tue Jan 7 17:23:10 2020 +0000
+
+    Edits - lay out function of .BIN monitor program,
+    constructed in GNU assembler, most likely.
+
+    Target: STM32F405 (or, 407 Disovery)
+
+    Subgoal: establish physical parameters for a
+    chassis (dimensions, holes to drill and such)
+    for the console, based on programmatic requirements
+    (presence or absence of RPi or Mini-ITX motherboard,
+    its PSU, the C8051F330D, the STM32 target, support
+    wiring and breadboarding requirements, interconnects
+    using IDC ribbon cables, and the like).
+
+            modified:   console.txt
+
+    On branch assy-exp-ae-console-
+
+Tue Jan  7 17:52:03 UTC 2020
+END.
