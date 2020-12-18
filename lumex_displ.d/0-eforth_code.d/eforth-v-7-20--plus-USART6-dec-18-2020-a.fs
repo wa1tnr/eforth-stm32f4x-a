@@ -370,7 +370,8 @@
   20 outc
   76 outc 37 outc 2E outc 32 outc 30 outc ;
 
-: signon 999 delay
+: signon HI
+  999 delay
   setupled led on green on led off green off
   setupu 222 delay
   atef=(1) sent 111 delay eflogo ;
