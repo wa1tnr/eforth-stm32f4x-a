@@ -9,7 +9,13 @@ HEX ok
   atef=(1) sent
   11 delay eflogo ;  ok
 
-' signonc 1 + 'BOOT ! ok
+: signond
+  setupled
+  3 blinks
+  22 delay
+  signonc ;  ok
+
+' signond 1 + 'BOOT ! ok
 0 ERASE_SECTOR ok
 1 ERASE_SECTOR ok
 2 ERASE_SECTOR ok
@@ -20,4 +26,4 @@ COLD
 stm32eForth v7.20
 .S   ok
 
-Sat Dec 19 00:20:14 UTC 2020
+Sat Dec 19 01:07:02 UTC 2020
