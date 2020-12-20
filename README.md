@@ -1,13 +1,20 @@
 # eForth for STM32F407 Discovery board
 
 ## local studies by wa1tnr
-`Target board:` **Adafruit STM32F405 Express**
-
 `Target board:` **STM32F407 Discovery**
 
-### Fri Sep  4 14:48:33 UTC 2020
+`Target board:` **Adafruit STM32F405 Express**
+
+### Sun Dec 20 14:24:03 UTC 2020
 
 #### NEWS
+
+##### TURNKEY with eForth logo in blue - working
+
+As of 20 December, the turnkey code seems to be working
+well - displays the eForth logo on the Lumex 96x8 RGB
+display (it uses TTL serial to talk, and a Hayes-like
+'AT' command set, similar (roughly) to an older modem.
 
 ##### STM32F407 Discovery - primary target
 
@@ -30,13 +37,6 @@ the entire display.
 The Lumex display support was written entirely in Forth. ;)
 
 Including the setup for the second USART pin pair.
-
-Code that exists is either in a branch (not master)
-or hasn't even been uploaded to github.  Sorry. ;)
-
-That will change at some point; too much work was
-done without public commits.  Hard to separate out
-private code from public.
 
 ### older: Tue Dec 17 22:00:36 UTC 2019
 
@@ -66,27 +66,6 @@ TX/RX (for USART1) is brought out on (STM32F405 Express) SCL/SDA.
 rename repository:
 
   eforth-stm4x-a > eforth-stm32f4x-a
-
-
-Tue Dec 17 22:03:02 UTC 2019
-
-```bash
-** initial-dev
-  master
-```
-
-```bash
- $ git checkout -b initial-dev
-```
-Switched to a new branch 'initial-dev'
-```bash
- $ mkdir doc
- $ cd doc
- $ rvim -n notes.txt
- $ git branch >> notes.txt
-```
-
- and the rest of what's seen here (now).
 
 
 **REFERENCES**
