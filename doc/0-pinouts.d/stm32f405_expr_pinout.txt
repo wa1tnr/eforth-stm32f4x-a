@@ -1,0 +1,50 @@
+STM32F405 Express
+Pinout
+
+PA0,1,2 n/c
+PA3 V_DIV
+PA4 A0
+PA5 A1
+PA6 A2
+PA7 A3
+PA8 n/c
+PA9 +3V3
+PA10 +3V3 tied to PA9
+PA11 D- usb
+PA12 D+ usb
+PA13 SWDIO
+PA14 SWCLK
+PA15 Flash_CS
+PB0,1 n/c
+PB2 BOOT1 tied to GND
+PB3 flash_sck
+PB4 flash_miso
+PB5 flash_mosi
+PB6 SCL principle eForth
+PB7 SDA
+PB8 D9
+PB9 D10
+PB10 TX_D1 - good candidate
+PB11 RX_D0
+PB12 SD_DETECT
+PB13 SCK
+PB14 MISO
+PB15 MOSI
+PC0 D8_NPX
+PC1 D13
+PC2 D12
+PC3 D11
+PC4 A4
+PC5 A5
+PC6 D6 Lumex iirc
+PC7 D5
+PC8 SDIO_D0
+PC9 SDIO_D1
+PC10 SDIO_D2
+PC11 SDIO_D3
+PC12 SDIO_CLK
+PC13 n/c
+PC14 xtal 32.768
+PC15 xtal 2nd terminal
+PD2 SDIO_CMD
+
