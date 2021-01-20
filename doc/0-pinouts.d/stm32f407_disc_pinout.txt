@@ -6,11 +6,13 @@ P1 has, top to bottom
 always check the header diagram - assume nothing):
 
 PC0,1,2,3  PC0 is for USB OTG
+ ; PC3 U_Audio
 PA0,1,2,3,4,5,6,7  PA0: pushbutton PA2:USART2_TX  PA3:USART2_RX
-PC4,5
+ ; PA4 U_Audio
+PC4,5  PC4 U_Audio
 PB0,1,2
 PE7,8,9,10,11,12,13,14,15
-PB10,11,12,13,14,15
+PB10,11,12,13,14,15  PB10 U_Audio
 PD8,9,10,11,12,13,14,15 PD12,13,14,15 are the colored LED's.
 
 
@@ -26,12 +28,14 @@ PH0,1
 PC15,14,13  PC14,15  - possbly xtal osc. (6.9.2) NOT connected to P2 re SB15,16 (6.10, Solder Bridges)
 PE6,5,4,3,2,1,0
 PB9,8,7,6,5,4,3 PB3 - SWO of CN2 (SB12 6.10)
+ ; PB6,9 U_Audio
 PD7,6,5,4,3,2,1,0 PD5 is a red LED - overcurrent on VBUS of CN5 (USB OTG - USB mini)
  ; PD5 is for USB OTG
-PC12,11,10,
+ ; PD4 U_Audio
+PC12,11,10  PC10,12 U_Audio
 PA15,14,13 (brk seq) PA13,14 ST_LINK (do not use) (possibly CN2)
 PA10,9,8 PA9 is a green LED  - VBUS of CN5 ; PA9,10 USB OTG
-PC9,8,7,6
+PC9,8,7,6  PC7 U_Audio
 
 PA11,12 not on header - for USB OTG
 Q: why is PA11,12 missing?
