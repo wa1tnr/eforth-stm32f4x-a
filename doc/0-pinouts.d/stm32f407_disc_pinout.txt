@@ -23,12 +23,12 @@ is not a good portable option.
 
 P2 pinout, top to bottom
 PH0,1
-PC15,14,13  PC14,15  - possbly xtal osc. (6.9.2) CHECK before use as GPIO.
+PC15,14,13  PC14,15  - possbly xtal osc. (6.9.2) NOT connected to P2 re SB15,16 (6.10, Solder Bridges)
 PE6,5,4,3,2,1,0
-PB9,8,7,6,5,4,3
+PB9,8,7,6,5,4,3 PB3 - SWO of CN2 (SB12 6.10)
 PD7,6,5,4,3,2,1,0 PD5 is a red LED - overcurrent on VBUS of CN5 (USB OTG - USB mini)
 PC12,11,10,
-PA15,14,13 (brk seq)
+PA15,14,13 (brk seq) PA13,14 ST_LINK (do not use) (possibly CN2)
 PA10,9,8 PA9 is a green LED  - VBUS of CN5
 PC9,8,7,6
 
