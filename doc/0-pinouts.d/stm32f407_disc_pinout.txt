@@ -5,7 +5,7 @@ P1 has, top to bottom
 (do NOT rely on ordering; it's seemingly inconsistent - so
 always check the header diagram - assume nothing):
 
-PC0,1,2,3
+PC0,1,2,3  PC0 is for USB OTG
 PA0,1,2,3,4,5,6,7  PA0: pushbutton PA2:USART2_TX  PA3:USART2_RX
 PC4,5
 PB0,1,2
@@ -27,12 +27,13 @@ PC15,14,13  PC14,15  - possbly xtal osc. (6.9.2) NOT connected to P2 re SB15,16 
 PE6,5,4,3,2,1,0
 PB9,8,7,6,5,4,3 PB3 - SWO of CN2 (SB12 6.10)
 PD7,6,5,4,3,2,1,0 PD5 is a red LED - overcurrent on VBUS of CN5 (USB OTG - USB mini)
+ ; PD5 is for USB OTG
 PC12,11,10,
 PA15,14,13 (brk seq) PA13,14 ST_LINK (do not use) (possibly CN2)
-PA10,9,8 PA9 is a green LED  - VBUS of CN5
+PA10,9,8 PA9 is a green LED  - VBUS of CN5 ; PA9,10 USB OTG
 PC9,8,7,6
 
-
+PA11,12 not on header - for USB OTG
 Q: why is PA11,12 missing?
 A: On stm32f405 express they are USB D- (PA11) and D+ (PA12)
 
