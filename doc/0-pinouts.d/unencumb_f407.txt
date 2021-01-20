@@ -1,0 +1,78 @@
+STM32F407 Discovery Board
+
+P1 has, top to bottom
+
+(do NOT rely on ordering; it's seemingly inconsistent - so
+always check the header diagram - assume nothing):
+
+PC0,1,2,3
+ ; PC0 USB OTG
+   ; PC0 OTG_FS_PowerSwitchOn
+ ; PC3 U_Audio
+   ; PC3 PDM_OUT
+PA0,1,2,3,4,5,6,7  PA0: pushbutton PA2:USART2_TX  PA3:USART2_RX
+ ; PA4 U_Audio:
+   ; PA4 I2S3_WS
+     ; PA4 Audio_DAC_OUT
+ ; PA5 MEMS SPI1_SCK or an SCL on the MEMS chip (LIS3DSH accelerometer)
+ ; PA7 MEMS SPI1_MOSI or an SDA on the MEMS chip
+ ; PA6 MEMS SPI1_MISO or SEL on the MEMS chip
+PC4,5
+ ; PC4 U_Audio:
+   ; PC4 via R49 (not fitted)
+PB0,1,2
+PE7,8,9,10,11,12,13,14,15
+PB10,11,12,13,14,15
+ ; PB10 U_Audio
+   ; PB10 CLK_IN
+PD8,9,10,11,12,13,14,15 PD12,13,14,15 are the colored LED's.
+
+
+PA2 and PA3 are discussed in 6.1.3 of the Discovery board
+document, in conjunction with VCP (virtual com port) and
+appear to be free for other duty as well.
+
+STM32F405 Express does not connect PA2 at all, so this
+is not a good portable option.
+
+P2 pinout, top to bottom
+PH0,1
+PC15,14,13  PC14,15  - possbly xtal osc. (6.9.2) NOT connected to P2 re SB15,16 (6.10, Solder Bridges)
+PE6,5,4,3,2,1,0
+ ; PE3 CS_I2C/SPI or CS (chip select) on the MEMS chip
+ ; PE1 MEMS_INT2 or INT2 on the MEMS chip
+ ; PE0 MEMS_INT1 or INT1/DRDY on the MEMS chip
+PB9,8,7,6,5,4,3 PB3 - SWO of CN2 (SB12 6.10)
+ ; PB6,9 U_Audio:
+   ; PB6 Audio_SCL
+   ; PB9 Audio_SDA
+PD7,6,5,4,3,2,1,0
+ ; PD5 is a red LED - overcurrent on VBUS of CN5 (USB OTG - USB mini)
+   ; PD5 USB OTG
+     ; PD5 OTG_FS_OverCurrent
+ ; PD4 U_Audio:
+   ; PD4 Audio_RST
+PC12,11,10
+ ; PC10,12 U_Audio:
+   ; PC10 I2S3_SCK
+   ; PC12 I2S3_SD
+PA15,14,13 (brk seq) PA13,14 ST_LINK (do not use) (possibly CN2)
+PA10,9,8 PA9 is a green LED  - VBUS of CN5 ; PA9,10 USB OTG
+ ; PA9 VBUS_FS CN5 - important since this implies +5V connected directly to STM32F407 chip ;)
+   ; comment: wonder if that implies most/all the GPIO pins are 5V tolerant (don't remember)
+ ; PA10 OTG_FS_ID CN5 USB mini-B
+PC9,8,7,6  PC7 U_Audio
+ ; PC7 I2S3_MCK
+
+PA11,12 not on header - for USB OTG
+ ; PA11 OTG_FS_DM D- USB connection on CN5 (mini-B)
+ ; PA12 OTG_FS_DP D+ USB connection on CN5 (mini-B)
+
+Q: why is PA11,12 missing?
+A: On stm32f405 express they are USB D- (PA11) and D+ (PA12)
+
+CHECK PA0,1,2,3,4,5,6,7,8,9,10,missing,13,14,15
+CHECK PB0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+CHECK PC0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+CHECK PD0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
+CHECK PE0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
