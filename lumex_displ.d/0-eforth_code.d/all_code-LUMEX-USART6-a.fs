@@ -7,6 +7,9 @@
 \  Working program - talks to Lumex 96x8 successfully.
 \  Bugs very much expected - initial effort complete.
 
+\ Jan 2021 note:
+\ No effort was made to do anything about USART receive - only transmit was considered.
+
 \ found AF8 as an error - renamed nAF8
 
 ( HEX ) ( COLD )
