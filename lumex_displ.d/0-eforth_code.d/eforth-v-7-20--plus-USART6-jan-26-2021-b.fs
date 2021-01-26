@@ -385,7 +385,7 @@
   SETUP_USART6 22 delay
   atef=(1) 18 delay \ make it blue - default is white
   9 delay \ was 11
-  ceflogo
+  eflogo
   HI \ always at end - want it to be
      \ the signal to proceed with human interactive
 ;
