@@ -1,5 +1,7 @@
 \ eforth-v-7-20--plus-USART6-jan-26-2021-c.fs
 \ Wed Jan 27 00:00:56 UTC 2021
+\ Partially TESTED 00:19 UTC
+\   - survives 'cold' and seems to signon okay
 
 \ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
 
