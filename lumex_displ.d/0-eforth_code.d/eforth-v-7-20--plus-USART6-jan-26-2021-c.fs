@@ -1,5 +1,5 @@
 \ eforth-v-7-20--plus-USART6-jan-26-2021-c.fs
-\ Tue Jan 26 23:37:54 UTC 2021
+\ Wed Jan 27 00:00:56 UTC 2021
 
 \ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
 
@@ -170,7 +170,6 @@ VARIABLE speed
   USART1_CR1_UE   \ -- 0x2000
   USART1_CR1_TE or   \ 0x2000 -- 0x2008
   USART1_CR1_RE or ; \ 0x2008 -- 0x200C
-;
 
 : USART6_BRR USART6 8 + ; ( -- addr ) \ #8
 
@@ -213,7 +212,7 @@ VARIABLE speed
 : PC6,7_AF_MODE A C << ; \ 0xA000
 \ 0x2000 for pin 6 by itself
 \ 0x8000 for pin 7 by itself
-\ 0x2000 0x8000 or \ 0xA000 and there you have it. ;)
+\ 0x2000 0x8000 or \ 0xA000 and there you have it. )
 
 : SET_GPIOC_MODER_PC6_PC7_ALT_B ( -- )
   PC6,7_AF_MODE
@@ -249,8 +248,7 @@ VARIABLE speed
   \ as OUTPUT word is structured
   6 max 7 min
   4 *
-  nAF8 1 swap << \ 0x88foo
-;
+  nAF8 1 swap << ; \ 0x88foo
 
 : SET_AF8_BITS_GPIOC_AFRL
   6 AF8_BITS    \ 0x0800 0000
@@ -260,7 +258,6 @@ VARIABLE speed
 
 : USART6_DR USART6 4 + ; ( -- addr )
 
-: ralfc 15 BEGIN 1 - DUP 0 = 2B EMIT UNTIL ;
 : USART6_SR USART6 0 + ; ( -- addr )
   \ explicit 0x0
 : TXE 80 ; \ USART_SR
@@ -285,7 +282,7 @@ VARIABLE speed
 
 : outc ( n -- ) \ functions as-is.
   FF AND USART6_DR !  outsent_TC? IF EXIT THEN
-  ." ouch " space ; \ ouch for 'never reaches here'
+  ." ouch " ; \ ouch for 'never reaches here'
 
 : SETUP_USART6 \ main entry into Lumex support
   SIO_RCC!
@@ -294,20 +291,19 @@ VARIABLE speed
   SETUP_USART6_CR1 \ UE set
   SET_USART6_BRR
   \ setup USART6 baud rate mantissa and fraction
-  SETUP_USART6_CR1_TE
+  SETUP_USART6_CR1_TE ;
   \ setup USART6_CR1 TE and RE - UE done previously
-;
 
 : line_end 0A outc ;
 : s_atd1=() \ explain this
- 29 28 3D 31   64 74 61
- 7 1 - FOR outc NEXT
- line_end ;
+  29 28 3D 31   64 74 61
+  7 1 - FOR outc NEXT
+  line_end ;
 
 : atef=(1) \ Blue text for Lumex - want this almost always
- 29 31 28 3D   66 65 74 61
- 8 1 - FOR outc NEXT
- line_end s_atd1=() ;
+  29 31 28 3D   66 65 74 61
+  8 1 - FOR outc NEXT
+  line_end s_atd1=() ;
 
 : clearit 16 FOR 20 outc NEXT ;
 
@@ -320,15 +316,11 @@ VARIABLE speed
 
   E 1 - FOR outc NEXT ;
 
-: signon
+: signon ( -- ) \ SED probably correct
   setupled 3 blinks 22 delay
   SETUP_USART6 22 delay
   atef=(1) 18 delay \ make it blue - default is white
-  9 delay \ was 11
-  eflogo
-  HI \ always at end - want it to be
-     \ the signal to proceed with human interactive
-;
+  9 delay eflogo HI ;
 
 : noutc ( .. n2 n1 n0 count -- )
   1 - FOR outc NEXT ;
@@ -360,8 +352,10 @@ VARIABLE speed
 : brite-yellow-green DC ;
 : brite-cyan-white DF ;
 
-: vers space ." 0.0.0.5.b2c-k7- "
-  ." Tue Jan 26 23:37:54 UTC 2021 "
+: plusses 15 BEGIN 1 - DUP 0 = 2B EMIT UNTIL ;
+
+: vers space ." 0.0.0.5.b2d-a3- "
+  ." Wed Jan 27 00:00:56 UTC 2021 "
 ;
 
 \  ' signon 1 + 'BOOT !
