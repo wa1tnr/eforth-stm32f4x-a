@@ -1,5 +1,9 @@
 \ eforth-v-7-20--plus-USART6-jan-28-2021-a.fs
-\ Thu Jan 28 13:09:02 UTC 2021
+\ Thu Jan 28 15:49:22 UTC 2021
+
+\ INCREMENTALLY TURNKEY 'd - vers is old vers
+
+\ incremental has 'd.' word
 
 \ TESTED   - cold works correctly.\
 \ UPLOADED - resident on target.
@@ -375,8 +379,19 @@ VARIABLE speed
 
 : plusses 15 BEGIN 1 - DUP 0 = 2B EMIT UNTIL ;
 
-: vers space ." 0.0.0.5.b2d-b0- "
-  ." Thu Jan 28 13:09:02 UTC 2021 "
+\ deedot - Thu Jan 28 10:31:02 EST 2021
+
+VARIABLE oldbase
+
+\ generate integer '4' in any base:
+: gen4 ( -- 4 ) 1 dup + dup + ;
+
+: d. ( n -- ) \ dot in decimal always
+  BASE C@ oldbase C! gen4 dup + 1 + 1 + BASE
+  C! . oldbase C@ BASE C! ;
+
+: vers space ." 0.0.0.5.b2d-b3- "
+  ." Thu Jan 28 15:49:22 UTC 2021 "
 ;
 
 \  ' signon 1 + 'BOOT !
