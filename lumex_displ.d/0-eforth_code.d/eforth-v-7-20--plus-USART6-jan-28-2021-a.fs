@@ -1,6 +1,20 @@
 \ eforth-v-7-20--plus-USART6-jan-28-2021-a.fs
 \ Thu Jan 28 13:09:02 UTC 2021
 
+\ TESTED   - cold works correctly.\
+\ UPLOADED - resident on target.
+
+\ IDEA: have it blink when upload is done!
+
+\ current 'picocom' command line
+\     to interact with this system is:
+
+\     0-current-PICOCOM-snippet.txt
+
+\ no timestamp or verson change
+
+\    - just these comments.
+
 \ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
 
 \ That's basically how you automatically start an
