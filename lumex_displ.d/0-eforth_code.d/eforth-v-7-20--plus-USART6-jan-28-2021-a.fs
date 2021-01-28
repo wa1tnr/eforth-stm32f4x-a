@@ -1,5 +1,5 @@
 \ eforth-v-7-20--plus-USART6-jan-28-2021-a.fs
-\ Thu Jan 28 12:50:43 UTC 2021
+\ Thu Jan 28 13:09:02 UTC 2021
 
 \ ' signon 1 + 'BOOT ! 0 ERASE_SECTOR TURNKEY
 
@@ -316,11 +316,18 @@ VARIABLE speed
 
   E 1 - FOR outc NEXT ;
 
-: signon ( -- ) \ SED probably correct
+: signonx ( -- )
   setupled 3 blinks 22 delay
   SETUP_USART6 22 delay
   atef=(1) 18 delay \ make it blue - default is white
   9 delay eflogo HI ;
+
+: signon ( -- )
+  setupled 3 blinks 3 delay
+  SETUP_USART6 3 delay
+  clearit \ confirmation it got rewritten was weak
+  atef=(1) 3 delay \ make it blue - default is white
+  3 delay eflogo HI ;
 
 : noutc ( .. n2 n1 n0 count -- )
   1 - FOR outc NEXT ;
@@ -354,8 +361,8 @@ VARIABLE speed
 
 : plusses 15 BEGIN 1 - DUP 0 = 2B EMIT UNTIL ;
 
-: vers space ." 0.0.0.5.b2d-a9- "
-  ." Thu Jan 28 12:50:43 UTC 2021 "
+: vers space ." 0.0.0.5.b2d-b0- "
+  ." Thu Jan 28 13:09:02 UTC 2021 "
 ;
 
 \  ' signon 1 + 'BOOT !
