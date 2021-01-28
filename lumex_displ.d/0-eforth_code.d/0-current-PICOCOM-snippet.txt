@@ -1,0 +1,6 @@
+Thu Jan 28 13:09:02 UTC 2021
+
+current 'picocom' command line to interact with this system is:
+
+picocom -e \\ -f n -p n -d 8 -b 115200 --omap delbs,lfcr --send-cmd "ascii-xfr -s -l 1850 -c 10" ${1}
+
