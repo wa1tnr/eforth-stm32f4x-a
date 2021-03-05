@@ -1,0 +1,20 @@
+Fri Mar  5 23:38:14 UTC 2021
+
+Previous branch was
+dvlp-cc-
+
+ $ git branch
+
+* dvlp-cc-
+
+ $ git checkout -b black-pill-a
+
+ $ git branch
+
+* black-pill-a
+
+ $ git show | sed 3q | egrep "comm|ate"
+commit 3531976ed1228a0cca1b672945f0bd51d7257694
+Date:   Fri Jan 29 19:34:22 2021 +0000
+
+
