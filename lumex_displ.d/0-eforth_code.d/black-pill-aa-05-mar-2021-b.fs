@@ -111,8 +111,8 @@ VARIABLE speed
 ( : led 6 ; ) \ PD6 convenience selection
 : led D ; \ PC13 onboard LED
 : led!  GPIOC_BSRR! ; ( n -- )
-: on BSX led! ; ( n -- )
-: off BRX led! ; ( n -- )
+: off BSX led! ; ( n -- )
+: on BRX led! ; ( n -- )
 
 : setupled ( -- )
   RCC! led OUTPUT led off ;
